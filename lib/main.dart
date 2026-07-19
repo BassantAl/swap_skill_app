@@ -1,10 +1,14 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
-import 'package:swap_skill/features/splash/presentation/views/splash_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(//DevicePreview(
+    //enabled: true,
+    //builder:(context)=> const MyApp())
+    const MyApp()
+    );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,6 +18,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      // locale: DevicePreview.locale(context),
+      // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
      routerConfig: AppRoutes.router,
       theme: ThemeData(

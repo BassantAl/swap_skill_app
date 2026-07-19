@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
+import 'package:swap_skill/core/widgets/adaptive_layout_widget.dart';
 import 'package:swap_skill/features/splash/presentation/views/widgets/splash_view_body.dart';
 
 class SplashView extends StatefulWidget {
@@ -17,14 +18,21 @@ class _SplashViewState extends State<SplashView> {
     navigateToOnboardingView();
   }
 
-  Future<Null> navigateToOnboardingView() {
+  Future<void> navigateToOnboardingView() {
     return Future.delayed(Duration(seconds: 3), () {
-    GoRouter.of(context).pushReplacement(AppRoutes.onboardingview);
-  });
+      if (!mounted) return;
+      GoRouter.of(context).pushReplacement(AppRoutes.onboardingview);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: SplashViewBody());
+    return Scaffold(
+      body: AdaptiveLayoutWidget(
+        mobileLayout: (context) => SplashViewBody(),
+        tabletLayout: (context) => SplashViewBody(),
+        desktopLayout: (context) => SplashViewBody(),
+      ),
+    );
   }
 }

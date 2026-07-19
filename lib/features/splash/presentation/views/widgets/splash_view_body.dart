@@ -19,10 +19,10 @@ class SplashViewBody extends StatelessWidget {
          Container(
           padding:const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(color: const Color(0xffFFFFFF)),
-          child: Text('Swap Skill', style: AppStyles.bold38),
+          child: Text('Swap Skill', style: AppStyles.bold38(context)),
         ),
         const SizedBox(height: 8),
-        const Text('Learn. Teach. Grow Together.', style: AppStyles.medium20),
+         Text('Learn. Teach. Grow Together.', style: AppStyles.medium20(context)),
 
          Expanded(
            child: Center(
