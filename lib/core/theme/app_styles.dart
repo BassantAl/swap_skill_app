@@ -13,11 +13,27 @@ class AppStyles {
     );
   }
 
+  static TextStyle bold28(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: getResponsiveFontsize(fontsize: 28, context: context),
+      color: AppColors.primary,
+    );
+  }
+
+   static TextStyle regular16(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: getResponsiveFontsize(fontsize: 16, context: context),
+      color: AppColors.smallText,
+    );
+  }
+
   static TextStyle medium20(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,
       fontSize: getResponsiveFontsize(fontsize: 20, context: context),
-      color: Color(0xff464555),
+      color: AppColors.smallText,
     );
   }
 }

@@ -8,4 +8,6 @@ class AppColors {
   static const Color secondary = Color(0xff14B8A6);
   static const Color tertiary = Color(0xffF59E0B);
   static const Color neutral = Color(0xff71717A);
+static const Color smallText = Color(0xff464555);
+  
 }
