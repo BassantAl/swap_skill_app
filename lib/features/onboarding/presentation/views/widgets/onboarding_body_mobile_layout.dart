@@ -69,6 +69,7 @@ class _OnboardingBodyMobileLayoutState
                 },
               ),
             ),
+            SizedBox(height: 5,),
              DotsIndicator(currentPageIndex: currentPageIndex),
             const SizedBox(height: 20,),
              ManageButton(currentPageIndex: currentPageIndex,pageController: pageController,),

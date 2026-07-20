@@ -46,7 +46,7 @@ double getResponsiveFontsize({
   double resposiveFontsize = fontsize * scaleFactor;
 
   double lowerLimit = fontsize * 0.8;
-  double upperLimit = fontsize * 1.2;
+  double upperLimit = fontsize * 1.1;
   return resposiveFontsize.clamp(lowerLimit, upperLimit);
 }
 

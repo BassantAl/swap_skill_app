@@ -10,15 +10,16 @@ class OnboardingPageItem extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          const SizedBox(height: 80),
+          const Flexible(child:  SizedBox(height: 80)),
           ConstrainedBox(
             constraints: BoxConstraints(
-              maxWidth: 400,
+              maxWidth: 350,
               
             ),
             child: AspectRatio(
               aspectRatio: 1,
               child: Image.asset(
+
                 fit: BoxFit.contain,
                 onboardingPageModel.image,
                
