@@ -9,5 +9,7 @@ class AppColors {
   static const Color tertiary = Color(0xffF59E0B);
   static const Color neutral = Color(0xff71717A);
 static const Color smallText = Color(0xff464555);
+static const Color inputFeildBorderColor = Color(0xffC7C4D8);
+
   
 }

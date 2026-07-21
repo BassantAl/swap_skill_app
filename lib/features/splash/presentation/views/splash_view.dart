@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
   Future<void> navigateToOnboardingView() {
     return Future.delayed(Duration(seconds: 3), () {
       if (!mounted) return;
-      GoRouter.of(context).pushReplacement(AppRoutes.onboardingview);
+      GoRouter.of(context).pushReplacement(AppRoutes.onboardingView);
     });
   }
 

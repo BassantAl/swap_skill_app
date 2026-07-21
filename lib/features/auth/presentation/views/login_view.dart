@@ -8,7 +8,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: AdaptiveLayoutWidget(mobileLayout:(context) =>LoginMobileLauoutWidget(), tabletLayout: (context)=>SizedBox(), desktopLayout: (context)=>SizedBox()),
+      body: AdaptiveLayoutWidget(mobileLayout:(context) =>const LoginMobileLauoutWidget(), tabletLayout: (context)=>SizedBox(), desktopLayout: (context)=>SizedBox()),
     );
   }
 }

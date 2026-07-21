@@ -35,7 +35,7 @@ class ManageButton extends StatelessWidget {
     } else {
       return GestureDetector(
         onTap: () {
-          GoRouter.of(context).pushReplacement(AppRoutes.loginview);
+          GoRouter.of(context).pushReplacement(AppRoutes.loginView);
         },
         child: CustomNextButton(text: 'Get Started'),
       );

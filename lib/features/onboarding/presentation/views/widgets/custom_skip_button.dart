@@ -15,7 +15,7 @@ class CustomSkipButton extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: TextButton(
         onPressed: () {
-          GoRouter.of(context).pushReplacement(AppRoutes.loginview);
+          GoRouter.of(context).pushReplacement(AppRoutes.loginView);
         },
         child: Text(
           'skip',
