@@ -3,8 +3,9 @@ import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
 abstract class AppDecoration {
-  static  InputDecoration decorationForTextInputFeild({required BuildContext context,required String hintText }) {
+  static  InputDecoration decorationForTextInputFeild({required BuildContext context,required String hintText , Widget? suffixIcon}) {
     return InputDecoration(
+      suffixIcon: suffixIcon,
       hintText: hintText,
       hintStyle: AppStyles.regular16(context),
       enabledBorder: OutlineInputBorder(

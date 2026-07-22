@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
-import 'package:swap_skill/features/auth/presentation/views/widgets/custom_text_form_feild.dart';
+import 'package:swap_skill/features/auth/presentation/views/widgets/custom_email_text_feild.dart';
+import 'package:swap_skill/features/auth/presentation/views/widgets/custom_password_text_feild.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_next_button.dart';
 
 class CustomLoginForm extends StatefulWidget {
@@ -14,35 +15,16 @@ class CustomLoginForm extends StatefulWidget {
 
 class _CustomLoginFormState extends State<CustomLoginForm> {
   GlobalKey<FormState> formKey = GlobalKey();
+  
   @override
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
       child: Column(
         children: [
-          CustomTextFormFeild(
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'please write your email';
-              } else {
-                return null;
-              }
-            },
-            title: 'Email Address',
-            hintText: 'alex@example.com',
-          ),
+          CustomEmailTextFeild(),
           const SizedBox(height: 10),
-          CustomTextFormFeild(
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your password.';
-              } else {
-                return null;
-              }
-            },
-            title: 'Password',
-            hintText: '********',
-          ),
+          CustomPasswordTextFeild(),
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
