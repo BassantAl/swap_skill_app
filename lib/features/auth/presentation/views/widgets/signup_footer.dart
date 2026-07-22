@@ -3,20 +3,20 @@ import 'package:go_router/go_router.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
-class LoginFooter extends StatelessWidget {
-  const LoginFooter({super.key});
+class SignupFooter extends StatelessWidget {
+  const SignupFooter({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-         Text( 'Don\'t have an account?', style: AppStyles.medium14(context)),
+         Text( 'Already have an account? ', style: AppStyles.medium14(context)),
         GestureDetector(
           onTap: () {
-            GoRouter.of(context).pushReplacement(AppRoutes.signupView);
+            GoRouter.of(context).pushReplacement(AppRoutes.loginView);
           },
-          child:  Text('Sign Up', style: AppStyles.bold14(context)),
+          child:  Text('Login', style: AppStyles.bold14(context)),
         ),
       ],
     );

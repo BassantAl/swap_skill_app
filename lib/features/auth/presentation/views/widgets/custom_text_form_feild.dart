@@ -20,6 +20,7 @@ class CustomTextFormFeild extends StatelessWidget {
       children: [
         Text(title, style: AppStyles.medium14(context)),
         TextFormField(
+          
           validator: validator,
           decoration: AppDecoration.decorationForTextInputFeild(
             context: context,
