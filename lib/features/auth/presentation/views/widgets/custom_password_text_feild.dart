@@ -3,8 +3,9 @@ import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_text_form_feild.dart';
 
 class CustomPasswordTextFeild extends StatefulWidget {
-  const CustomPasswordTextFeild({super.key, this.passwordController});
+  const CustomPasswordTextFeild({super.key, this.passwordController, this.onSaved});
 final TextEditingController? passwordController ;
+final Function(String?)? onSaved;
   @override
   State<CustomPasswordTextFeild> createState() =>
       _CustomPasswordTextFeildState();
@@ -16,6 +17,7 @@ class _CustomPasswordTextFeildState extends State<CustomPasswordTextFeild> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormFeild(
+      onSaved:widget.onSaved ,
       controller: widget.passwordController,
       suffixIcon: GestureDetector(
         onTap: () {

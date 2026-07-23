@@ -1,0 +1,22 @@
+import 'package:flutter/material.dart';
+import 'package:swap_skill/features/auth/presentation/views/widgets/custom_text_form_feild.dart';
+
+class UserNameTextFeild extends StatelessWidget {
+  const UserNameTextFeild({super.key, this.onSaved});
+  final Function(String?)? onSaved;
+  @override
+  Widget build(BuildContext context) {
+    return CustomTextFormFeild(
+      onSaved:onSaved,
+      hintText: 'johndoe123',
+      title: 'Username',
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'please enter your username';
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+}
