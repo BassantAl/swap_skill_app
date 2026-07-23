@@ -43,7 +43,6 @@ class _OnboardingBodyMobileLayoutState
   int currentPageIndex = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     pageController = PageController();
     pageController.addListener(() {

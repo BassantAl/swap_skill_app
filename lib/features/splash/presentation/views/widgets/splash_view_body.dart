@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:swap_skill/core/constants/assets.dart';
-import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 import 'package:swap_skill/core/widgets/custom_loading_indicator.dart';
 

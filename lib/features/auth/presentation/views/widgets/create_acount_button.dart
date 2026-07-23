@@ -9,17 +9,11 @@ class CreateAcountButton extends StatelessWidget {
   const CreateAcountButton({
     super.key,
     required this.formKey,
-    required this.email,
-    required this.password,
-    required this.fullName,
-    required this.userName,
+    required this.onSubmit,
   });
 
   final GlobalKey<FormState> formKey;
-  final String email;
-  final String password;
-  final String fullName;
-  final String userName;
+  final VoidCallback onSubmit;
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +23,7 @@ class CreateAcountButton extends StatelessWidget {
           onTap:state is SignupLoading?null: () {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
-              BlocProvider.of<SignupCubit>(context).signup(
-                email: email,
-                password: password,
-                fullName: fullName,
-                userName: userName,
-              );
+              onSubmit();
             }
           },
           child: CustomButton(

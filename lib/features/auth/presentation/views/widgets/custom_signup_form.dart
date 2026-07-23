@@ -90,11 +90,15 @@ class _CustomSignupFormState extends State<CustomSignupForm> {
             const TermsAndCondition(),
             const SizedBox(height: 30),
             CreateAcountButton(
-              fullName: fullName,
-              userName: userName,
               formKey: formKey,
-              email: email,
-              password: password,
+              onSubmit: () {
+                BlocProvider.of<SignupCubit>(context).signup(
+                  email: email,
+                  password: password,
+                  fullName: fullName,
+                  userName: userName,
+                );
+              },
             ),
           ],
         ),
