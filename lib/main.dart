@@ -1,15 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/firebase_options.dart';
+import 'package:swap_skill/my_block_observer.dart';
 
 void main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   setupServiceLocator();
+  Bloc.observer =  MyBlockObserver();
   runApp(
     //DevicePreview(
     // enabled: true,
