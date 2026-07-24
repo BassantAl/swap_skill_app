@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
-import 'package:swap_skill/core/theme/app_styles.dart';
-import 'package:swap_skill/core/widgets/custom_button.dart';
 import 'package:swap_skill/core/widgets/custom_error_widget.dart';
-import 'package:swap_skill/core/widgets/custom_loading_indicator.dart';
 import 'package:swap_skill/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_email_text_feild.dart';
+import 'package:swap_skill/features/auth/presentation/views/widgets/custom_login_button.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_password_text_feild.dart';
+import 'package:swap_skill/features/auth/presentation/views/widgets/custom_text_button.dart';
 
 class CustomLoginForm extends StatefulWidget {
   const CustomLoginForm({super.key});
@@ -53,41 +52,16 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                   password = value!;
                 },
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    GoRouter.of(
+              CustomTextButton(),
+              CustomLoginButtton(
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    BlocProvider.of<LoginCubit>(
                       context,
-                    ).pushReplacement(AppRoutes.resetPasswordView);
-                  },
-                  child: Text(
-                    'Forgot Password?',
-                    style: AppStyles.bold14(context),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: state is LoginLoading
-                    ? null
-                    : () {
-                        if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
-                          BlocProvider.of<LoginCubit>(
-                            context,
-                          ).login(email: email, password: password);
-                        }
-                      },
-                child: CustomButton(
-                  child: state is LoginLoading
-                      ? const CustomLoadingIndicator()
-                      : Text(
-                          'Login',
-                          style: AppStyles.medium20(
-                            context,
-                          ).copyWith(color: Colors.white),
-                        ),
-                ),
+                    ).login(email: email, password: password);
+                  }
+                },
               ),
             ],
           ),

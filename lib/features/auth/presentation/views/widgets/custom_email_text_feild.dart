@@ -4,12 +4,14 @@ import 'package:swap_skill/features/auth/presentation/views/widgets/custom_text_
 
 class CustomEmailTextFeild extends StatelessWidget {
   const CustomEmailTextFeild({
-    super.key, this.onSaved,
+    super.key, this.onSaved, this.onChanged,
   });
 final Function(String?)? onSaved;
+final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return CustomTextFormFeild(
+      onChanged: onChanged,
       onSaved:onSaved ,
       validator: (value) {
         if (value!.isEmpty) {

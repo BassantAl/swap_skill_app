@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/widgets/adaptive_layout_widget.dart';
+import 'package:swap_skill/features/auth/presentation/manager/reset_password_cubit/reset_password_cubit.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/reset_password_mobile_layout.dart';
 
 class ResetPassword extends StatelessWidget {
@@ -7,12 +9,15 @@ class ResetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: AdaptiveLayoutWidget(
-          mobileLayout: (context) => ResetPasswordMobileLayout(),
-          tabletLayout: (context) => SizedBox(),
-          desktopLayout: (context) => SizedBox(),
+    return BlocProvider(
+      create: (context) => ResetPasswordCubit(),
+      child: Scaffold(
+        body: SafeArea(
+          child: AdaptiveLayoutWidget(
+            mobileLayout: (context) => ResetPasswordMobileLayout(),
+            tabletLayout: (context) => SizedBox(),
+            desktopLayout: (context) => SizedBox(),
+          ),
         ),
       ),
     );

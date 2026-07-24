@@ -31,6 +31,26 @@ class FirebaseAuthErrors extends Failure {
           errorMessage: 'Network error. Check your connection.',
         );
 
+      case 'missing-email':
+        return FirebaseAuthErrors(
+          errorMessage: 'Please enter your email address.',
+        );
+
+      case 'user-disabled':
+        return FirebaseAuthErrors(
+          errorMessage: 'This user account has been disabled.',
+        );
+
+      case 'too-many-requests':
+        return FirebaseAuthErrors(
+          errorMessage: 'Too many requests. Please try again later.',
+        );
+
+      case 'invalid-credential':
+        return FirebaseAuthErrors(
+          errorMessage: 'The provided credentials are invalid.',
+        );
+
       default:
         return FirebaseAuthErrors(
           errorMessage: e.message ?? 'An unexpected error occurred.',

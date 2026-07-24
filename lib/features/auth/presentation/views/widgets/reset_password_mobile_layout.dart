@@ -1,72 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:swap_skill/core/routes/app_routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
-import 'package:swap_skill/core/theme/app_styles.dart';
-import 'package:swap_skill/core/widgets/custom_button.dart';
+import 'package:swap_skill/core/widgets/custom_error_widget.dart';
+import 'package:swap_skill/features/auth/presentation/manager/reset_password_cubit/reset_password_cubit.dart';
+import 'package:swap_skill/features/auth/presentation/views/widgets/back_to_login.dart';
+import 'package:swap_skill/features/auth/presentation/views/widgets/cusrom_dend_reset_link_button.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_email_text_feild.dart';
+import 'package:swap_skill/features/auth/presentation/views/widgets/reset_password_header.dart';
 
-class ResetPasswordMobileLayout extends StatelessWidget {
+class ResetPasswordMobileLayout extends StatefulWidget {
   const ResetPasswordMobileLayout({super.key});
 
   @override
+  State<ResetPasswordMobileLayout> createState() =>
+      _ResetPasswordMobileLayoutState();
+}
+
+class _ResetPasswordMobileLayoutState extends State<ResetPasswordMobileLayout> {
+  String email = '';
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Reset Password',
-            style: AppStyles.bold28(context).copyWith(color: Colors.black),
-          ),
-          const SizedBox(height: 15),
-          Text(
-            'Enter your email address and we\'ll send \nyou a password reset link.',
-            style: AppStyles.medium20(context),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          CustomEmailTextFeild(),
-          const SizedBox(height: 30),
-          CustomButton(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Send Reset Link',
-                  style: AppStyles.medium20(
-                    context,
-                  ).copyWith(color: Colors.white),
-                ),
-                const SizedBox(width: 5),
-                Transform.rotate(
-                  angle: 3.141592653589793,
-                  child: Icon(Icons.arrow_back, color: Colors.white,size: 19,),
-                ),
-              ],
+    return BlocListener<ResetPasswordCubit, ResetPasswordState>(
+      listener: (context, state) {
+        if(state is ResetPasswordFailure){
+           ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: AppColors.secondary,
+              content: CustomErrorWidget(errorMessage: state.errorMessage),
             ),
-          ),
-          const SizedBox(height: 30),
-          TextButton(
-            onPressed: () {
-              GoRouter.of(context).pushReplacement(AppRoutes.loginView);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.arrow_back_ios_sharp, color: AppColors.primary,size: 14,),
-                const SizedBox(width: 5),
-                Text(
-                  'Back To Login',
-                  style: AppStyles.medium18(
-                    context,
-                  ).copyWith(color: AppColors.primary),
-                ),
-              ],
+          );
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const ResetPasswordHeader(),
+            const SizedBox(height: 20),
+            CustomEmailTextFeild(
+              onChanged: (value) {
+                email = value;
+              },
             ),
-          ),
-        ],
+            const SizedBox(height: 30),
+            CustomSendResetLinkButton(
+              onTap: () {
+                BlocProvider.of<ResetPasswordCubit>(
+                  context,
+                ).resetPassword(email: email);
+              },
+            ),
+            const SizedBox(height: 30),
+            const BackToLogin(),
+          ],
+        ),
       ),
     );
   }

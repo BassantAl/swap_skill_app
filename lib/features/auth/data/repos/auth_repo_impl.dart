@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:swap_skill/core/errors/failure.dart';
@@ -15,7 +14,7 @@ class AuthRepoImpl implements AuthRepo {
   });
   final FirebaseAuthServices firebaseAuthServices;
   final FirebaseFirestoreServices firebaseFirestoreServices;
-  
+
   @override
   Future<Either<Failure, UserCredential>> login({
     required String email,
@@ -46,7 +45,7 @@ class AuthRepoImpl implements AuthRepo {
         password: password,
       );
 
-       await firebaseFirestoreServices.addUser(
+      await firebaseFirestoreServices.addUser(
         uid: userCredential.user!.uid,
         fullName: fullName,
         userName: userName,
@@ -56,10 +55,19 @@ class AuthRepoImpl implements AuthRepo {
     } on FirebaseAuthException catch (e) {
       var error = FirebaseAuthErrors.fromFirebaseAuthException(e: e);
       return left(error);
-    }on FirebaseException catch (e) {
+    } on FirebaseException catch (e) {
       return left(FirebaseFirestoreErrors.fromFirebaseException(e));
     }
   }
 
-  
+  @override
+  Future<Either<Failure, void>> resetPassword({required String email}) async {
+    try {
+      await firebaseAuthServices.resetPassord(email: email);
+      return right(null);
+    } on FirebaseAuthException catch (e) {
+      var error = FirebaseAuthErrors.fromFirebaseAuthException(e: e);
+      return left(error);
+    }
+  }
 }

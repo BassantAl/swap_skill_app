@@ -10,7 +10,7 @@ class CustomTextFormFeild extends StatelessWidget {
     this.validator,
     this.obscureText,
     this.suffixIcon,
-    this.controller, this.onSaved,
+    this.controller, this.onSaved, this.onChanged,
   });
   final String hintText;
   final String title;
@@ -19,6 +19,7 @@ class CustomTextFormFeild extends StatelessWidget {
   final Widget? suffixIcon;
   final TextEditingController? controller;
   final Function(String?)? onSaved;
+  final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,6 +27,7 @@ class CustomTextFormFeild extends StatelessWidget {
       children: [
         Text(title, style: AppStyles.medium14(context)),
         TextFormField(
+          onChanged:onChanged ,
           onSaved: onSaved,
           controller: controller,
           obscureText: obscureText ?? false,
