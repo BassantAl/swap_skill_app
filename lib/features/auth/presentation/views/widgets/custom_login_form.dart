@@ -11,7 +11,6 @@ import 'package:swap_skill/features/auth/presentation/manager/login_cubit/login_
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_email_text_feild.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_password_text_feild.dart';
 
-
 class CustomLoginForm extends StatefulWidget {
   const CustomLoginForm({super.key});
 
@@ -57,7 +56,11 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(
+                      context,
+                    ).pushReplacement(AppRoutes.resetPasswordView);
+                  },
                   child: Text(
                     'Forgot Password?',
                     style: AppStyles.bold14(context),
@@ -65,20 +68,26 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                 ),
               ),
               GestureDetector(
-                onTap: state is LoginLoading?null: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    BlocProvider.of<LoginCubit>(
-                      context,
-                    ).login(email: email, password: password);
-                  }
-                },
-                child:  CustomButton(child:state is LoginLoading? const CustomLoadingIndicator() :Text(
-                    'Login',
-                    style: AppStyles.medium20(
-                      context,
-                    ).copyWith(color: Colors.white),
-                  ),),
+                onTap: state is LoginLoading
+                    ? null
+                    : () {
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
+                          BlocProvider.of<LoginCubit>(
+                            context,
+                          ).login(email: email, password: password);
+                        }
+                      },
+                child: CustomButton(
+                  child: state is LoginLoading
+                      ? const CustomLoadingIndicator()
+                      : Text(
+                          'Login',
+                          style: AppStyles.medium20(
+                            context,
+                          ).copyWith(color: Colors.white),
+                        ),
+                ),
               ),
             ],
           ),
