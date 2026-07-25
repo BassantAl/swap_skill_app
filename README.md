@@ -7,11 +7,13 @@ Users can create a profile, share the skills they can teach, and choose the skil
 ## App Preview
 
 <p align="center">
-  <img src="assets/images/splash_app.png" alt="Splash Screen" width="220"/>
-  <img src="assets/images/onboarding_app.png" alt="Onboarding" width="220"/>
+  <img src="assets/images/splash_app.png" alt="Splash Screen" width="200"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/images/onboarding_app.png" alt="Onboarding" width="200"/>
 </p>
 
 <p align="center">
-  <img src="assets/images/login_app.png" alt="Login" width="220"/>
-  <img src="assets/images/create_acount_app.png" alt="Sign Up" width="220"/>
+  <img src="assets/images/login_app.png" alt="Login" width="200"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/images/create_acount_app.png" alt="Sign Up" width="200"/>
 </p>
