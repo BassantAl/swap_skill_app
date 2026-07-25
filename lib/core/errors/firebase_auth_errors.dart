@@ -51,6 +51,18 @@ class FirebaseAuthErrors extends Failure {
           errorMessage: 'The provided credentials are invalid.',
         );
 
+      case 'account-exists-with-different-credential':
+        return FirebaseAuthErrors(
+          errorMessage:
+              'An account already exists with the same email using a different sign-in method.',
+        );
+
+      case 'operation-not-allowed':
+        return FirebaseAuthErrors(
+          errorMessage: 'This sign-in method is not enabled.',
+        );
+
+
       default:
         return FirebaseAuthErrors(
           errorMessage: e.message ?? 'An unexpected error occurred.',

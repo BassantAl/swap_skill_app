@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthServices {
   var instance = FirebaseAuth.instance;
@@ -26,5 +27,23 @@ class FirebaseAuthServices {
 
   Future<void> resetPassord({required String email}) async {
     await instance.sendPasswordResetEmail(email: email);
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    await GoogleSignIn.instance.initialize();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn.instance
+        .authenticate();
+    if (googleUser == null) {
+      throw Exception('Google sign in was cancelled.');
+    }
+    final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+    );
+    final UserCredential userCredential = await instance.signInWithCredential(
+      credential,
+    );
+    return userCredential;
   }
 }

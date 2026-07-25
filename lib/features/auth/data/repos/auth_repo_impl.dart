@@ -70,4 +70,18 @@ class AuthRepoImpl implements AuthRepo {
       return left(error);
     }
   }
+
+  @override
+  Future<Either<Failure, UserCredential>> signInWithGoogle() async {
+    try {
+      UserCredential userCredential = await firebaseAuthServices
+          .signInWithGoogle();
+      return right(userCredential);
+    } on FirebaseAuthException catch (e) {
+      var error = FirebaseAuthErrors.fromFirebaseAuthException(e: e);
+      return left(error);
+    } catch (e) {
+      return left(FirebaseAuthErrors(errorMessage: e.toString()));
+    }
+  }
 }
