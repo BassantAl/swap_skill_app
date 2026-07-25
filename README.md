@@ -1,17 +1,31 @@
-# swap_skill
+# Swap Skill
 
-A new Flutter project.
+Swap Skill is a Flutter application that connects people who want to learn new skills by exchanging knowledge with others.
 
-## Getting Started
+Users can create a profile, share the skills they can teach, and choose the skills they want to learn. The app matches users with similar interests, making it easy to connect, communicate, and grow together through skill exchange.
 
-This project is a starting point for a Flutter application.
+## App Preview
 
-A few resources to get you started if this is your first Flutter project:
+### Splash Screen
+![Splash Screen](assets/images/splash_app.png)
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+### Onboarding
+![Onboarding](assets/images/onboarding_app.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Login
+![Login](assets/images/login_app.png)
+
+### Sign Up
+![Sign Up](assets/images/create_acount_app.png)
+
+<!-- ### Home
+![Home](images/home.png)
+
+### Profile
+![Profile](images/profile.png)
+
+### Chat
+![Chat](images/chat.png)
+
+### Matches
+![Matches](images/matches.png) -->
