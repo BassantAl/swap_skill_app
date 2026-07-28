@@ -81,7 +81,19 @@ class AuthRepoImpl implements AuthRepo {
       var error = FirebaseAuthErrors.fromFirebaseAuthException(e: e);
       return left(error);
     } catch (e) {
-      return left(FirebaseAuthErrors(errorMessage: e.toString()));
+      return left(Failure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserCredential>> signInWithFacebook() async {
+    try {
+      var result = await firebaseAuthServices.signInWithFacebook();
+      return right(result);
+    } on FirebaseAuthException catch (e) {
+      return left(FirebaseAuthErrors.fromFirebaseAuthException(e: e));
+    } catch (e) {
+      return left(Failure(errorMessage: e.toString()));
     }
   }
 }
