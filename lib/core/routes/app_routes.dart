@@ -5,16 +5,17 @@ import 'package:swap_skill/features/auth/presentation/views/signup_view.dart';
 import 'package:swap_skill/features/home/presentation/views/home_view.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:swap_skill/features/splash/presentation/views/splash_view.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/views/skills_setup.dart';
 
 abstract class AppRoutes {
   static const String onboardingView = '/onboardingview';
   static const String loginView = '/loginview';
   static const String signupView = '/signupview';
-   static const String homeView = '/homeview';
-   static const String resetPasswordView = '/resetpasswordview';
+  static const String homeView = '/homeview';
+  static const String resetPasswordView = '/resetpasswordview';
+  static const String skillsSetupView = '/skillssetupview';
   static final router = GoRouter(
     routes: [
-      
       GoRoute(
         path: '/',
         builder: (context, state) {
@@ -22,14 +23,14 @@ abstract class AppRoutes {
         },
       ),
 
-       GoRoute(
+      GoRoute(
         path: onboardingView,
         builder: (context, state) {
           return const OnboardingView();
         },
       ),
 
-       GoRoute(
+      GoRoute(
         path: loginView,
         builder: (context, state) {
           return const LoginView();
@@ -50,10 +51,17 @@ abstract class AppRoutes {
         },
       ),
 
-       GoRoute(
+      GoRoute(
         path: resetPasswordView,
         builder: (context, state) {
           return const ResetPassword();
+        },
+      ),
+
+      GoRoute(
+        path: skillsSetupView,
+        builder: (context, state) {
+          return const SkillsSetup();
         },
       ),
     ],

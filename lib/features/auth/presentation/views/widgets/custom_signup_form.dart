@@ -44,7 +44,7 @@ class _CustomSignupFormState extends State<CustomSignupForm> {
     return BlocListener<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupSuccess) {
-          GoRouter.of(context).pushReplacement(AppRoutes.homeView);
+          GoRouter.of(context).pushReplacement(AppRoutes.skillsSetupView);
         } else if (state is SignupFailure) {
           ScaffoldMessenger.of(
             context,

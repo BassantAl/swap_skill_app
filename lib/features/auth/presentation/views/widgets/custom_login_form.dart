@@ -26,7 +26,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          GoRouter.of(context).pushReplacement(AppRoutes.homeView);
+          GoRouter.of(context).pushReplacement(AppRoutes.skillsSetupView);
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
