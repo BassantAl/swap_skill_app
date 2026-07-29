@@ -1,3 +1,4 @@
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:swap_skill/core/constants/assets.dart';
 import 'package:swap_skill/features/onboarding/data/models/onboarding_page_model.dart';
@@ -6,16 +7,16 @@ import 'package:swap_skill/features/onboarding/presentation/views/widgets/dots_i
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/manage_button.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/onboarding_page_item.dart';
 
-class OnboardingBodyMobileLayout extends StatefulWidget {
-  const OnboardingBodyMobileLayout({super.key});
+class OnboardingBodyMobileAndTabletLayout extends StatefulWidget {
+  const OnboardingBodyMobileAndTabletLayout({super.key});
 
   @override
-  State<OnboardingBodyMobileLayout> createState() =>
-      _OnboardingBodyMobileLayoutState();
+  State<OnboardingBodyMobileAndTabletLayout> createState() =>
+      _OnboardingBodyMobileAndTabletLayoutState();
 }
 
-class _OnboardingBodyMobileLayoutState
-    extends State<OnboardingBodyMobileLayout> {
+class  _OnboardingBodyMobileAndTabletLayoutState
+    extends State<OnboardingBodyMobileAndTabletLayout> {
   static const List<OnboardingPageModel> items = [
     OnboardingPageModel(
       image: Assets.imagesSkillSharing,
@@ -26,7 +27,7 @@ class _OnboardingBodyMobileLayoutState
 
     OnboardingPageModel(
       image: Assets.imagesOnboarding2,
-      title: 'Learn from Real People',
+      title: 'Learn from Real People  \n Together',
       subTitle:
           'Find people who share your interests\nand learn directly from them.',
     ),
@@ -56,24 +57,28 @@ class _OnboardingBodyMobileLayoutState
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: SafeArea(
-        child: Column(
-          children: [
-            CustomSkipButton(),
-            Expanded(
-              child: PageView.builder(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomSkipButton(),
+              ExpandablePageView.builder(
                 controller: pageController,
                 itemCount: items.length,
                 itemBuilder: (BuildContext context, int index) {
                   return OnboardingPageItem(onboardingPageModel: items[index]);
                 },
               ),
-            ),
-            SizedBox(height: 5,),
-             DotsIndicator(currentPageIndex: currentPageIndex),
-            const SizedBox(height: 20,),
-             ManageButton(currentPageIndex: currentPageIndex,pageController: pageController,),
-            const SizedBox(height: 20,),
-          ],
+              SizedBox(height: 20),
+              DotsIndicator(currentPageIndex: currentPageIndex),
+              const SizedBox(height: 20),
+              ManageButton(
+                currentPageIndex: currentPageIndex,
+                pageController: pageController,
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

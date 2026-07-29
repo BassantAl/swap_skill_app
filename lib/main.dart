@@ -1,3 +1,4 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +15,7 @@ void main() async {
   setupServiceLocator();
   Bloc.observer =  MyBlockObserver();
   runApp(
-    //DevicePreview(
+    // DevicePreview(
     // enabled: true,
     // builder:(context)=> const MyApp())
     const MyApp(),
@@ -32,7 +33,9 @@ class MyApp extends StatelessWidget {
       // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       routerConfig: AppRoutes.router,
-      theme: ThemeData(scaffoldBackgroundColor: AppColors.backgroundColor),
+      theme: ThemeData(scaffoldBackgroundColor: AppColors.backgroundColor, appBarTheme:AppBarTheme(
+        backgroundColor: AppColors.backgroundColor,
+      ) ),
     );
   }
 }

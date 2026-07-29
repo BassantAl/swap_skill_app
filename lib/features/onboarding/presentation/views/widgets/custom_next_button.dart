@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
+import 'package:swap_skill/core/utils/size_config.dart';
 import 'package:swap_skill/core/widgets/custom_button.dart';
 
 class CustomNextButton extends StatelessWidget {
@@ -8,16 +9,19 @@ class CustomNextButton extends StatelessWidget {
   final IconData? icon;
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            text,
-            style: AppStyles.medium20(context).copyWith(color: Colors.white),
-          ),
-          Icon(icon, color: Colors.white, size: 20),
-        ],
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width>=SizeConfig.tablet? 650:null,
+      child: CustomButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: AppStyles.medium20(context).copyWith(color: Colors.white),
+            ),
+            Icon(icon, color: Colors.white, size: 20),
+          ],
+        ),
       ),
     );
   }

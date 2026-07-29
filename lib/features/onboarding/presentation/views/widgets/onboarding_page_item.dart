@@ -7,26 +7,29 @@ class OnboardingPageItem extends StatelessWidget {
   final OnboardingPageModel onboardingPageModel;
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minHeight:  MediaQuery.sizeOf(context).height*0.65,
+      ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Flexible(child:  SizedBox(height: 80)),
+          const SizedBox(height: 60),
           ConstrainedBox(
             constraints: BoxConstraints(
-              maxWidth: 350,
-              
+              maxWidth: 400,
             ),
             child: AspectRatio(
               aspectRatio: 1,
               child: Image.asset(
-
+      
                 fit: BoxFit.contain,
                 onboardingPageModel.image,
                
               ),
             ),
           ),
-          const Flexible(child:  SizedBox(height: 60)),
+          const SizedBox(height: 50),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
