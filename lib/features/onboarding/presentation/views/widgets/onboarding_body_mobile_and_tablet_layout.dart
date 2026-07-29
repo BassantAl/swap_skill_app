@@ -1,45 +1,20 @@
-import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
-import 'package:swap_skill/core/constants/assets.dart';
 import 'package:swap_skill/features/onboarding/data/models/onboarding_page_model.dart';
+import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_page_view_onboarding.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_skip_button.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/dots_indicator.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/manage_button.dart';
-import 'package:swap_skill/features/onboarding/presentation/views/widgets/onboarding_page_item.dart';
 
 class OnboardingBodyMobileAndTabletLayout extends StatefulWidget {
-  const OnboardingBodyMobileAndTabletLayout({super.key});
-
+  const OnboardingBodyMobileAndTabletLayout({super.key, required this.items});
+  final List<OnboardingPageModel> items;
   @override
   State<OnboardingBodyMobileAndTabletLayout> createState() =>
       _OnboardingBodyMobileAndTabletLayoutState();
 }
 
-class  _OnboardingBodyMobileAndTabletLayoutState
+class _OnboardingBodyMobileAndTabletLayoutState
     extends State<OnboardingBodyMobileAndTabletLayout> {
-  static const List<OnboardingPageModel> items = [
-    OnboardingPageModel(
-      image: Assets.imagesSkillSharing,
-      title: 'Share Your Skills with\nOthers',
-      subTitle:
-          'Turn your experience into an opportunity to \n learn something new without paying money.',
-    ),
-
-    OnboardingPageModel(
-      image: Assets.imagesOnboarding2,
-      title: 'Learn from Real People  \n Together',
-      subTitle:
-          'Find people who share your interests\nand learn directly from them.',
-    ),
-
-    OnboardingPageModel(
-      image: Assets.imagesOnboarding3,
-      title: 'Start Your First Skill \n Exchange',
-      subTitle:
-          'Create your profile and find the right learning \n partner. Your growth journey starts here.',
-    ),
-  ];
-
   late PageController pageController;
   int currentPageIndex = 0;
   @override
@@ -62,12 +37,9 @@ class  _OnboardingBodyMobileAndTabletLayoutState
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomSkipButton(),
-              ExpandablePageView.builder(
-                controller: pageController,
-                itemCount: items.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return OnboardingPageItem(onboardingPageModel: items[index]);
-                },
+              CustomPageViewOnboarding(
+                pageController: pageController,
+                items: widget.items,
               ),
               SizedBox(height: 20),
               DotsIndicator(currentPageIndex: currentPageIndex),

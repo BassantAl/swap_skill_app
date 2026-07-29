@@ -17,7 +17,7 @@ class OnboardingPageItem extends StatelessWidget {
           const SizedBox(height: 60),
           ConstrainedBox(
             constraints: BoxConstraints(
-              maxWidth: 400,
+              maxWidth: 380,
             ),
             child: AspectRatio(
               aspectRatio: 1,
