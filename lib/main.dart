@@ -16,10 +16,11 @@ void main() async {
   setupServiceLocator();
   Bloc.observer =  MyBlockObserver();
   runApp(
-    DevicePreview(
-    enabled: true,
-    builder:(context)=> const MyApp())
-    // const MyApp(),
+    // DevicePreview(
+    // enabled: true,
+    // builder:(context)=> const MyApp())
+    const MyApp(),
+    
   );
 }
 

@@ -35,27 +35,21 @@ class _TeachSkillsMobileLayoutState extends State<TeachSkillsMobileLayout> {
     return SingleChildScrollView(
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
-            vertical: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
           child: Column(
-          children: [
-            CustomAppBar(
-              currentPage: currentPage,
-              totalPages: items.length,
-            ),
-            SizedBox(height: 10),
-            CustomPageView(
-              items: items,
-              pageController: pageController,
-              onPageChanged: (value) {
-                currentPage = value + 1;
-                setState(() {});
-              },
-            ),
-          ],
-                      ),
+            children: [
+              CustomAppBar(currentPage: currentPage, totalPages: items.length),
+              SizedBox(height: 10),
+              CustomPageView(
+                items: items,
+                pageController: pageController,
+                onPageChanged: (value) {
+                  currentPage = value + 1;
+                  setState(() {});
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

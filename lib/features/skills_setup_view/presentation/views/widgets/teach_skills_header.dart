@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
 class TeachSkillsHeader extends StatelessWidget {
-  const TeachSkillsHeader({
-    super.key,
-  });
+  const TeachSkillsHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

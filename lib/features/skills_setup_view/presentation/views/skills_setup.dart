@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/widgets/adaptive_layout_widget.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/manager/cubit/get_skills_data/get_skills_data_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/teach_skills_mobile_layout.dart';
 
 class SkillsSetup extends StatelessWidget {
@@ -7,12 +9,15 @@ class SkillsSetup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AdaptiveLayoutWidget(
-      mobileLayout: (context) => TeachSkillsMobileLayout(),
-      tabletLayout: (context) => SizedBox(),
-      desktopLayout: (context) => SizedBox(),
-              ),
+    return BlocProvider(
+      create: (context) => GetSkillsDataCubit()..getSkillsData(),
+      child: Scaffold(
+        body: AdaptiveLayoutWidget(
+          mobileLayout: (context) => TeachSkillsMobileLayout(),
+          tabletLayout: (context) => SizedBox(),
+          desktopLayout: (context) => SizedBox(),
+        ),
+      ),
     );
   }
 }
