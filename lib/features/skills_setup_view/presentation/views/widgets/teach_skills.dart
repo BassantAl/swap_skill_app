@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/categories_active_item.dart';
-import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/categories_inactive_item.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/categories_list_view.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_search_and_add_skill_section.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/teach_skills_header.dart';
