@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_back_button.dart';
+import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_next_button.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_app_bar.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_page_view.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/learn_skills.dart';
@@ -19,7 +21,6 @@ class _TeachSkillsMobileLayoutState extends State<TeachSkillsMobileLayout> {
   List<Widget> items = const [TeachSkills(), LearnSkills(), TeachSkills()];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     pageController = PageController();
   }
@@ -48,10 +49,54 @@ class _TeachSkillsMobileLayoutState extends State<TeachSkillsMobileLayout> {
                   setState(() {});
                 },
               ),
+
+              ManageSetupSkillsButton(pageController: pageController ,currentPage: currentPage,),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class ManageSetupSkillsButton extends StatelessWidget {
+  const ManageSetupSkillsButton({super.key, required this.pageController, required this.currentPage});
+
+  final PageController pageController;
+  final int currentPage;
+
+  @override
+  Widget build(BuildContext context) {
+    if (currentPage == 1) {
+      return GestureDetector(
+        onTap: nevigateToNextPageView,
+        child: CustomNextButton(text: 'Next'),
+      );
+    }
+    return Row(
+      children: [
+        Expanded(child: GestureDetector(
+          onTap:nevigateToNextPreviousView ,
+          child: CustomBackButton(text: 'Back'))),
+        SizedBox(width: 15),
+        Expanded(child: GestureDetector(
+          onTap: nevigateToNextPageView,
+          child: CustomNextButton(text: 'Next'))),
+      ],
+    );
+  }
+
+  void nevigateToNextPageView() {
+    pageController.nextPage(
+      duration: Duration(milliseconds: 200),
+      curve: Curves.linear,
+    );
+  }
+
+  void nevigateToNextPreviousView() {
+    pageController.previousPage(
+      duration: Duration(milliseconds: 200),
+      curve: Curves.linear,
     );
   }
 }

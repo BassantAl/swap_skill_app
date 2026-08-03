@@ -21,11 +21,27 @@ class AppStyles {
     );
   }
 
+  static TextStyle semiBold24(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: getResponsiveFontsize(fontsize: 24, context: context),
+      color: Colors.black,
+    );
+  }
+
    static TextStyle regular16(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: getResponsiveFontsize(fontsize: 16, context: context),
       color: AppColors.smallText,
+    );
+  }
+
+  static TextStyle regular18(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: getResponsiveFontsize(fontsize: 18, context: context),
+      color: Colors.white,
     );
   }
 

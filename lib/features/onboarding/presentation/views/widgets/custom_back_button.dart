@@ -3,9 +3,9 @@ import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({super.key, required this.text, required this.icon});
+  const CustomBackButton({super.key, required this.text,});
   final String text;
-  final IconData icon;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,9 +18,7 @@ class CustomBackButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Transform.rotate(
-            angle: 3.141592653589793,
-            child: Icon(icon, color: Colors.black, size: 20)),
+          Icon(Icons.arrow_back, color: Colors.black, size: 20),
           Text(
             text,
             style: AppStyles.medium20(context).copyWith(color: Colors.black),
