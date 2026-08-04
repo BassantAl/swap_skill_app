@@ -3,24 +3,29 @@ import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
 class ActiveSkillCard extends StatelessWidget {
-  const ActiveSkillCard({super.key});
-
+  const ActiveSkillCard({super.key, required this.text});
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:BoxDecoration(
+padding: EdgeInsets.symmetric(horizontal: 5),
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: AppColors.primary
-      ) ,
+        color: AppColors.primary,
+      ),
       child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('flutter',style: AppStyles.regular18(context),),
-          const SizedBox(width: 2,),
-          Icon(Icons.check,color: Colors.white,size: 16,)
-        ],
-      )),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(text, style: AppStyles.regular18(context)),
+              const SizedBox(width: 2),
+              Icon(Icons.check, color: Colors.white, size: 16),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

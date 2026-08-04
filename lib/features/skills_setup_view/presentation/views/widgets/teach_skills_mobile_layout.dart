@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_back_button.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_next_button.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/manager/cubit/selected_skills_cubit_cubit.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/active_skill_card.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_app_bar.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_page_view.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/learn_skills.dart';
@@ -48,6 +51,10 @@ class _TeachSkillsMobileLayoutState extends State<TeachSkillsMobileLayout> {
                   currentPage = value + 1;
                   setState(() {});
                 },
+              ),
+
+              Row(
+                children: context.read<SelectedSkillsCubit>().state.map((e)=>ActiveSkillCard(text: e)).toList(),
               ),
 
               ManageSetupSkillsButton(pageController: pageController ,currentPage: currentPage,),

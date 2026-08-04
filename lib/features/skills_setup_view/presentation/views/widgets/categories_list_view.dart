@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/widgets/custom_error_widget.dart';
-import 'package:swap_skill/features/skills_setup_view/presentation/manager/cubit/get_skills_data/get_skills_data_cubit.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_skills_data/get_skills_data_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/manage_all_topics_card.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/manage_categories_state.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/shimmer_categories_list_view.dart';
