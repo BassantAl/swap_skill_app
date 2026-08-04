@@ -31,7 +31,7 @@ class CustomSkillsGridView extends StatelessWidget {
 
             return GestureDetector(
               onTap: () {
-                context.read<SelectedSkillsCubit>().toggleSkill(skill);
+                context.read<SelectedSkillsCubit>().toggleSkill(skill:  skill);
               },
               child: Center(
                 child: SkillCard(

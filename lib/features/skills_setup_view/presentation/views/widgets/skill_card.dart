@@ -8,6 +8,6 @@ class SkillCard extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
-    return isActive ? ActiveSkillCard(text: text,) : InactiveSkillCard(text: text,);
+    return isActive ? ActiveSkillCard(text: text,widget:  Icon(Icons.check, color: Colors.white, size: 16),) : InactiveSkillCard(text: text,);
   }
 }

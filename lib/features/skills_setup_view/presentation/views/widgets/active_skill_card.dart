@@ -3,12 +3,13 @@ import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
 class ActiveSkillCard extends StatelessWidget {
-  const ActiveSkillCard({super.key, required this.text});
+  const ActiveSkillCard({super.key, required this.text, required this.widget});
   final String text;
+  final Widget widget;
   @override
   Widget build(BuildContext context) {
     return Container(
-padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: AppColors.primary,
@@ -21,7 +22,7 @@ padding: EdgeInsets.symmetric(horizontal: 5),
             children: [
               Text(text, style: AppStyles.regular18(context)),
               const SizedBox(width: 2),
-              Icon(Icons.check, color: Colors.white, size: 16),
+             widget
             ],
           ),
         ),

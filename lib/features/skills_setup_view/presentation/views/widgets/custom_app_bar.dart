@@ -13,37 +13,40 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(Icons.arrow_back, color: AppColors.primary, size: 22),
-        const SizedBox(width: 10),
-        Text('Skill Swap', style: AppStyles.bold28(context)),
-
-        Spacer(),
-
-        Column(
-          children: [
-            Text(
-              'STEP $currentPage OF $totalPages',
-              style: AppStyles.medium14(context),
-            ),
-            const SizedBox(height: 3),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: SizedBox(
-                width: 92,
-                height: 10,
-                child: LinearProgressIndicator(
-                  value: currentPage / totalPages,
-                  color: AppColors.primary,
-                  backgroundColor: const Color(0xFFECECEE),
-                  borderRadius: BorderRadius.circular(10),
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0 ,right: 16,top: 10),
+      child: Row(
+        children: [
+          Icon(Icons.arrow_back, color: AppColors.primary, size: 22),
+          const SizedBox(width: 10),
+          Text('Skill Swap', style: AppStyles.bold28(context)),
+      
+          Spacer(),
+      
+          Column(
+            children: [
+              Text(
+                'STEP $currentPage OF $totalPages',
+                style: AppStyles.medium14(context),
+              ),
+              const SizedBox(height: 3),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: SizedBox(
+                  width: 92,
+                  height: 10,
+                  child: LinearProgressIndicator(
+                    value: currentPage / totalPages,
+                    color: AppColors.primary,
+                    backgroundColor: const Color(0xFFECECEE),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

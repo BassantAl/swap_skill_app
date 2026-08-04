@@ -14,13 +14,16 @@ class CustomPageView extends StatelessWidget {
   final Function(int)? onPageChanged;
   @override
   Widget build(BuildContext context) {
-    return ExpandablePageView.builder(
-      controller: pageController,
-      onPageChanged: onPageChanged,
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return items[index];
-      },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal:  16.0 ),
+      child: ExpandablePageView.builder(
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return items[index];
+        },
+      ),
     );
   }
 }

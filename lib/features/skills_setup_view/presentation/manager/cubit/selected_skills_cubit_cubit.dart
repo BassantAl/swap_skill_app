@@ -16,4 +16,10 @@ class SelectedSkillsCubit extends Cubit<List<String>> {
     }
     emit(selected);
   }
+
+  void removeSkill(String skill) {
+  final updatedSkills = List<String>.from(state);
+  updatedSkills.remove(skill);
+  emit(updatedSkills);
+}
 }
