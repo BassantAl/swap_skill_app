@@ -38,9 +38,10 @@ class _CategoriesListViewState extends State<CategoriesListView> {
                   );
                 }
                 return ManageCategoriesStates(
-                  name: state.skills[index-1].name,
-                  isActive: selectedCategoryIndex==index,
+                  name: state.skills[index - 1].name,
+                  isActive: selectedCategoryIndex == index,
                   onTap: () {
+                    context.read<GetSkillsDataCubit>().getSkillsData();
                     setState(() {
                       selectedCategoryIndex = index;
                     });
@@ -62,5 +63,3 @@ class _CategoriesListViewState extends State<CategoriesListView> {
     );
   }
 }
-
-

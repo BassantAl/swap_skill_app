@@ -22,3 +22,5 @@ class SkillsModel {
     return SkillsModel(skills: List<String>.from(data['skills'] ?? []));
   }
 }
+
+

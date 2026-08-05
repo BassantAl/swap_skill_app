@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:swap_skill/features/skills_setup_view/data/models/categories_model.dart';
 
@@ -27,4 +26,17 @@ class FirebaseFirestoreServices {
         .toList();
     return skills;
   }
+
+  Future<SkillsModel> getCategory({required String id}) async {
+    final snapShot = await instance.collection('categories').doc(id).get();
+    final data = snapShot.data();
+
+    if (data == null || data['skills'] == null) {
+      return SkillsModel(skills: []);
+    }
+
+    final SkillsModel skills = SkillsModel.fromFirestore(data);
+    return skills;
+  }
+  
 }
