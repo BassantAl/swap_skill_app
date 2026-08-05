@@ -20,5 +20,10 @@ class GetCategoryCubit extends Cubit<GetCategoryState> {
         emit(GetCategorySuccess(categoriesModel: result));
       },
     );
+    
+  }
+
+  void showAllTopics() {
+    emit(GetCategoryInitial());
   }
 }
