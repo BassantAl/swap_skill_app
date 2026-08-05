@@ -20,7 +20,7 @@ class _CategoriesListViewState extends State<CategoriesListView> {
   Widget build(BuildContext context) {
     return BlocBuilder<GetSkillsDataCubit, GetSkillsDataState>(
       builder: (context, state) {
-        if (state is GetSkillsDataSuccess) {
+        if (state is GetSkillsDataSuccess ) {
           return SizedBox(
             height: 48,
             child: ListView.builder(
@@ -41,7 +41,6 @@ class _CategoriesListViewState extends State<CategoriesListView> {
                   name: state.skills[index - 1].name,
                   isActive: selectedCategoryIndex == index,
                   onTap: () {
-                    context.read<GetSkillsDataCubit>().getSkillsData();
                     setState(() {
                       selectedCategoryIndex = index;
                     });

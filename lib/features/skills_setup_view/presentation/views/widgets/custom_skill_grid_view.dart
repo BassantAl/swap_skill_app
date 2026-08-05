@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swap_skill/features/skills_setup_view/presentation/manager/cubit/selected_skills_cubit_cubit.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_skills_cubit_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/skill_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

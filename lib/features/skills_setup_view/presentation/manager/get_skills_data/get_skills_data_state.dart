@@ -16,3 +16,5 @@ final class GetSkillsDataFailure extends GetSkillsDataState {
 }
 
 final class GetSkillsDataLoading extends GetSkillsDataState {}
+
+

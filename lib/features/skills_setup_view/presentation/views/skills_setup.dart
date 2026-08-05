@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/widgets/adaptive_layout_widget.dart';
-import 'package:swap_skill/features/skills_setup_view/presentation/manager/cubit/selected_skills_cubit_cubit.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_skills_cubit_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_skills_data/get_skills_data_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/teach_skills_mobile_layout.dart';
 

@@ -22,4 +22,17 @@ class SkillsSetupRepoImpl implements SkillsSetupRepo {
       return left(Failure(errorMessage: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, CategoriesModel>> getCategory({required String id}) async {
+    try {
+      final result = await firebaseFirestoreServices.getCategory(id: id);
+      return right(result);
+    } on FirebaseException catch (e) {
+      var error = FirebaseFirestoreErrors.fromFirebaseException(e);
+      return left(error);
+    } catch (e) {
+      return left(Failure(errorMessage: e.toString()));
+    }
+  }
 }

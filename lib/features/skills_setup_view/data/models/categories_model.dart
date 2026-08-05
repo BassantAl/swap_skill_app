@@ -5,11 +5,11 @@ class CategoriesModel {
   final SkillsModel skills;
   CategoriesModel({required this.name, required this.skills});
   factory CategoriesModel.fromFirestore(
-    QueryDocumentSnapshot<Map<String, dynamic>> data,
+    DocumentSnapshot<Map<String, dynamic>> data,
   ) {
     return CategoriesModel(
       name: data.id,
-      skills: SkillsModel.fromFirestore(data.data()),
+      skills: SkillsModel.fromFirestore(data.data()!),
     );
   }
 }
