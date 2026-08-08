@@ -23,7 +23,7 @@ class SkillsWantToLearn extends StatelessWidget {
           SizedBox(height: 24),
           CategoriesListView(),
           SizedBox(height: 24),
-          CategorySkillsSection(),
+          CategorySkillsSection(isTeach: false,),
         ],
       ),
     );

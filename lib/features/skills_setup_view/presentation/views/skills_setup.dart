@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/widgets/adaptive_layout_widget.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_category_cubit/get_category_cubit.dart';
-import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_skills_data/get_skills_data_cubit.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_learn_skills_cubit.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_teach_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/setup_skills_mobile_layout.dart';
 
 class SkillsSetup extends StatelessWidget {
@@ -17,8 +18,11 @@ class SkillsSetup extends StatelessWidget {
       create: (context) => GetSkillsDataCubit()..getSkillsData(),),
       BlocProvider(
       create: (context) => GetCategoryCubit(),),
+      
       BlocProvider(
-      create: (context) => SelectedSkillsCubit(),),
+      create: (context) => SelectedTeachSkillsCubit(),),
+       BlocProvider(
+      create: (context) => SelectedLearnSkillsCubit(),),
       ],
       child: Scaffold(
         body: AdaptiveLayoutWidget(

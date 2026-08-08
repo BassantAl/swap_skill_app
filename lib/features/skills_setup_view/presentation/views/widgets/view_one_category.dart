@@ -7,8 +7,8 @@ import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_c
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_skill_grid_view.dart';
 
 class ViewOneCategory extends StatelessWidget {
-  const ViewOneCategory({super.key});
-
+  const ViewOneCategory({super.key, required this.isTeach});
+final bool isTeach;
   @override
   Widget build(BuildContext context) {
     final state = context.watch<GetCategoryCubit>().state;
@@ -34,6 +34,7 @@ class ViewOneCategory extends StatelessWidget {
             SizedBox(height: 20),
             Expanded(
               child: CustomSkillsGridView( 
+                isTeach: isTeach,
                 shrinkWrap: false,
                 physics: AlwaysScrollableScrollPhysics(),
                 skills: state.categoriesModel.skills.skills),

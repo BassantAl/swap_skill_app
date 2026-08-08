@@ -4,8 +4,9 @@ import 'package:swap_skill/features/skills_setup_view/data/models/categories_mod
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_skill_grid_view.dart';
 
 class ViewAllCategoriesSuccess extends StatelessWidget {
-  const ViewAllCategoriesSuccess({super.key, required this.skills});
+  const ViewAllCategoriesSuccess({super.key, required this.skills, required this.isTeach});
   final List<CategoriesModel> skills;
+  final bool isTeach;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -26,8 +27,10 @@ class ViewAllCategoriesSuccess extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     CustomSkillsGridView(
+                      isTeach: isTeach,
                       shrinkWrap: true,
-                      skills: skills[index].skills.skills),
+                      skills: skills[index].skills.skills,
+                    ),
                   ],
                 ),
               );

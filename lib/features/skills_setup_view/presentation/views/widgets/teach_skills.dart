@@ -24,7 +24,7 @@ class TeachSkills extends StatelessWidget {
           SizedBox(height: 24),
           CategoriesListView(),
           SizedBox(height: 24),
-          CategorySkillsSection(),
+          CategorySkillsSection(isTeach: true,),
         ],
       ),
     );

@@ -5,8 +5,8 @@ import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/view_one_category.dart';
 
 class CategorySkillsSection extends StatelessWidget {
-  const CategorySkillsSection({super.key});
-
+  const CategorySkillsSection({super.key, required this.isTeach});
+final bool isTeach;
   @override
   Widget build(BuildContext context) {
     final state = context.watch<GetCategoryCubit>().state;
@@ -14,10 +14,10 @@ class CategorySkillsSection extends StatelessWidget {
     if (state is GetCategoryLoading ||
         state is GetCategorySuccess ||
         state is GetCategoryFailure) {
-      return const ViewOneCategory();
+      return  ViewOneCategory(isTeach: isTeach,);
     }
 
-    return const ViewAllCategoriesWithSkills();
+    return  ViewAllCategoriesWithSkills(isTeach: isTeach,);
   
   }
 }

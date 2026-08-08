@@ -6,7 +6,8 @@ import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_s
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/view_all_categories_success.dart';
 
 class ViewAllCategoriesWithSkills extends StatelessWidget {
-  const ViewAllCategoriesWithSkills({super.key});
+  const ViewAllCategoriesWithSkills({super.key, required this.isTeach});
+  final bool isTeach;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ViewAllCategoriesWithSkills extends StatelessWidget {
     }
 
     if (state is GetSkillsDataSuccess) {
-      return ViewAllCategoriesSuccess(skills: state.skills);
+      return ViewAllCategoriesSuccess(isTeach: isTeach, skills: state.skills);
     }
 
     return const SizedBox();
