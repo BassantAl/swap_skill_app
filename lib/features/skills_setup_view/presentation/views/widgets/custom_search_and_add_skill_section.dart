@@ -18,6 +18,9 @@ class CustomSearchAndAddSkillSection extends StatelessWidget {
         Expanded(
           flex: 2,
           child: TextField(
+            onChanged: (value) {
+              context.read<GetSkillsDataCubit>().searchSkills(value);
+            },
             decoration: AppDecoration.decorationForTextInputFeild(
               context: context,
               hintText: 'Search for skills ',
