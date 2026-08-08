@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_skills_cubit_cubit.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/active_skill_card.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/manage_setup_skill_button.dart';
 
@@ -23,7 +23,7 @@ class SetupSkillsFooter extends StatelessWidget {
         children: [
           
           Visibility(
-            visible: currentPage == 1,
+            visible: currentPage == 1 || currentPage==2,
             child: BlocBuilder<SelectedSkillsCubit, List<String>>(
               builder: (context, state) {
                 return SingleChildScrollView(

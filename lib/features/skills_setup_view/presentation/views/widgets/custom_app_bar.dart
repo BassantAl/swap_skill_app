@@ -17,7 +17,6 @@ class CustomAppBar extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16.0 ,right: 16,top: 10),
       child: Row(
         children: [
-          Icon(Icons.arrow_back, color: AppColors.primary, size: 22),
           const SizedBox(width: 10),
           Text('Skill Swap', style: AppStyles.bold28(context)),
       
