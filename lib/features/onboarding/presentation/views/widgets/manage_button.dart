@@ -28,7 +28,7 @@ class ManageButton extends StatelessWidget {
                   duration: Duration(milliseconds: 300),
                   curve: Curves.linear,
                 ),
-                child: CustomBackButton(text: 'Back', ),
+                child: CustomBackButton(text: 'Back',icon: Icons.arrow_back, ),
               ),
             ),
             SizedBox(width: 10),

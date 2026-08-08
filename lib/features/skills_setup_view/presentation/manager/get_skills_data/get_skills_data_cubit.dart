@@ -21,6 +21,4 @@ class GetSkillsDataCubit extends Cubit<GetSkillsDataState> {
       },
     );
   }
-
-  
 }

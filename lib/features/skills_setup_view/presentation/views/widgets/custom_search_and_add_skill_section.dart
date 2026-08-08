@@ -1,13 +1,13 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/theme/app_decoration.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 import 'package:swap_skill/core/widgets/custom_button.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_skills_data/get_skills_data_cubit.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/buttom_sheet_body.dart';
 
 class CustomSearchAndAddSkillSection extends StatelessWidget {
-  const CustomSearchAndAddSkillSection({
-    super.key,
-  });
+  const CustomSearchAndAddSkillSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +24,29 @@ class CustomSearchAndAddSkillSection extends StatelessWidget {
         ),
         SizedBox(width: 10),
         Expanded(
-          child: CustomButton(
-            child: Text(
-              'Add Skill',
-              style: AppStyles.medium18(context)
+          child: InkWell(
+            onTap: () {
+              addSkillButtomSheet(context);
+            },
+            child: CustomButton(
+              child: Text('Add Skill', style: AppStyles.medium18(context)),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Future<dynamic> addSkillButtomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (modalContext) {
+        return BlocProvider.value(
+          value:  context.read<GetSkillsDataCubit>(),
+          child: ButtomSheetBody(),
+        );
+      },
     );
   }
 }

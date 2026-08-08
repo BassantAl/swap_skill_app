@@ -3,9 +3,9 @@ import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({super.key, required this.text,});
+  const CustomBackButton({super.key, required this.text, this.icon});
   final String text;
-
+  final IconData? icon;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +18,10 @@ class CustomBackButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.arrow_back, color: Colors.black, size: 20),
+          if (icon != null) ...[
+            Icon(icon, color: Colors.black, size: 20),
+            const SizedBox(width: 8),
+          ],
           Text(
             text,
             style: AppStyles.medium20(context).copyWith(color: Colors.black),

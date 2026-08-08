@@ -20,7 +20,7 @@ class ManageSetupSkillsButton extends StatelessWidget {
       children: [
         Expanded(child: GestureDetector(
           onTap:nevigateToNextPreviousView ,
-          child: CustomBackButton(text: 'Back'))),
+          child: CustomBackButton(text: 'Back',icon: Icons.arrow_back,))),
         SizedBox(width: 15),
         Expanded(child: GestureDetector(
           onTap: nevigateToNextPageView,

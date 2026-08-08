@@ -10,7 +10,7 @@ class CustomNextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.sizeOf(context).width>=SizeConfig.tablet? 650:null,
+      width: MediaQuery.sizeOf(context).width >= SizeConfig.tablet ? 650 : null,
       child: CustomButton(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -19,7 +19,10 @@ class CustomNextButton extends StatelessWidget {
               text,
               style: AppStyles.medium20(context).copyWith(color: Colors.white),
             ),
-            Icon(icon, color: Colors.white, size: 20),
+            if (icon != null) ...[
+              const SizedBox(width: 8),
+              Icon(icon, color: Colors.white, size: 20),
+            ],
           ],
         ),
       ),
