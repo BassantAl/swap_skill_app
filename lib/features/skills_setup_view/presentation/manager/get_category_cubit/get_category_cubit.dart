@@ -23,7 +23,7 @@ class GetCategoryCubit extends Cubit<GetCategoryState> {
     
   }
 
-  void showAllTopics() {
+  void resetCategory() {
     emit(GetCategoryInitial());
   }
 }

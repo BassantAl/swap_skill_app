@@ -17,7 +17,7 @@ class _SetupSkillsMobileLayoutState extends State<SetupSkillsMobileLayout> {
   late final PageController pageController;
   int currentPage = 1;
 
-  List<Widget> items = const [TeachSkills(), SkillsWantToLearn(), TeachSkills()];
+  List<Widget> items = const [TeachSkills(), SkillsWantToLearn()];
   @override
   void initState() {
     super.initState();

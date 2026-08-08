@@ -31,7 +31,7 @@ class _GetSillsSuccessViewState extends State<GetSillsSuccessView> {
                 setState(() {
                   selectedCategoryIndex = index;
                 });
-                context.read<GetCategoryCubit>().showAllTopics();
+                context.read<GetCategoryCubit>().resetCategory();
                 context.read<GetSkillsDataCubit>().getSkillsData();
               },
             );
