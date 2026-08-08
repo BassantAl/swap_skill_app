@@ -19,7 +19,7 @@ class SkillsWantToLearn extends StatelessWidget {
             subTitle: 'Select the skills you\'d like to learn from others.',
           ),
           SizedBox(height: 20),
-          CustomSearchAndAddSkillSection(),
+          CustomSearchAndAddSkillSection(isTeach: false,),
           SizedBox(height: 24),
           CategoriesListView(),
           SizedBox(height: 24),

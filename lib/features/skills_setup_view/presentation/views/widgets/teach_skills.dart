@@ -20,7 +20,7 @@ class TeachSkills extends StatelessWidget {
                 'Choose the skills you are confident sharing \n with others. This helps us match you with \n eager learners.',
           ),
           SizedBox(height: 20),
-          CustomSearchAndAddSkillSection(),
+          CustomSearchAndAddSkillSection(isTeach: true,),
           SizedBox(height: 24),
           CategoriesListView(),
           SizedBox(height: 24),

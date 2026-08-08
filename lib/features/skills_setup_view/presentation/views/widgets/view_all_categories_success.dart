@@ -4,7 +4,11 @@ import 'package:swap_skill/features/skills_setup_view/data/models/categories_mod
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_skill_grid_view.dart';
 
 class ViewAllCategoriesSuccess extends StatelessWidget {
-  const ViewAllCategoriesSuccess({super.key, required this.skills, required this.isTeach});
+  const ViewAllCategoriesSuccess({
+    super.key,
+    required this.skills,
+    required this.isTeach,
+  });
   final List<CategoriesModel> skills;
   final bool isTeach;
   @override
@@ -22,7 +26,8 @@ class ViewAllCategoriesSuccess extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      skills[index].name,
+                      skills[index].name[0].toUpperCase() +
+                          skills[index].name.substring(1),
                       style: AppStyles.semiBold24(context),
                     ),
                     const SizedBox(height: 15),
