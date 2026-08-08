@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_app_bar.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_page_view.dart';
-import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/learn_skills.dart';
-import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/teach_skill_footer.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/skills_want_to_learn.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/setup_skills_footer.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/teach_skills.dart';
 
-class TeachSkillsMobileLayout extends StatefulWidget {
-  const TeachSkillsMobileLayout({super.key});
+class SetupSkillsMobileLayout extends StatefulWidget {
+  const SetupSkillsMobileLayout({super.key});
 
   @override
-  State<TeachSkillsMobileLayout> createState() =>
-      _TeachSkillsMobileLayoutState();
+  State<SetupSkillsMobileLayout> createState() =>
+      _SetupSkillsMobileLayoutState();
 }
 
-class _TeachSkillsMobileLayoutState extends State<TeachSkillsMobileLayout> {
+class _SetupSkillsMobileLayoutState extends State<SetupSkillsMobileLayout> {
   late final PageController pageController;
   int currentPage = 1;
 
-  List<Widget> items = const [TeachSkills(), LearnSkills(), TeachSkills()];
+  List<Widget> items = const [TeachSkills(), SkillsWantToLearn(), TeachSkills()];
   @override
   void initState() {
     super.initState();
@@ -47,7 +47,7 @@ class _TeachSkillsMobileLayoutState extends State<TeachSkillsMobileLayout> {
               },
             ),
 
-            TeackSkillFooter(currentPage: currentPage, pageController: pageController),
+            SetupSkillsFooter(currentPage: currentPage, pageController: pageController),
           ],
         ),
       ),

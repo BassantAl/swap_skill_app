@@ -5,8 +5,8 @@ import 'package:swap_skill/features/skills_setup_view/presentation/manager/selec
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/active_skill_card.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/manage_setup_skill_button.dart';
 
-class TeackSkillFooter extends StatelessWidget {
-  const TeackSkillFooter({
+class SetupSkillsFooter extends StatelessWidget {
+  const SetupSkillsFooter({
     super.key,
     required this.currentPage,
     required this.pageController,

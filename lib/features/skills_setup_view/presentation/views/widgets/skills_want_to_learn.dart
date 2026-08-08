@@ -4,8 +4,8 @@ import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/custom_search_and_add_skill_section.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/skills_header.dart';
 
-class TeachSkills extends StatelessWidget {
-  const TeachSkills({super.key});
+class SkillsWantToLearn extends StatelessWidget {
+  const SkillsWantToLearn({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,8 @@ class TeachSkills extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SkillsHeader(
-            title: 'What Can You Teach?',
-            subTitle:
-                'Choose the skills you are confident sharing \n with others. This helps us match you with \n eager learners.',
+            title: 'What Do You Want to \n Learn?',
+            subTitle: 'Select the skills you\'d like to learn from others.',
           ),
           SizedBox(height: 20),
           CustomSearchAndAddSkillSection(),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
-class TeachSkillsHeader extends StatelessWidget {
-  const TeachSkillsHeader({super.key});
+class SkillsHeader extends StatelessWidget {
+  const SkillsHeader({super.key, required this.title, required this.subTitle});
+
+  final String title;
+  final String subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -10,12 +13,12 @@ class TeachSkillsHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'What Can You Teach?',
+          title,
           style: AppStyles.bold28(context).copyWith(color: Colors.black),
         ),
         SizedBox(height: 4),
         Text(
-          'Choose the skills you are confident sharing \n with others. This helps us match you with \n eager learners.',
+          subTitle,
           style: AppStyles.medium16(context),
         ),
       ],
