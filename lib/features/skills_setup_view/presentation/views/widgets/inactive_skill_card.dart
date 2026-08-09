@@ -20,7 +20,7 @@ class InactiveSkillCard extends StatelessWidget {
           fit: BoxFit.scaleDown,
           alignment: Alignment.center,
           child: Text(
-            text,
+            text.trim(),
             style: AppStyles.regular18(context).copyWith(color: Colors.black),
           ),
         ),

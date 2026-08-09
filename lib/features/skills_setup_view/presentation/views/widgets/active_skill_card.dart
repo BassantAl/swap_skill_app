@@ -16,11 +16,12 @@ class ActiveSkillCard extends StatelessWidget {
       ),
       child: Center(
         child: FittedBox(
+          alignment: Alignment.center,
           fit: BoxFit.scaleDown,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(text, style: AppStyles.regular18(context)),
+              Text(text.trim(), style: AppStyles.regular18(context)),
               const SizedBox(width: 2),
              widget
             ],

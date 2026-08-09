@@ -35,4 +35,25 @@ class SkillsSetupRepoImpl implements SkillsSetupRepo {
       return left(Failure(errorMessage: e.toString()));
     }
   }
+
+@override
+Future<Either<Failure, void>> addSelectedSkills({
+  required List<String> selectedSkills,
+  required String fieldName,
+}) async {
+  try {
+    await firebaseFirestoreServices.addSelectedSkills(
+      selectedSkills: selectedSkills,
+      fieldName: fieldName,
+    );
+
+    return const Right(null);
+  } on FirebaseException catch (e) {
+      var error = FirebaseFirestoreErrors.fromFirebaseException(e);
+      return left(error);
+    } catch (e) {
+      return left(Failure(errorMessage: e.toString()));
+    }
+}
+  
 }
