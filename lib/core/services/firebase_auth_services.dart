@@ -50,16 +50,19 @@ class FirebaseAuthServices {
 
   Future<UserCredential> signInWithFacebook() async {
     final loginResult = await FacebookAuth.instance.login();
-    if(loginResult.status==LoginStatus.success)
-    {
+    if (loginResult.status == LoginStatus.success) {
       final credential = FacebookAuthProvider.credential(
-      loginResult.accessToken!.tokenString,
-    );
-    return instance.signInWithCredential(credential);
-    }else if (loginResult.status==LoginStatus.cancelled){
+        loginResult.accessToken!.tokenString,
+      );
+      return instance.signInWithCredential(credential);
+    } else if (loginResult.status == LoginStatus.cancelled) {
       throw Exception('Facebook sign in was cancelled by the user.');
-    }else{
+    } else {
       throw Exception(loginResult.message ?? 'Facebook sign in failed.');
     }
+  }
+
+  User? get currentUser {
+    return instance.currentUser;
   }
 }
