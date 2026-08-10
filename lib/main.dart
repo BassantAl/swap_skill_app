@@ -1,25 +1,23 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
+import 'package:swap_skill/features/splash/presentation/manager/get_user_info/get_user_info_cubit.dart';
 import 'package:swap_skill/firebase_options.dart';
 import 'package:swap_skill/my_block_observer.dart';
 
 void main() async {
-  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   setupServiceLocator();
-  Bloc.observer =  MyBlockObserver();
+  Bloc.observer = MyBlockObserver();
   runApp(
     // DevicePreview(
     // enabled: true,
     // builder:(context)=> const MyApp())
     const MyApp(),
-    
   );
 }
 
@@ -29,14 +27,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      // locale: DevicePreview.locale(context),
-      // builder: DevicePreview.appBuilder,
-      debugShowCheckedModeBanner: false,
-      routerConfig: AppRoutes.router,
-      theme: ThemeData(scaffoldBackgroundColor: AppColors.backgroundColor, appBarTheme:AppBarTheme(
-        backgroundColor: AppColors.backgroundColor,
-      ) ),
+    return BlocProvider(
+      create: (context) => GetUserInfoCubit(),
+      child: MaterialApp.router(
+        // locale: DevicePreview.locale(context),
+        // builder: DevicePreview.appBuilder,
+        debugShowCheckedModeBanner: false,
+        routerConfig: AppRoutes.router,
+        theme: ThemeData(
+          scaffoldBackgroundColor: AppColors.backgroundColor,
+          appBarTheme: AppBarTheme(backgroundColor: AppColors.backgroundColor),
+        ),
+      ),
     );
   }
 }

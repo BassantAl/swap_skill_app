@@ -28,6 +28,9 @@ void setupServiceLocator() {
   );
 
   getIt.registerSingleton<SplashRepo>(
-    SplashRepoImpl(firebaseAuthServices: getIt<FirebaseAuthServices>())
+    SplashRepoImpl(
+      firebaseAuthServices: getIt<FirebaseAuthServices>(),
+      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
+    ),
   );
 }

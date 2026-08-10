@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:swap_skill/features/skills_setup_view/data/models/categories_model.dart';
@@ -35,13 +37,29 @@ class FirebaseFirestoreServices {
   }
 
   Future<void> addSelectedSkills({
-  required List<String> selectedSkills,
-  required String fieldName,
-}) async {
+    required List<String> selectedSkills,
+    required String fieldName,
+  }) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    await instance.collection('Users').doc(uid).update({
+      fieldName: selectedSkills,
+    });
+  }
+
+  Future<Map<String, dynamic>?> getUserInfo() async {
   final uid = FirebaseAuth.instance.currentUser!.uid;
 
-  await instance.collection('Users').doc(uid).update({
-    fieldName: selectedSkills,
-  });
+  log('Current UID: $uid');
+
+  final doc = await FirebaseFirestore.instance
+      .collection('Users')
+      .doc(uid)
+      .get();
+
+  log('Document exists: ${doc.exists}');
+  log('Document data: ${doc.data()}');
+
+  return doc.data();
 }
 }
