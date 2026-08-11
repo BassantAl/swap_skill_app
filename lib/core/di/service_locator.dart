@@ -7,6 +7,8 @@ import 'package:swap_skill/features/skills_setup_view/data/repos/skills_setup_re
 import 'package:swap_skill/features/skills_setup_view/data/repos/skills_setup_repo_impl.dart';
 import 'package:swap_skill/features/splash/data/repos/splash_repo.dart';
 import 'package:swap_skill/features/splash/data/repos/splash_repo_impl.dart';
+import 'package:swap_skill/shared/user/data/repos/user_repo.dart';
+import 'package:swap_skill/shared/user/data/repos/user_repo_impl.dart';
 
 final getIt = GetIt.instance;
 
@@ -28,9 +30,10 @@ void setupServiceLocator() {
   );
 
   getIt.registerSingleton<SplashRepo>(
-    SplashRepoImpl(
-      firebaseAuthServices: getIt<FirebaseAuthServices>(),
-      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
-    ),
+    SplashRepoImpl(firebaseAuthServices: getIt<FirebaseAuthServices>()),
+  );
+
+  getIt.registerSingleton<UserRepo>(
+    UserRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
   );
 }

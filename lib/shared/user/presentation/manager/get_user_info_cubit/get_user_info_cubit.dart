@@ -1,16 +1,16 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:swap_skill/core/di/service_locator.dart';
-import 'package:swap_skill/features/splash/data/repos/splash_repo.dart';
+import 'package:swap_skill/shared/user/data/model/get_user_info_model.dart';
+import 'package:swap_skill/shared/user/data/repos/user_repo.dart';
 
 part 'get_user_info_state.dart';
 
 class GetUserInfoCubit extends Cubit<GetUserInfoState> {
   GetUserInfoCubit() : super(GetUserInfoInitial());
 
-  final repo = getIt<SplashRepo>();
+  final repo = getIt<UserRepo>();
 
   Future<void> getUserInfo() async {
     emit(GetUserInfoLoading());
@@ -22,11 +22,8 @@ class GetUserInfoCubit extends Cubit<GetUserInfoState> {
       },
       (result) {
          log('GET USER INFO SUCCESS: $result');
-        if (result == null) {
-          emit(GetUserInfoFailure(errorMessage: 'User information not found'));
-          return;
-        }
-        emit(GetUserInfoSuccess(userInfo: result));
+       
+        emit(GetUserInfoSuccess(getUserInfoModel: result));
       },
     );
   }

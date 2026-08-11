@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:swap_skill/shared/user/data/model/get_user_info_model.dart';
 import 'package:swap_skill/features/skills_setup_view/data/models/categories_model.dart';
 
 class FirebaseFirestoreServices {
@@ -47,19 +48,19 @@ class FirebaseFirestoreServices {
     });
   }
 
-  Future<Map<String, dynamic>?> getUserInfo() async {
-  final uid = FirebaseAuth.instance.currentUser!.uid;
+  Future<GetUserInfoModel> getUserInfo() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
 
-  log('Current UID: $uid');
+    log('Current UID: $uid');
 
-  final doc = await FirebaseFirestore.instance
-      .collection('Users')
-      .doc(uid)
-      .get();
+    final doc = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .get();
 
-  log('Document exists: ${doc.exists}');
-  log('Document data: ${doc.data()}');
+    log('Document exists: ${doc.exists}');
+    log('Document data: ${doc.data()}');
 
-  return doc.data();
-}
+    return GetUserInfoModel.fromFirestore(data: doc.data());
+  }
 }

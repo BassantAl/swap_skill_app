@@ -8,8 +8,8 @@ final class GetUserInfoInitial extends GetUserInfoState {}
 final class GetUserInfoLoading extends GetUserInfoState {}
 
 final class GetUserInfoSuccess extends GetUserInfoState {
-  GetUserInfoSuccess({required this.userInfo});
-  final Map<String, dynamic> userInfo;
+  GetUserInfoSuccess({required this.getUserInfoModel});
+  final GetUserInfoModel getUserInfoModel;
 }
 
 final class GetUserInfoFailure extends GetUserInfoState {

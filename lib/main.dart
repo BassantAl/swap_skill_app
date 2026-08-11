@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
-import 'package:swap_skill/features/splash/presentation/manager/get_user_info/get_user_info_cubit.dart';
+import 'package:swap_skill/shared/user/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:swap_skill/firebase_options.dart';
 import 'package:swap_skill/my_block_observer.dart';
 
