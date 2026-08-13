@@ -37,7 +37,7 @@ class _TermsAndConditionState extends State<TermsAndCondition> {
           'Terms and Conditions',
           style: AppStyles.regular16(
             context,
-          ).copyWith(color: AppColors.primary),
+          ).copyWith(color: AppColors.lightPurple),
         ),
       ],
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_learn_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_teach_skills_cubit.dart';
-import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/skill_card.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/manage_skill_card_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomSkillsGridView extends StatelessWidget {
@@ -59,7 +59,7 @@ class CustomSkillsGridView extends StatelessWidget {
             }
           },
           child: Center(
-            child: SkillCard(
+            child: ManageSkillCardState(
               text: skill,
               isActive: selectedSkills.contains(skill),
             ),

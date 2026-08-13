@@ -12,7 +12,7 @@ class CategoriesActiveItem extends StatelessWidget {
       height: 48,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
-        color: AppColors.primary,
+        color: AppColors.lightPurple,
       ),
       child: Center(
         child: Text(text, style: AppStyles.medium18(context)),

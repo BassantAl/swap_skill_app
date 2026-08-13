@@ -21,7 +21,7 @@ final Function(int)? onTap;
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          selectedIconTheme: IconThemeData(color: AppColors.primary),
+          selectedIconTheme: IconThemeData(color: AppColors.secondary),
           unselectedIconTheme: IconThemeData(color: AppColors.smallText),
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

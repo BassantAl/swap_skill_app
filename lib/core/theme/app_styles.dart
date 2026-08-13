@@ -9,7 +9,7 @@ class AppStyles {
     return TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: getResponsiveFontsize(fontsize: 38, context: context),
-      color: AppColors.primary,
+      color: AppColors.lightPurple,
     );
   }
 
@@ -17,7 +17,7 @@ class AppStyles {
     return TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: getResponsiveFontsize(fontsize: 28, context: context),
-      color: AppColors.primary,
+      color: AppColors.lightPurple,
     );
   }
 
@@ -25,6 +25,14 @@ class AppStyles {
     return TextStyle(
       fontWeight: FontWeight.w600,
       fontSize: getResponsiveFontsize(fontsize: 24, context: context),
+      color: Colors.black,
+    );
+  }
+
+  static TextStyle semiBold20(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: getResponsiveFontsize(fontsize: 20, context: context),
       color: Colors.black,
     );
   }
@@ -79,7 +87,7 @@ class AppStyles {
     return TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: getResponsiveFontsize(fontsize: 14, context: context),
-      color: AppColors.primary,
+      color: AppColors.lightPurple,
     );
   }
 

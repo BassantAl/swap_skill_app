@@ -36,7 +36,7 @@ class CustomAppBar extends StatelessWidget {
                   height: 10,
                   child: LinearProgressIndicator(
                     value: currentPage / totalPages,
-                    color: AppColors.primary,
+                    color: AppColors.lightPurple,
                     backgroundColor: const Color(0xFFECECEE),
                     borderRadius: BorderRadius.circular(10),
                   ),

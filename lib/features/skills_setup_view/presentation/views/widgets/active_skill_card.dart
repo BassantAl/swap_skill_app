@@ -12,7 +12,7 @@ class ActiveSkillCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: AppColors.primary,
+        color: AppColors.lightPurple,
       ),
       child: Center(
         child: FittedBox(

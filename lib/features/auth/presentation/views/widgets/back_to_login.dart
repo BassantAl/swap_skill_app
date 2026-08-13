@@ -21,7 +21,7 @@ class BackToLogin extends StatelessWidget {
         children: [
           Icon(
             Icons.arrow_back_ios_sharp,
-            color: AppColors.primary,
+            color: AppColors.lightPurple,
             size: 14,
           ),
           const SizedBox(width: 5),
@@ -29,7 +29,7 @@ class BackToLogin extends StatelessWidget {
             'Back To Login',
             style: AppStyles.medium18(
               context,
-            ).copyWith(color: AppColors.primary),
+            ).copyWith(color: AppColors.lightPurple),
           ),
         ],
       ),
