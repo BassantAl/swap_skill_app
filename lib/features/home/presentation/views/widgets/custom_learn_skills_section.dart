@@ -1,8 +1,11 @@
-
 import 'package:flutter/material.dart';
-import 'package:swap_skill/core/theme/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swap_skill/core/helper/add_skill_in_home.dart';
+import 'package:swap_skill/core/helper/remove_skill.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
+import 'package:swap_skill/features/home/presentation/views/widgets/add_skill_card.dart';
 import 'package:swap_skill/features/home/presentation/views/widgets/skill_card.dart';
+import 'package:swap_skill/shared/user/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 
 class CustomLearnSkillsSection extends StatelessWidget {
   const CustomLearnSkillsSection({super.key, required this.items});
@@ -17,30 +20,46 @@ class CustomLearnSkillsSection extends StatelessWidget {
         const SizedBox(height: 8),
         SizedBox(
           height: 35,
-          child: Row(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: SkillCard(
-                        color: AppColors.neutral.withAlpha(30),
-                        text: items[index],
-                      ),
-                    );
-                  },
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: SkillCard(
+                    onTap: () async {
+                      await removeSkill(
+                        skill: items[index],
+                        context: context,
+                        isTeach: false,
+                      );
+                      if (context.mounted) {
+                        context
+                            .read<GetUserInfoCubit>()
+                            .removeLearnSkillLocally(items[index]);
+                      }
+                    },
+                    text: items[index],
+                  ),
                 ),
-              ),
-              SkillCard(
-                icon: Icons.add,
-                color: Color.fromARGB(255, 255, 255, 255),
-                text: 'Add Skill',
-              ),
-            ],
+              );
+            },
           ),
+        ),
+        SizedBox(height: 14),
+        GestureDetector(
+          onTap: () async {
+            final newSkill = await addSkillInHome(
+              context: context,
+              isTeach: false,
+            );
+            if (newSkill != null && context.mounted) {
+              context.read<GetUserInfoCubit>().addLearnSkillLocally(newSkill);
+            }
+          },
+          child: AddSkillCard(),
         ),
       ],
     );

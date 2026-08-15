@@ -1,33 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
 class SkillCard extends StatelessWidget {
-  const SkillCard({super.key, required this.text, this.color, this.icon});
+  const SkillCard({super.key, required this.text, this.onTap,});
   final String text;
-  final Color? color;
-  final IconData? icon;
+final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
-
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.neutral.withValues(alpha: 0.15)),
         borderRadius: BorderRadius.circular(32),
-        color: color,
+        color: AppColors.neutral.withAlpha(30),
       ),
       child: Center(
-        child:icon==null?FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.center,
-              child: Text(
-                text.trim(),
-                style: AppStyles.regular16(
-                  context,
-                ).copyWith(color: Colors.black),
-              ),
-            ): Row(
+        child: Row(
+              mainAxisSize: MainAxisSize.min,
           children: [
             FittedBox(
               fit: BoxFit.scaleDown,
@@ -36,10 +27,13 @@ class SkillCard extends StatelessWidget {
                 text.trim(),
                 style: AppStyles.regular16(
                   context,
-                ).copyWith(color: AppColors.lightPurple),
+                ).copyWith(color: Colors.black),
               ),
             ),
-            Icon(icon,size: 20,color: AppColors.lightPurple,),
+            SizedBox(width: 6,),
+            GestureDetector(
+              onTap:onTap ,
+              child: FaIcon(FontAwesomeIcons.xmark,size: 12,color: Colors.grey,)),
           ],
         ),
       ),

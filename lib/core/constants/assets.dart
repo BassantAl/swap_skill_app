@@ -6,6 +6,8 @@ class Assets {
 
   static const String imagesAppLogo2 = "assets/images/app_logo2.png";
 
+  static const String imagesContainer = "assets/images/Container.svg";
+
   static const String imagesCreateAcountApp = "assets/images/create_acount_app.png";
 
   static const String imagesGoogleIcon = "assets/images/google_icon.svg";

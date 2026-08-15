@@ -35,7 +35,7 @@ class RecommendedUserItem extends StatelessWidget {
             title: Text('Bassant', style: AppStyles.semiBold20(context)),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             child: Row(
               children: [
                 Expanded(
@@ -44,7 +44,9 @@ class RecommendedUserItem extends StatelessWidget {
                     itemColor: AppColors.primaryPurple,
                   ),
                 ),
-                const SizedBox(width: 20),
+                const SizedBox(width: 5),
+                SvgPicture.asset(Assets.imagesContainer),
+                const SizedBox(width: 5),
                 Expanded(
                   child: LearnTeachUsersSection(
                     title: 'Wants to learn',

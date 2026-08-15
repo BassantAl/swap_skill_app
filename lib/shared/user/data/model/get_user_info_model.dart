@@ -28,4 +28,21 @@ class GetUserInfoModel {
           .toList(),
     );
   }
+    GetUserInfoModel copyWith({
+    String? email,
+    String? fullName,
+    String? userName,
+    String? uid,
+    List<String>? learnSkills,
+    List<String>? teachSkills,
+  }) {
+    return GetUserInfoModel(
+      email: email ?? this.email,
+      fullName: fullName ?? this.fullName,
+      userName: userName ?? this.userName,
+      uid: uid ?? this.uid,
+      learnSkills: learnSkills ?? this.learnSkills,
+      teachSkills: teachSkills ?? this.teachSkills,
+    );
+  }
 }

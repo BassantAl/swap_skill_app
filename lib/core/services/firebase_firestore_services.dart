@@ -53,14 +53,33 @@ class FirebaseFirestoreServices {
 
     log('Current UID: $uid');
 
-    final doc = await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(uid)
-        .get();
+    final doc = await instance.collection('Users').doc(uid).get();
 
     log('Document exists: ${doc.exists}');
     log('Document data: ${doc.data()}');
 
     return GetUserInfoModel.fromFirestore(data: doc.data());
+  }
+
+  Future<void> addNewSkill({
+    required String skill,
+    required String fieldName,
+  }) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    await instance.collection('Users').doc(uid).update({
+      fieldName: FieldValue.arrayUnion([skill]),
+    });
+  }
+
+  Future<void> removeSkill({
+    required String skill,
+    required String fieldName,
+  }) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    await instance.collection('Users').doc(uid).update({
+      fieldName: FieldValue.arrayRemove([skill]),
+    });
   }
 }
