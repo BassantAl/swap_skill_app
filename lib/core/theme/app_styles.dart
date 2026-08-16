@@ -61,6 +61,14 @@ class AppStyles {
     );
   }
 
+     static TextStyle medium12(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: getResponsiveFontsize(fontsize: 12, context: context),
+      color: AppColors.smallText.withAlpha(220),
+    );
+  }
+
   static TextStyle medium16(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,

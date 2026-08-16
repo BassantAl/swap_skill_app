@@ -7,18 +7,20 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          decoration: AppDecoration.decorationForTextInputFeild(
-            context: context,
-            hintText: 'Search for a skill or person',
-            prefixIcon: Icon(Icons.search, size: 20),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          TextField(
+            decoration: AppDecoration.decorationForTextInputFeild(
+              context: context,
+              hintText: 'Search for a skill or person',
+              prefixIcon: Icon(Icons.search, size: 20),
+            ),
           ),
-        ),
-        SizedBox(height: 20),
-        RecommendForYouSection(),
-      ],
+          SizedBox(height: 20),
+          RecommendForYouSection(),
+        ],
+      ),
     );
   }
 }
