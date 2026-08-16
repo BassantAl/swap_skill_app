@@ -5,7 +5,7 @@ import 'package:swap_skill/core/theme/app_styles.dart';
 import 'package:swap_skill/features/home/presentation/manager/add_new_skill/add_new_skill_cubit.dart';
 import 'package:swap_skill/features/home/presentation/manager/remove_skill_cubit/remove_skill_cubit.dart';
 import 'package:swap_skill/features/home/presentation/views/widgets/custom_user_skill_section.dart';
-import 'package:swap_skill/features/home/presentation/views/widgets/recommend_for_you_section.dart';
+import 'package:swap_skill/shared/recommend_for_you/widgets/recommend_for_you_section.dart';
 import 'package:swap_skill/shared/user/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 
 class HomeView extends StatelessWidget {
@@ -64,10 +64,3 @@ class HomeView extends StatelessWidget {
   }
 }
 
-//  TextField(
-//                 decoration: AppDecoration.decorationForTextInputFeild(
-//                   context: context,
-//                   hintText: 'Search for a skill or person',
-//                   prefixIcon: Icon(Icons.search, size: 20),
-//                 ),
-//               ),

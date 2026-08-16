@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swap_skill/core/constants/assets.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
-import 'package:swap_skill/features/home/presentation/views/widgets/learn_teach_user_section.dart';
 import 'package:swap_skill/features/home/presentation/views/widgets/view_profile_button.dart';
+import 'package:swap_skill/shared/recommend_for_you/widgets/recommended_skill_swap_card.dart';
 
 class RecommendedUserItem extends StatelessWidget {
   const RecommendedUserItem({super.key});
@@ -39,7 +39,7 @@ class RecommendedUserItem extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: LearnTeachUsersSection(
+                  child: RecommendedSkillSwapCard(
                     title: 'Can teach',
                     itemColor: AppColors.primaryPurple,
                   ),
@@ -48,7 +48,7 @@ class RecommendedUserItem extends StatelessWidget {
                 SvgPicture.asset(Assets.imagesContainer),
                 const SizedBox(width: 5),
                 Expanded(
-                  child: LearnTeachUsersSection(
+                  child: RecommendedSkillSwapCard(
                     title: 'Wants to learn',
                     itemColor: AppColors.secondary,
                   ),

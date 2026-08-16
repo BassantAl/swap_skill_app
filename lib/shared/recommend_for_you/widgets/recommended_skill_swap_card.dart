@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
-class LearnTeachUsersSection extends StatelessWidget {
-  const LearnTeachUsersSection({
+class RecommendedSkillSwapCard extends StatelessWidget {
+  const RecommendedSkillSwapCard({
     super.key,
     required this.title,
     required this.itemColor,
