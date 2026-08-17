@@ -25,19 +25,13 @@ class ManageSetupSkillsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SaveSelectedSkillsCubit, SaveSelectedSkillsState>(
       listener: (context, state) {
-        if (state is SaveSelectedSkillsSuccess) {
-          if (currentPage == 1) {
-            navigateToNextPageView(context);
-          } else if (currentPage == 2) {
-            navigateToHome(context);
-          }
-        }
-
         if (state is SaveSelectedSkillsFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: AppColors.secondary,
-              content: CustomErrorWidget(errorMessage: state.errorMessage),
+              content: CustomErrorWidget(
+                errorMessage: state.errorMessage,
+              ),
             ),
           );
         }
@@ -47,7 +41,7 @@ class ManageSetupSkillsButton extends StatelessWidget {
           if (currentPage == 2)
             Expanded(
               child: GestureDetector(
-                onTap: navigateToPreviousPageView,
+                onTap: () => navigateToPreviousPageView(),
                 child: const CustomBackButton(
                   text: 'Back',
                   icon: Icons.arrow_back,
@@ -55,34 +49,15 @@ class ManageSetupSkillsButton extends StatelessWidget {
               ),
             ),
 
-          if (currentPage == 2) const SizedBox(width: 15),
+          if (currentPage == 2)
+            const SizedBox(width: 15),
 
           Expanded(
             child: GestureDetector(
-              onTap: () {
-                if (currentPage == 1) {
-                  final selectedSkills = context
-                      .read<SelectedTeachSkillsCubit>()
-                      .state;
-
-                  context.read<SaveSelectedSkillsCubit>().saveSelectedSkills(
-                    selectedSkills: selectedSkills,
-                    fieldName: 'teachSkills',
-                  );
-                }
-
-                if (currentPage == 2) {
-                  final selectedSkills = context
-                      .read<SelectedLearnSkillsCubit>()
-                      .state;
-
-                  context.read<SaveSelectedSkillsCubit>().saveSelectedSkills(
-                    selectedSkills: selectedSkills,
-                    fieldName: 'learnSkills',
-                  );
-                }
-              },
-              child: const CustomNextButton(text: 'Next'),
+              onTap: () => onNextPressed(context),
+              child: const CustomNextButton(
+                text: 'Next',
+              ),
             ),
           ),
         ],
@@ -90,23 +65,57 @@ class ManageSetupSkillsButton extends StatelessWidget {
     );
   }
 
+  void onNextPressed(BuildContext context) {
+    if (currentPage == 1) {
+      saveTeachSkills(context);
+
+      navigateToNextPageView(context);
+    } else if (currentPage == 2) {
+      saveLearnSkills(context);
+
+      navigateToHome(context);
+    }
+  }
+
+  void saveTeachSkills(BuildContext context) {
+    final selectedSkills = context
+        .read<SelectedTeachSkillsCubit>()
+        .state;
+
+    context.read<SaveSelectedSkillsCubit>().saveSelectedSkills(
+          selectedSkills: selectedSkills,
+          fieldName: 'teachSkills',
+        );
+  }
+
+  void saveLearnSkills(BuildContext context) {
+    final selectedSkills = context
+        .read<SelectedLearnSkillsCubit>()
+        .state;
+
+    context.read<SaveSelectedSkillsCubit>().saveSelectedSkills(
+          selectedSkills: selectedSkills,
+          fieldName: 'learnSkills',
+        );
+  }
+
   void navigateToNextPageView(BuildContext context) {
     context.read<GetCategoryCubit>().resetCategory();
 
     pageController.nextPage(
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.linear,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     );
   }
 
   void navigateToHome(BuildContext context) {
-    GoRouter.of(context).pushReplacement(AppRoutes.homeView);
+    context.pushReplacement(AppRoutes.homeView);
   }
 
   void navigateToPreviousPageView() {
     pageController.previousPage(
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.linear,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeInOut,
     );
   }
 }

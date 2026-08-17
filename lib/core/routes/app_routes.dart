@@ -4,7 +4,6 @@ import 'package:swap_skill/features/auth/presentation/views/reset_password.dart'
 import 'package:swap_skill/features/auth/presentation/views/signup_view.dart';
 import 'package:swap_skill/features/chats/presentation/views/chats_view.dart';
 import 'package:swap_skill/features/home/presentation/views/home_view.dart';
-import 'package:swap_skill/features/home/presentation/views/skill_details_view.dart';
 import 'package:swap_skill/features/main/presentation/views/main_view.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:swap_skill/features/profile/presentation/views/profile_view.dart';
@@ -97,12 +96,7 @@ abstract class AppRoutes {
           return const SkillsSetup();
         },
       ),
-      GoRoute(
-        path: skillDetailsView,
-        builder: (context, state) {
-          return const SkillDetailsView();
-        },
-      ),
+      
     ],
   );
 }
