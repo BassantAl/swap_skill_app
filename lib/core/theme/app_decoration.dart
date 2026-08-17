@@ -21,6 +21,16 @@ abstract class AppDecoration {
         borderSide: BorderSide(color: AppColors.secondary,),
       ),
     );
+
+    
+  }
+
+    static BoxDecoration containerDecoration() {
+    return BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: AppColors.neutral.withAlpha(100)),
+          borderRadius: BorderRadius.circular(16),
+        );
   }
 }
 
