@@ -37,9 +37,11 @@ class _MainMobileLayoutState extends State<MainMobileLayout> {
         ),
         actions: [SvgPicture.asset(Assets.imagesNotification),SizedBox(width: 20,)],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: widget.child,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: widget.child,
+        ),
       ),
       bottomNavigationBar: CustomBottomNavigation(
         currentIndex: getCurrentIndex(currentRoute),

@@ -35,23 +35,23 @@ abstract class AppRoutes {
         routes: [
           GoRoute(
       path: AppRoutes.homeView,
-      builder: (context, state) => const HomeView(),
+      pageBuilder: (context, state) => NoTransitionPage(child: const HomeView()),
     ),
     GoRoute(
       path: AppRoutes.searchView,
-      builder: (context, state) => const SearchView(),
+      pageBuilder: (context, state) => NoTransitionPage(child: const SearchView()),
     ),
     GoRoute(
       path: AppRoutes.swapsView,
-      builder: (context, state) => const SwapsView(),
+      pageBuilder: (context, state) => NoTransitionPage(child: const SwapsView()),
     ),
     GoRoute(
       path: AppRoutes.chatsView,
-      builder: (context, state) => const ChatsView(),
+      pageBuilder: (context, state) => NoTransitionPage(child: const ChatsView()),
     ),
     GoRoute(
       path: AppRoutes.profileView,
-      builder: (context, state) => const ProfileView(),
+      pageBuilder: (context, state) => NoTransitionPage(child: const ProfileView()),
     ),
         ],
       ),
