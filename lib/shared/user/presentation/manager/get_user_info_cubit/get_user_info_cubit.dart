@@ -13,12 +13,28 @@ class GetUserInfoCubit extends Cubit<GetUserInfoState> {
   final repo = getIt<UserRepo>();
 
   Future<void> getUserInfo() async {
-    emit(GetUserInfoLoading());
+    bool hasCachedUser = false;
+    final cachedResult = repo.getCachedUser();
+    cachedResult.fold((failure) {}, (result) {
+      if (result != null) {
+        hasCachedUser = true;
+        emit(GetUserInfoSuccess(getUserInfoModel: result));
+      }
+    });
+    if (!hasCachedUser) {
+      emit(GetUserInfoLoading());
+    }
     var result = await repo.getUserInfo();
     result.fold(
       (failure) {
         log('GET USER INFO FAILURE: ${failure.errorMessage}');
-        emit(GetUserInfoFailure(errorMessage: failure.errorMessage));
+              if (!hasCachedUser) {
+        emit(
+          GetUserInfoFailure(
+            errorMessage: failure.errorMessage,
+          ),
+        );
+      }
       },
       (result) {
         log('GET USER INFO SUCCESS: $result');
@@ -28,6 +44,7 @@ class GetUserInfoCubit extends Cubit<GetUserInfoState> {
     );
   }
 
+
   void addTeachSkillLocally(String skill) {
     if (state is! GetUserInfoSuccess) {
       return;
@@ -35,15 +52,12 @@ class GetUserInfoCubit extends Cubit<GetUserInfoState> {
     final currentState = state as GetUserInfoSuccess;
     final currentModel = currentState.getUserInfoModel;
 
-  if (currentModel.teachSkills.contains(skill)) {
-    return;
-  }
+    if (currentModel.teachSkills.contains(skill)) {
+      return;
+    }
 
     final updatedModel = currentModel.copyWith(
-      teachSkills: [
-        ...currentModel.teachSkills,
-        skill,
-      ],
+      teachSkills: [...currentModel.teachSkills, skill],
     );
     emit(GetUserInfoSuccess(getUserInfoModel: updatedModel));
   }
@@ -55,44 +69,31 @@ class GetUserInfoCubit extends Cubit<GetUserInfoState> {
     final currentState = state as GetUserInfoSuccess;
     final currentModel = currentState.getUserInfoModel;
 
-  if (currentModel.teachSkills.contains(skill)) {
-    return;
-  }
+    if (currentModel.learnSkills.contains(skill)) {
+      return;
+    }
     final updatedModel = currentModel.copyWith(
-      learnSkills: [
-        ...currentModel.learnSkills,
-        skill,
-      ],
+      learnSkills: [...currentModel.learnSkills, skill],
     );
     emit(GetUserInfoSuccess(getUserInfoModel: updatedModel));
   }
 
+  void removeTeachSkillLocally(String skill) {
+    if (state is! GetUserInfoSuccess) {
+      return;
+    }
 
+    final currentState = state as GetUserInfoSuccess;
+    final currentModel = currentState.getUserInfoModel;
 
- void removeTeachSkillLocally(String skill) {
-  if (state is! GetUserInfoSuccess) {
-    return;
+    final updatedTeachSkills = List<String>.from(currentModel.teachSkills);
+
+    updatedTeachSkills.remove(skill);
+
+    final updatedModel = currentModel.copyWith(teachSkills: updatedTeachSkills);
+
+    emit(GetUserInfoSuccess(getUserInfoModel: updatedModel));
   }
-
-  final currentState = state as GetUserInfoSuccess;
-  final currentModel = currentState.getUserInfoModel;
-
-  final updatedTeachSkills = List<String>.from(
-    currentModel.teachSkills,
-  );
-
-  updatedTeachSkills.remove(skill);
-
-  final updatedModel = currentModel.copyWith(
-    teachSkills: updatedTeachSkills,
-  );
-
-  emit(
-    GetUserInfoSuccess(
-      getUserInfoModel: updatedModel,
-    ),
-  );
-}
 
   void removeLearnSkillLocally(String skill) {
     if (state is! GetUserInfoSuccess) {
@@ -101,16 +102,11 @@ class GetUserInfoCubit extends Cubit<GetUserInfoState> {
     final currentState = state as GetUserInfoSuccess;
     final currentModel = currentState.getUserInfoModel;
 
-    final updatedTeachSkills = List<String>.from(
-    currentModel.learnSkills,
-  );
+    final updatedTeachSkills = List<String>.from(currentModel.learnSkills);
 
-  updatedTeachSkills.remove(skill);
+    updatedTeachSkills.remove(skill);
 
-
-    final updatedModel = currentModel.copyWith(
-      learnSkills: updatedTeachSkills
-    );
+    final updatedModel = currentModel.copyWith(learnSkills: updatedTeachSkills);
     emit(GetUserInfoSuccess(getUserInfoModel: updatedModel));
   }
 }

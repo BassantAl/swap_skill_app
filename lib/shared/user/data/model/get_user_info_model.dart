@@ -28,7 +28,19 @@ class GetUserInfoModel {
           .toList(),
     );
   }
-    GetUserInfoModel copyWith({
+
+  Map<String, dynamic> toJson() {
+    return {
+      'email': email,
+      'fullName': fullName,
+      'userName': userName,
+      'uid': uid,
+      'learnSkills': learnSkills,
+      'teachSkills': teachSkills,
+    };
+  }
+
+  GetUserInfoModel copyWith({
     String? email,
     String? fullName,
     String? userName,

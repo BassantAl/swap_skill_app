@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:swap_skill/core/services/firebase_auth_services.dart';
 import 'package:swap_skill/core/services/firebase_firestore_services.dart';
+import 'package:swap_skill/core/services/local_storage_services.dart';
 import 'package:swap_skill/features/auth/data/repos/auth_repo.dart';
 import 'package:swap_skill/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:swap_skill/features/home/data/repos/home_repo.dart';
@@ -19,6 +21,9 @@ void setupServiceLocator() {
   getIt.registerSingleton<FirebaseFirestoreServices>(
     FirebaseFirestoreServices(),
   );
+    final box = Hive.box('userBox');
+
+  getIt.registerSingleton<LocalStorageServices>(LocalStorageServices(box: box));
   getIt.registerSingleton<SkillsSetupRepo>(
     SkillsSetupRepoImpl(
       firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
@@ -36,10 +41,11 @@ void setupServiceLocator() {
   );
 
   getIt.registerSingleton<UserRepo>(
-    UserRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
+    UserRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(), localStorageServices: getIt<LocalStorageServices>()),
   );
 
   getIt.registerSingleton<HomeRepo>(
     HomeRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
   );
+
 }
