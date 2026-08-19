@@ -10,8 +10,9 @@ import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_c
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/save_selected_skills_cubit/save_selected_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_learn_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_teach_skills_cubit.dart';
+import 'package:swap_skill/shared/user/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 
-class ManageSetupSkillsButton extends StatelessWidget {
+class ManageSetupSkillsButton extends StatefulWidget {
   const ManageSetupSkillsButton({
     super.key,
     required this.pageController,
@@ -22,6 +23,14 @@ class ManageSetupSkillsButton extends StatelessWidget {
   final int currentPage;
 
   @override
+  State<ManageSetupSkillsButton> createState() =>
+      _ManageSetupSkillsButtonState();
+}
+
+class _ManageSetupSkillsButtonState extends State<ManageSetupSkillsButton> {
+  Future<bool>? teachSkillsSaveFuture;
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<SaveSelectedSkillsCubit, SaveSelectedSkillsState>(
       listener: (context, state) {
@@ -29,19 +38,17 @@ class ManageSetupSkillsButton extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: AppColors.secondary,
-              content: CustomErrorWidget(
-                errorMessage: state.errorMessage,
-              ),
+              content: CustomErrorWidget(errorMessage: state.errorMessage),
             ),
           );
         }
       },
       child: Row(
         children: [
-          if (currentPage == 2)
+          if (widget.currentPage == 2)
             Expanded(
               child: GestureDetector(
-                onTap: () => navigateToPreviousPageView(),
+                onTap: navigateToPreviousPageView,
                 child: const CustomBackButton(
                   text: 'Back',
                   icon: Icons.arrow_back,
@@ -49,15 +56,12 @@ class ManageSetupSkillsButton extends StatelessWidget {
               ),
             ),
 
-          if (currentPage == 2)
-            const SizedBox(width: 15),
+          if (widget.currentPage == 2) const SizedBox(width: 15),
 
           Expanded(
             child: GestureDetector(
               onTap: () => onNextPressed(context),
-              child: const CustomNextButton(
-                text: 'Next',
-              ),
+              child: const CustomNextButton(text: 'Next'),
             ),
           ),
         ],
@@ -65,44 +69,69 @@ class ManageSetupSkillsButton extends StatelessWidget {
     );
   }
 
-  void onNextPressed(BuildContext context) {
-    if (currentPage == 1) {
-      saveTeachSkills(context);
+  Future<void> onNextPressed(BuildContext context) async {
+    if (widget.currentPage == 1) {
+      teachSkillsSaveFuture = saveTeachSkills(context);
+
+      if (!context.mounted) return;
 
       navigateToNextPageView(context);
-    } else if (currentPage == 2) {
-      saveLearnSkills(context);
+      return;
+    }
+
+    if (widget.currentPage == 2) {
+      final teachSuccess = await teachSkillsSaveFuture;
+
+      if (teachSuccess != true) {
+        return;
+      }
+
+      final learnSuccess = await saveLearnSkills(context);
+
+      if (!learnSuccess) {
+        return;
+      }
+
+      if (!context.mounted) return;
+
+      await context.read<GetUserInfoCubit>().getUserInfo();
+
+      if (!context.mounted) return;
 
       navigateToHome(context);
     }
   }
 
-  void saveTeachSkills(BuildContext context) {
-    final selectedSkills = context
-        .read<SelectedTeachSkillsCubit>()
-        .state;
+  Future<bool> saveTeachSkills(BuildContext context) async {
+    final selectedSkills = context.read<SelectedTeachSkillsCubit>().state;
 
-    context.read<SaveSelectedSkillsCubit>().saveSelectedSkills(
-          selectedSkills: selectedSkills,
-          fieldName: 'teachSkills',
-        );
+    final cubit = context.read<SaveSelectedSkillsCubit>();
+
+    await cubit.saveSelectedSkills(
+      selectedSkills: selectedSkills,
+      fieldName: 'teachSkills',
+    );
+
+    return cubit.state is SaveSelectedSkillsSuccess;
   }
 
-  void saveLearnSkills(BuildContext context) {
-    final selectedSkills = context
-        .read<SelectedLearnSkillsCubit>()
-        .state;
+  Future<bool> saveLearnSkills(BuildContext context) async {
+    final selectedSkills = context.read<SelectedLearnSkillsCubit>().state;
 
-    context.read<SaveSelectedSkillsCubit>().saveSelectedSkills(
-          selectedSkills: selectedSkills,
-          fieldName: 'learnSkills',
-        );
+    final cubit = context.read<SaveSelectedSkillsCubit>();
+
+    await cubit.saveSelectedSkills(
+      selectedSkills: selectedSkills,
+      fieldName: 'learnSkills',
+    );
+
+    return cubit.state is SaveSelectedSkillsSuccess;
   }
 
   void navigateToNextPageView(BuildContext context) {
     context.read<GetCategoryCubit>().resetCategory();
 
-    pageController.nextPage(
+    widget.pageController.nextPage(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
@@ -113,7 +142,7 @@ class ManageSetupSkillsButton extends StatelessWidget {
   }
 
   void navigateToPreviousPageView() {
-    pageController.previousPage(
+    widget.pageController.previousPage(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
     );

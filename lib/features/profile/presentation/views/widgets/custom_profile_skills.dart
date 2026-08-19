@@ -6,8 +6,9 @@ import 'package:swap_skill/features/profile/presentation/views/widgets/custom_pr
 import 'package:swap_skill/features/profile/presentation/views/widgets/skill_card_for_profile.dart';
 
 class CustomProfileSkills extends StatelessWidget {
-  const CustomProfileSkills({super.key});
-
+  const CustomProfileSkills({super.key, required this.teachSkills, required this.learnSkills});
+  final List<String> teachSkills;
+  final List<String> learnSkills;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,25 +21,50 @@ class CustomProfileSkills extends StatelessWidget {
             children: [
               const CustomProfileLearnSkill(),
               const SizedBox(height: 5),
-              SkillCardForProfile(
-                color: AppColors.secondary.withAlpha(50),
-                text: 'drawing',
+              SizedBox(
+                height: 30,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: learnSkills.length,
+                  itemBuilder: (context,index) {
+                    
+                    return Padding(
+                      padding: const EdgeInsets.only(right:  8.0),
+                      child: SkillCardForProfile(
+                        color: AppColors.secondary.withAlpha(50),
+                        text: learnSkills[index],
+                      ),
+                    );
+                  }
+                ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 20,),
+        const SizedBox(height: 20),
         Container(
           padding: EdgeInsets.all(16),
-          decoration:AppDecoration.containerDecoration(),
+          decoration: AppDecoration.containerDecoration(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomProfileTeachSkill(),
               const SizedBox(height: 5),
-              SkillCardForProfile(
-                color: AppColors.lightPurple.withAlpha(50),
-                text: 'drawing',
+              SizedBox(
+                height: 30,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: teachSkills.length,
+                  itemBuilder: (context,index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right:  8.0),
+                      child: SkillCardForProfile(
+                        color: AppColors.lightPurple.withAlpha(50),
+                        text: teachSkills[index],
+                      ),
+                    );
+                  }
+                ),
               ),
             ],
           ),
@@ -46,6 +72,4 @@ class CustomProfileSkills extends StatelessWidget {
       ],
     );
   }
-
-
 }

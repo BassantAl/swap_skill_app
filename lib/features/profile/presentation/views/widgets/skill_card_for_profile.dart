@@ -8,12 +8,15 @@ class SkillCardForProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 30,
       padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         color: color
       ),
-      child: Text(text,style: AppStyles.medium16(context),),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(text,style: AppStyles.medium16(context),)),
     );
   }
 }
