@@ -22,45 +22,71 @@ class HomeView extends StatelessWidget {
           create: (context) => RemoveSkillCubit(),
         ),
       ],
-      child: SingleChildScrollView(
-        child: BlocBuilder<GetUserInfoCubit, GetUserInfoState>(
-          builder: (context, state) {
-            if (state is GetUserInfoSuccess) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ShaderMask(
-                    shaderCallback: (bounds) {
-                      return LinearGradient(
-                        colors: [AppColors.lightPurple, AppColors.secondary],
-                      ).createShader(bounds);
-                    },
-                    child: Text(
-                      'Hello, ${state.getUserInfoModel.fullName[0].toUpperCase() + state.getUserInfoModel.fullName.substring(1)}',
-                      style: AppStyles.semiBold24(
-                        context,
-                      ).copyWith(color: Colors.white),
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<AddNewSkillCubit, AddNewSkillState>(
+            listener: (context, state) {
+              if (state is AddNewSkillFailure) {
+                context
+                    .read<GetUserInfoCubit>()
+                    .restorePreviousUser();
+              }
+            },
+          ),
+          BlocListener<RemoveSkillCubit, RemoveSkillState>(
+            listener: (context, state) {
+              if (state is RemoveSkillFailure) {
+                context
+                    .read<GetUserInfoCubit>()
+                    .restorePreviousUser();
+              }
+            },
+          ),
+        ],
+        child: SingleChildScrollView(
+          child: BlocBuilder<GetUserInfoCubit, GetUserInfoState>(
+            builder: (context, state) {
+              if (state is GetUserInfoSuccess) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ShaderMask(
+                      shaderCallback: (bounds) {
+                        return LinearGradient(
+                          colors: [
+                            AppColors.lightPurple,
+                            AppColors.secondary,
+                          ],
+                        ).createShader(bounds);
+                      },
+                      child: Text(
+                        'Hello, ${state.getUserInfoModel.fullName[0].toUpperCase()}${state.getUserInfoModel.fullName.substring(1)}',
+                        style: AppStyles.semiBold24(
+                          context,
+                        ).copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ),
-                  Text(
-                    'What do you want to learn today?',
-                    style: AppStyles.regular16(context),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomUserSkillsSection(
-                    getUserInfoModel: state.getUserInfoModel,
-                  ),
-                  const SizedBox(height: 30),
+                    Text(
+                      'What do you want to learn today?',
+                      style: AppStyles.regular16(context),
+                    ),
+                    const SizedBox(height: 20),
+                    CustomUserSkillsSection(
+                      getUserInfoModel: state.getUserInfoModel,
+                    ),
+                    const SizedBox(height: 30),
+                    RecommendForYouSection(),
+                  ],
+                );
+              }
 
-                  RecommendForYouSection(),
-                ],
-              );
-            }
-            return SizedBox();
-          },
+              return const SizedBox();
+            },
+          ),
         ),
       ),
     );
   }
 }
-

@@ -6,7 +6,7 @@ class LocalStorageServices {
   final Box box;
   LocalStorageServices({required this.box});
 
-  Future<void> saveData({required String key, dynamic value}) async {
+  Future<void> saveData({required String key, required dynamic value}) async {
     await box.put(key, value);
   }
 

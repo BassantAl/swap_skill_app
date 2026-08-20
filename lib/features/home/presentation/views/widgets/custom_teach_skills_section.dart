@@ -39,7 +39,7 @@ class CustomTeachSkillsSection extends StatelessWidget {
                     if (context.mounted) {
                       context
                           .read<GetUserInfoCubit>()
-                          .removeTeachSkillLocally(items[index]);
+                          .removeSkillLocally(skill:  items[index],isTeachSkill: true);
                     }
                   },
                     text: items[index],
@@ -54,8 +54,9 @@ class CustomTeachSkillsSection extends StatelessWidget {
                 onTap: () async {
                  final newSkill= await addSkillInHome(context: context, isTeach: true);
                    if (newSkill != null && context.mounted) {
-                    context.read<GetUserInfoCubit>().addLearnSkillLocally(
-                      newSkill,
+                    context.read<GetUserInfoCubit>().addSkillLocally(
+                      skill:  newSkill,
+                      isTeachSkill: true
                     );
                   }
                  

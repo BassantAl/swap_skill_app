@@ -11,30 +11,33 @@ class GetUserInfoCubit extends Cubit<GetUserInfoState> {
   GetUserInfoCubit() : super(GetUserInfoInitial());
 
   final repo = getIt<UserRepo>();
-
+  GetUserInfoModel? _previousUser;
   Future<void> getUserInfo() async {
+    final localResult = await repo.getUserInfoFromLocalStorage();
+
     bool hasCachedUser = false;
-    final cachedResult = repo.getCachedUser();
-    cachedResult.fold((failure) {}, (result) {
-      if (result != null) {
-        hasCachedUser = true;
-        emit(GetUserInfoSuccess(getUserInfoModel: result));
-      }
-    });
-    if (!hasCachedUser) {
-      emit(GetUserInfoLoading());
-    }
-    var result = await repo.getUserInfo();
+
+    localResult.fold(
+      (failure) {
+        log('GET LOCAL USER INFO FAILURE: ${failure.errorMessage}');
+      },
+      (cachedData) {
+        if (cachedData != null) {
+          hasCachedUser = true;
+          emit(GetUserInfoSuccess(getUserInfoModel: cachedData));
+        } else {
+          emit(GetUserInfoLoading());
+        }
+      },
+    );
+    final result = await repo.getUserInfoFromFirebase();
     result.fold(
       (failure) {
         log('GET USER INFO FAILURE: ${failure.errorMessage}');
-              if (!hasCachedUser) {
-        emit(
-          GetUserInfoFailure(
-            errorMessage: failure.errorMessage,
-          ),
-        );
-      }
+
+        if (!hasCachedUser) {
+          emit(GetUserInfoFailure(errorMessage: failure.errorMessage));
+        }
       },
       (result) {
         log('GET USER INFO SUCCESS: $result');
@@ -44,69 +47,53 @@ class GetUserInfoCubit extends Cubit<GetUserInfoState> {
     );
   }
 
-
-  void addTeachSkillLocally(String skill) {
-    if (state is! GetUserInfoSuccess) {
-      return;
-    }
-    final currentState = state as GetUserInfoSuccess;
-    final currentModel = currentState.getUserInfoModel;
-
-    if (currentModel.teachSkills.contains(skill)) {
-      return;
-    }
-
-    final updatedModel = currentModel.copyWith(
-      teachSkills: [...currentModel.teachSkills, skill],
+  void addSkillLocally({
+    required String skill,
+    required bool isTeachSkill,
+  }) async {
+    if (state is! GetUserInfoSuccess) return;
+    final currentUser = (state as GetUserInfoSuccess).getUserInfoModel;
+    _previousUser = currentUser;
+    final updatedSkills = List<String>.from(
+      isTeachSkill ? currentUser.teachSkills : currentUser.learnSkills,
     );
-    emit(GetUserInfoSuccess(getUserInfoModel: updatedModel));
+    updatedSkills.add(skill);
+    final updatedUser = isTeachSkill
+        ? currentUser.copyWith(teachSkills: updatedSkills)
+        : currentUser.copyWith(learnSkills: updatedSkills);
+    emit(GetUserInfoSuccess(getUserInfoModel: updatedUser));
+    await repo.saveUserLocally(updatedUser);
   }
 
-  void addLearnSkillLocally(String skill) {
-    if (state is! GetUserInfoSuccess) {
-      return;
-    }
-    final currentState = state as GetUserInfoSuccess;
-    final currentModel = currentState.getUserInfoModel;
-
-    if (currentModel.learnSkills.contains(skill)) {
-      return;
-    }
-    final updatedModel = currentModel.copyWith(
-      learnSkills: [...currentModel.learnSkills, skill],
+  void removeSkillLocally({
+    required String skill,
+    required bool isTeachSkill,
+  }) async {
+    if (state is! GetUserInfoSuccess) return;
+    final currentUser = (state as GetUserInfoSuccess).getUserInfoModel;
+    _previousUser = currentUser;
+    final updatedSkills = List<String>.from(
+      isTeachSkill ? currentUser.teachSkills : currentUser.learnSkills,
     );
-    emit(GetUserInfoSuccess(getUserInfoModel: updatedModel));
+    updatedSkills.remove(skill);
+    final updatedUser = isTeachSkill
+        ? currentUser.copyWith(teachSkills: updatedSkills)
+        : currentUser.copyWith(learnSkills: updatedSkills);
+    emit(GetUserInfoSuccess(getUserInfoModel: updatedUser));
+    await repo.saveUserLocally(updatedUser);
   }
 
-  void removeTeachSkillLocally(String skill) {
-    if (state is! GetUserInfoSuccess) {
-      return;
-    }
+  Future<void> restorePreviousUser() async {
+    if (_previousUser == null) return;
 
-    final currentState = state as GetUserInfoSuccess;
-    final currentModel = currentState.getUserInfoModel;
+    emit(
+      GetUserInfoSuccess(
+        getUserInfoModel: _previousUser!,
+      ),
+    );
 
-    final updatedTeachSkills = List<String>.from(currentModel.teachSkills);
+    await repo.saveUserLocally(_previousUser!);
 
-    updatedTeachSkills.remove(skill);
-
-    final updatedModel = currentModel.copyWith(teachSkills: updatedTeachSkills);
-
-    emit(GetUserInfoSuccess(getUserInfoModel: updatedModel));
-  }
-
-  void removeLearnSkillLocally(String skill) {
-    if (state is! GetUserInfoSuccess) {
-      return;
-    }
-    final currentState = state as GetUserInfoSuccess;
-    final currentModel = currentState.getUserInfoModel;
-
-    final updatedTeachSkills = List<String>.from(currentModel.learnSkills);
-
-    updatedTeachSkills.remove(skill);
-
-    final updatedModel = currentModel.copyWith(learnSkills: updatedTeachSkills);
-    emit(GetUserInfoSuccess(getUserInfoModel: updatedModel));
+    _previousUser = null;
   }
 }

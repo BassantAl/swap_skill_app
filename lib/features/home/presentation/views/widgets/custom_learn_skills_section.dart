@@ -36,9 +36,10 @@ class CustomLearnSkillsSection extends StatelessWidget {
                         isTeach: false,
                       );
                       if (context.mounted) {
-                        context
-                            .read<GetUserInfoCubit>()
-                            .removeLearnSkillLocally(items[index]);
+                        context.read<GetUserInfoCubit>().removeSkillLocally(
+                          skill: items[index],
+                          isTeachSkill: false,
+                        );
                       }
                     },
                     text: items[index],
@@ -56,7 +57,10 @@ class CustomLearnSkillsSection extends StatelessWidget {
               isTeach: false,
             );
             if (newSkill != null && context.mounted) {
-              context.read<GetUserInfoCubit>().addLearnSkillLocally(newSkill);
+              context.read<GetUserInfoCubit>().addSkillLocally(
+                skill: newSkill,
+                isTeachSkill: false,
+              );
             }
           },
           child: AddSkillCard(),

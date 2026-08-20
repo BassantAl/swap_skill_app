@@ -15,9 +15,9 @@ class UserRepoImpl implements UserRepo {
   final FirebaseFirestoreServices firebaseFirestoreServices;
   final LocalStorageServices localStorageServices;
   @override
-  Future<Either<Failure, GetUserInfoModel>> getUserInfo() async {
+  Future<Either<Failure, GetUserInfoModel>> getUserInfoFromFirebase() async {
     try {
-      var result = await firebaseFirestoreServices.getUserInfo();
+      final result = await firebaseFirestoreServices.getUserInfo();
       await localStorageServices.saveData(key: 'user', value: result.toJson());
       return right(result);
     } on FirebaseException catch (e) {
@@ -29,15 +29,31 @@ class UserRepoImpl implements UserRepo {
   }
 
   @override
-  Either<Failure, GetUserInfoModel?> getCachedUser() {
+  Future<Either<Failure, GetUserInfoModel?>>
+  getUserInfoFromLocalStorage() async {
     try {
-      final data = localStorageServices.getData(key: 'user');
-      if (data == null) {
-        return right(null);
-      }
-      return right(GetUserInfoModel.fromFirestore(data: Map<String, dynamic>.from(data)));
+      final result = await localStorageServices.getData(key: 'user');
+       if (result == null) {
+      return right(
+        null
+      );
+    }
+      final data =  GetUserInfoModel.fromFirestore(data: result);
+      return right(data) ;
     } catch (e) {
       return left(Failure(errorMessage: e.toString()));
     }
   }
+
+ @override
+Future<void> saveUserLocally(
+  GetUserInfoModel user,
+) async {
+  await localStorageServices.saveData(
+    key: 'user',
+    value: user.toJson(),
+  );
+}
+
+  
 }

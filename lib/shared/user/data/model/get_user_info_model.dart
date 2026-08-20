@@ -12,7 +12,7 @@ class GetUserInfoModel {
     required this.teachSkills,
   });
 
-  factory GetUserInfoModel.fromFirestore({Map<String, dynamic>? data}) {
+  factory GetUserInfoModel.fromFirestore( {Map<String, dynamic>? data}) {
     final safeData = data ?? <String, dynamic>{};
 
     return GetUserInfoModel(
