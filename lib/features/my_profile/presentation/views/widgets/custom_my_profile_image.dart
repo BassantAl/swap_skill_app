@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swap_skill/core/constants/assets.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 
-class CustomProfileImage extends StatelessWidget {
-  const CustomProfileImage({
+class CustomMyProfileImage extends StatelessWidget {
+  const CustomMyProfileImage({
     super.key,
   });
 

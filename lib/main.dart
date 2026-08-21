@@ -6,7 +6,7 @@ import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_skills_data/get_skills_data_cubit.dart';
-import 'package:swap_skill/shared/user/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
+import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:swap_skill/firebase_options.dart';
 import 'package:swap_skill/my_block_observer.dart';
 

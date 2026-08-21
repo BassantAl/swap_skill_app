@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_decoration.dart';
 
-class ProfileSettings extends StatelessWidget {
-  const ProfileSettings({super.key});
+class MyProfileSetting extends StatelessWidget {
+  const MyProfileSetting({super.key});
 
   @override
   Widget build(BuildContext context) {

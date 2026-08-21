@@ -9,6 +9,7 @@ import 'package:swap_skill/features/auth/presentation/views/widgets/custom_email
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_login_button.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_password_text_feild.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_text_button.dart';
+import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 
 class CustomLoginForm extends StatefulWidget {
   const CustomLoginForm({super.key});
@@ -24,8 +25,10 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LoginSuccess) {
+          await BlocProvider.of<GetUserInfoCubit>(context).getUserInfo();
+          if (!mounted) return;
           GoRouter.of(context).pushReplacement(AppRoutes.homeView);
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -54,13 +57,12 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
               ),
               CustomTextButton(),
               CustomLoginButtton(
-                onTap: () {
+                onTap: () async {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-                    BlocProvider.of<LoginCubit>(
+                    await BlocProvider.of<LoginCubit>(
                       context,
                     ).login(email: email, password: password);
-                    
                   }
                 },
               ),

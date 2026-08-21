@@ -6,7 +6,7 @@ import 'package:swap_skill/features/chats/presentation/views/chats_view.dart';
 import 'package:swap_skill/features/home/presentation/views/home_view.dart';
 import 'package:swap_skill/features/main/presentation/views/main_view.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/onboarding_view.dart';
-import 'package:swap_skill/features/profile/presentation/views/profile_view.dart';
+import 'package:swap_skill/features/my_profile/presentation/views/my_profile_view.dart';
 import 'package:swap_skill/features/search/presentation/views/search_view.dart';
 import 'package:swap_skill/features/splash/presentation/views/splash_view.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/skills_setup.dart';
@@ -51,7 +51,7 @@ abstract class AppRoutes {
     ),
     GoRoute(
       path: AppRoutes.profileView,
-      pageBuilder: (context, state) => NoTransitionPage(child: const ProfileView()),
+      pageBuilder: (context, state) => NoTransitionPage(child: const MyProfileView()),
     ),
         ],
       ),

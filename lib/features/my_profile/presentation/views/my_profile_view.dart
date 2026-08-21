@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
-import 'package:swap_skill/features/profile/presentation/views/widgets/custom_profile_image.dart';
-import 'package:swap_skill/features/profile/presentation/views/widgets/custom_profile_skills.dart';
-import 'package:swap_skill/features/profile/presentation/views/widgets/profile_setting.dart';
-import 'package:swap_skill/shared/user/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
+import 'package:swap_skill/features/my_profile/presentation/views/widgets/custom_my_profile_image.dart';
+import 'package:swap_skill/features/my_profile/presentation/views/widgets/custom_my_profile_skills.dart';
+import 'package:swap_skill/features/my_profile/presentation/views/widgets/my_profile_setting.dart';
+import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 
-class ProfileView extends StatelessWidget {
-  const ProfileView({super.key});
+class MyProfileView extends StatelessWidget {
+  const MyProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class ProfileView extends StatelessWidget {
           if (state is GetUserInfoSuccess) {
             return Column(
               children: [
-                CustomProfileImage(),
+                CustomMyProfileImage(),
                 SizedBox(height: 15),
                 Text(
                   state.getUserInfoModel.fullName[0].toUpperCase() +
@@ -25,12 +25,12 @@ class ProfileView extends StatelessWidget {
                   style: AppStyles.semiBold20(context),
                 ),
                 const SizedBox(height: 15),
-                CustomProfileSkills(
+                CustomMyProfileSkills(
                   teachSkills: state.getUserInfoModel.teachSkills,
                   learnSkills: state.getUserInfoModel.learnSkills,
                 ),
                 const SizedBox(height: 20),
-                const ProfileSettings(),
+                const MyProfileSetting(),
               ],
             );
           }

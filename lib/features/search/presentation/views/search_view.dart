@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swap_skill/core/theme/app_decoration.dart';
-import 'package:swap_skill/shared/recommend_for_you/widgets/recommend_for_you_section.dart';
+import 'package:swap_skill/shared/recommend_for_you/presentation/widgets/recommend_for_you_section.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({super.key});

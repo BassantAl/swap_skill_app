@@ -4,8 +4,8 @@ import 'package:swap_skill/core/errors/failure.dart';
 import 'package:swap_skill/core/errors/firebase_firestore_errors.dart';
 import 'package:swap_skill/core/services/firebase_firestore_services.dart';
 import 'package:swap_skill/core/services/local_storage_services.dart';
-import 'package:swap_skill/shared/user/data/model/get_user_info_model.dart';
-import 'package:swap_skill/shared/user/data/repos/user_repo.dart';
+import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
+import 'package:swap_skill/shared/user_info/data/repos/user_repo.dart';
 
 class UserRepoImpl implements UserRepo {
   UserRepoImpl({

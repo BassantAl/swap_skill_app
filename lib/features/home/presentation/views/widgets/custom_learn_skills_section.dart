@@ -5,7 +5,7 @@ import 'package:swap_skill/core/helper/remove_skill.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 import 'package:swap_skill/features/home/presentation/views/widgets/add_skill_card.dart';
 import 'package:swap_skill/features/home/presentation/views/widgets/skill_card.dart';
-import 'package:swap_skill/shared/user/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
+import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 
 class CustomLearnSkillsSection extends StatelessWidget {
   const CustomLearnSkillsSection({super.key, required this.items});

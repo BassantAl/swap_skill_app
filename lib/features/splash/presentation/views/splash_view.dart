@@ -7,7 +7,7 @@ import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/widgets/adaptive_layout_widget.dart';
 import 'package:swap_skill/features/splash/data/repos/splash_repo.dart';
-import 'package:swap_skill/shared/user/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
+import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:swap_skill/features/splash/presentation/views/widgets/splash_view_body.dart';
 
 class SplashView extends StatefulWidget {

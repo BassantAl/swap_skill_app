@@ -10,7 +10,7 @@ import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_c
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/save_selected_skills_cubit/save_selected_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_learn_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_teach_skills_cubit.dart';
-import 'package:swap_skill/shared/user/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
+import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 
 class ManageSetupSkillsButton extends StatefulWidget {
   const ManageSetupSkillsButton({

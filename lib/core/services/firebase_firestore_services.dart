@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:swap_skill/shared/user/data/model/get_user_info_model.dart';
+import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 import 'package:swap_skill/features/skills_setup_view/data/models/categories_model.dart';
 
 class FirebaseFirestoreServices {
@@ -59,6 +59,14 @@ class FirebaseFirestoreServices {
     log('Document data: ${doc.data()}');
 
     return GetUserInfoModel.fromFirestore(data: doc.data());
+  }
+
+  Future<List<GetUserInfoModel>> getAllUsers() async {
+    final snapshot = await instance.collection('Users').get();
+
+    return snapshot.docs
+        .map((doc) => GetUserInfoModel.fromFirestore(data: doc.data()))
+        .toList();
   }
 
   Future<void> addNewSkill({
