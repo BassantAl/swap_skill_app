@@ -11,6 +11,7 @@ import 'package:swap_skill/features/search/presentation/views/search_view.dart';
 import 'package:swap_skill/features/splash/presentation/views/splash_view.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/skills_setup.dart';
 import 'package:swap_skill/features/swaps/presentation/views/swaps_view.dart';
+import 'package:swap_skill/features/user_profile/presentation/views/user_profile_view.dart';
 
 abstract class AppRoutes {
   static const String onboardingView = '/onboardingview';
@@ -18,6 +19,7 @@ abstract class AppRoutes {
   static const String signupView = '/signupview';
   static const String resetPasswordView = '/resetpasswordview';
   static const String skillsSetupView = '/skillssetupview';
+  static const String userProfileView = '/userProfileView';
 
   static const String homeView = '/homeview';
   static const String searchView = '/searchview';
@@ -94,6 +96,13 @@ abstract class AppRoutes {
         path: skillsSetupView,
         builder: (context, state) {
           return const SkillsSetup();
+        },
+      ),
+
+      GoRoute(
+        path: userProfileView,
+        builder: (context, state) {
+          return const UserProfileView();
         },
       ),
       
