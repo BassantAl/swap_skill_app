@@ -24,7 +24,7 @@ class RecommendForYouSection extends StatelessWidget {
                 itemCount: state.users.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(bottom:  24),
+                    padding: const EdgeInsets.only(bottom:  24,left: 8,right: 8),
                     child: RecommendedUserItem(
                       getUserInfoModel: state.users[index],
                     ),

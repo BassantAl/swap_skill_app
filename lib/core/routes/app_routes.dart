@@ -12,6 +12,7 @@ import 'package:swap_skill/features/splash/presentation/views/splash_view.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/skills_setup.dart';
 import 'package:swap_skill/features/swaps/presentation/views/swaps_view.dart';
 import 'package:swap_skill/features/user_profile/presentation/views/user_profile_view.dart';
+import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 
 abstract class AppRoutes {
   static const String onboardingView = '/onboardingview';
@@ -32,29 +33,34 @@ abstract class AppRoutes {
     routes: [
       ShellRoute(
         builder: (context, state, child) {
-          return MainView(child: child,);
+          return MainView(child: child);
         },
         routes: [
           GoRoute(
-      path: AppRoutes.homeView,
-      pageBuilder: (context, state) => NoTransitionPage(child: const HomeView()),
-    ),
-    GoRoute(
-      path: AppRoutes.searchView,
-      pageBuilder: (context, state) => NoTransitionPage(child: const SearchView()),
-    ),
-    GoRoute(
-      path: AppRoutes.swapsView,
-      pageBuilder: (context, state) => NoTransitionPage(child: const SwapsView()),
-    ),
-    GoRoute(
-      path: AppRoutes.chatsView,
-      pageBuilder: (context, state) => NoTransitionPage(child: const ChatsView()),
-    ),
-    GoRoute(
-      path: AppRoutes.profileView,
-      pageBuilder: (context, state) => NoTransitionPage(child: const MyProfileView()),
-    ),
+            path: AppRoutes.homeView,
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: const HomeView()),
+          ),
+          GoRoute(
+            path: AppRoutes.searchView,
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: const SearchView()),
+          ),
+          GoRoute(
+            path: AppRoutes.swapsView,
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: const SwapsView()),
+          ),
+          GoRoute(
+            path: AppRoutes.chatsView,
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: const ChatsView()),
+          ),
+          GoRoute(
+            path: AppRoutes.profileView,
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: const MyProfileView()),
+          ),
         ],
       ),
       GoRoute(
@@ -102,10 +108,10 @@ abstract class AppRoutes {
       GoRoute(
         path: userProfileView,
         builder: (context, state) {
-          return const UserProfileView();
+          final user = state.extra as GetUserInfoModel;
+          return  UserProfileView(getUserInfoModel: user);
         },
       ),
-      
     ],
   );
 }

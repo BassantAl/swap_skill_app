@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
 class RecommendedSkillSwapCard extends StatelessWidget {
@@ -18,11 +19,11 @@ class RecommendedSkillSwapCard extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppStyles.medium14(context).copyWith(color: itemColor),
+          style: AppStyles.medium16(context).copyWith(color: Colors.black),
         ),
         const SizedBox(height: 4),
         SizedBox(
-          height: 35,
+          height: 30,
           child: Padding(
             padding: const EdgeInsets.only(left:5.0),
             child: ListView.builder(
@@ -33,19 +34,19 @@ class RecommendedSkillSwapCard extends StatelessWidget {
                   padding: const EdgeInsets.only(right:  8.0),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 8,
+                      horizontal: 12,
+                      vertical: 6,
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Colors.white,
-                      border: Border.all(color: itemColor),
+                      color: itemColor.withAlpha(20),
+                      border: Border.all(color: AppColors.smallText.withValues(alpha: 50),width: 0.4),
                     ),
                     child: SizedBox(
                       height: 35,
                       child: Text(
                         skills[index],
-                        style: AppStyles.medium16(context),
+                        style: AppStyles.medium14(context),
                       ),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swap_skill/core/services/firebase_auth_services.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_decoration.dart';
 
@@ -9,7 +10,7 @@ class MyProfileSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration:AppDecoration.containerDecoration(),
+      decoration: AppDecoration.containerDecoration(),
       child: Column(
         children: [
           _SettingsItem(
@@ -37,7 +38,9 @@ class MyProfileSetting extends StatelessWidget {
             title: 'Logout',
             isLogout: true,
             showArrow: false,
-            onTap: () {},
+            onTap: () {
+              FirebaseAuthServices().logout();
+            },
           ),
         ],
       ),
@@ -66,25 +69,16 @@ class _SettingsItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 14,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: const Color(0xFFC7C4D8),
-            ),
-          ),
+          border: Border(bottom: BorderSide(color: const Color(0xFFC7C4D8))),
         ),
         child: Row(
           children: [
             Icon(
               icon,
               size: 24,
-              color: isLogout
-                  ? const Color(0xFFBA1A1A)
-                  : AppColors.smallText,
+              color: isLogout ? const Color(0xFFBA1A1A) : AppColors.smallText,
             ),
             const SizedBox(width: 16),
             Expanded(

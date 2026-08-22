@@ -3,10 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
+import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 
 class ViewProfileButton extends StatelessWidget {
-  const ViewProfileButton({super.key});
-
+  const ViewProfileButton({super.key, required this.getUserInfoModel});
+  final GetUserInfoModel getUserInfoModel;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -17,7 +18,9 @@ class ViewProfileButton extends StatelessWidget {
         backgroundColor: WidgetStatePropertyAll(AppColors.primaryPurple),
       ),
       onPressed: () {
-        GoRouter.of(context).push(AppRoutes.userProfileView);
+        GoRouter.of(
+          context,
+        ).push(AppRoutes.userProfileView, extra: getUserInfoModel);
       },
       child: Text(
         'View Profile',
