@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 class LocalStorageServices {
@@ -20,7 +18,7 @@ class LocalStorageServices {
   }
 
   Future<void> clearUser({required String key}) async {
-    await box.delete(keepToString);
+    await box.delete(key);
   }
 
   bool containsKey({required String key}) {

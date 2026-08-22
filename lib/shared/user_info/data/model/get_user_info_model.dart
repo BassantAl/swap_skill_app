@@ -1,6 +1,24 @@
+import 'package:hive_ce/hive.dart';
+
+part 'get_user_info_model.g.dart';
+@HiveType(typeId: 1)
 class GetUserInfoModel {
-  final String email, fullName, userName, uid;
+  @HiveField(0)
+  final String email;
+
+  @HiveField(1)
+  final String fullName;
+
+  @HiveField(2)
+  final String userName;
+
+  @HiveField(3)
+  final String uid;
+
+  @HiveField(4)
   final List<String> learnSkills;
+
+  @HiveField(5)
   final List<String> teachSkills;
 
   GetUserInfoModel({
@@ -11,6 +29,7 @@ class GetUserInfoModel {
     required this.learnSkills,
     required this.teachSkills,
   });
+
 
   factory GetUserInfoModel.fromFirestore( {Map<String, dynamic>? data}) {
     final safeData = data ?? <String, dynamic>{};

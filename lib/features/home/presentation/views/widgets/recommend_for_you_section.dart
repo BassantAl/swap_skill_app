@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
-import 'package:swap_skill/shared/recommend_for_you/presentation/manager/cubit/get_recommended_users_cubit.dart';
-import 'package:swap_skill/shared/recommend_for_you/presentation/widgets/recommended_user_item.dart';
+import 'package:swap_skill/features/home/presentation/manager/get_recommend_users_cubit/get_recommended_users_cubit.dart';
+import 'package:swap_skill/features/home/presentation/views/widgets/recommended_user_item.dart';
 
 class RecommendForYouSection extends StatelessWidget {
   const RecommendForYouSection({super.key});

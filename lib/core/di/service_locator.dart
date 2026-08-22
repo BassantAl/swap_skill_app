@@ -3,6 +3,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:swap_skill/core/services/firebase_auth_services.dart';
 import 'package:swap_skill/core/services/firebase_firestore_services.dart';
 import 'package:swap_skill/core/services/local_storage_services.dart';
+import 'package:swap_skill/core/services/users_local_storage_sevices.dart';
 import 'package:swap_skill/features/auth/data/repos/auth_repo.dart';
 import 'package:swap_skill/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:swap_skill/features/home/data/repos/home_repo.dart';
@@ -13,8 +14,7 @@ import 'package:swap_skill/features/splash/data/repos/splash_repo.dart';
 import 'package:swap_skill/features/splash/data/repos/splash_repo_impl.dart';
 import 'package:swap_skill/shared/get_all_users/data/repos/get_all_users_repo.dart';
 import 'package:swap_skill/shared/get_all_users/data/repos/get_all_users_repo_impl.dart';
-import 'package:swap_skill/shared/recommend_for_you/data/repos/recomendation_repo.dart';
-import 'package:swap_skill/shared/recommend_for_you/data/repos/recommendation_repo_impl.dart';
+import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 import 'package:swap_skill/shared/user_info/data/repos/user_repo.dart';
 import 'package:swap_skill/shared/user_info/data/repos/user_repo_impl.dart';
 
@@ -26,8 +26,11 @@ void setupServiceLocator() {
     FirebaseFirestoreServices(),
   );
   final box = Hive.box('userBox');
-
+  final box2 = Hive.box<GetUserInfoModel>('usersbox');
   getIt.registerSingleton<LocalStorageServices>(LocalStorageServices(box: box));
+  getIt.registerSingleton<UsersLocalStorageServices>(
+    UsersLocalStorageServices(box: box2),
+  );
   getIt.registerSingleton<SkillsSetupRepo>(
     SkillsSetupRepoImpl(
       firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
@@ -58,13 +61,7 @@ void setupServiceLocator() {
   getIt.registerSingleton<GetAllUsersRepo>(
     GetAllUsersRepoImpl(
       firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
-    ),
-  );
-
-  getIt.registerSingleton<RecommendationsRepo>(
-    RecommendationRepoImpl(
-      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
-      getAllUsersRepo: getIt<GetAllUsersRepo>(),
+      usersLocalStorageServices: getIt<UsersLocalStorageServices>(),
     ),
   );
 }

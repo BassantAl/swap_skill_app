@@ -3,7 +3,7 @@ import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 import 'package:swap_skill/core/widgets/profile_avater.dart';
 import 'package:swap_skill/features/home/presentation/views/widgets/view_profile_button.dart';
-import 'package:swap_skill/shared/recommend_for_you/presentation/widgets/recommended_skill_swap_card.dart';
+import 'package:swap_skill/features/home/presentation/views/widgets/recommended_skill_swap_card.dart';
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 
 class RecommendedUserItem extends StatelessWidget {

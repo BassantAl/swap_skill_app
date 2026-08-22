@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:swap_skill/core/theme/app_decoration.dart';
-import 'package:swap_skill/shared/recommend_for_you/presentation/widgets/recommend_for_you_section.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({super.key});
@@ -18,7 +17,6 @@ class SearchView extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20),
-          RecommendForYouSection(),
         ],
       ),
     );
