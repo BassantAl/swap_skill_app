@@ -32,7 +32,7 @@ class CustomMyProfileSkills extends StatelessWidget {
                       padding: const EdgeInsets.only(right:  8.0),
                       child: SkillCardForProfile(
                         color: AppColors.secondary.withAlpha(50),
-                        text: learnSkills[index],
+                        text: learnSkills[index].trim(),
                       ),
                     );
                   }
@@ -60,7 +60,7 @@ class CustomMyProfileSkills extends StatelessWidget {
                       padding: const EdgeInsets.only(right:  8.0),
                       child: SkillCardForProfile(
                         color: AppColors.lightPurple.withAlpha(50),
-                        text: teachSkills[index],
+                        text: teachSkills[index].trim(),
                       ),
                     );
                   }

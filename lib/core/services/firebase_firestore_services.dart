@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:swap_skill/features/swaps/data/models/skill_request_model.dart';
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 import 'package:swap_skill/features/skills_setup_view/data/models/categories_model.dart';
 
@@ -90,4 +91,57 @@ class FirebaseFirestoreServices {
       fieldName: FieldValue.arrayRemove([skill]),
     });
   }
+
+  Future<void> createRequest({
+    required String senderId,
+    required String receiverId,
+  }) async {
+    await instance.collection('Requests').add({
+      'senderId': senderId,
+      'receiverId': receiverId,
+      'status': 'pending',
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  Future<bool> requestExists({
+    required String senderId,
+    required String receiverId,
+  }) async {
+    final result = await instance
+        .collection('Requests')
+        .where('senderId', isEqualTo: senderId)
+        .where('receiverId', isEqualTo: receiverId)
+        .where('status', isEqualTo: 'pending')
+        .limit(1)
+        .get();
+    return result.docs.isNotEmpty;
+  }
+
+  Future<List<SkillRequestModel>> getAllRequests() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    log('CURRENT UID = $uid');
+    final result = await instance
+        .collection('Requests')
+        .where('receiverId', isEqualTo: uid)
+        .get();
+ log('Requests count: ${result.docs.length}');
+    return result.docs
+        .map((e) => SkillRequestModel.fromFirestore(e))
+        .toList();
+
+         
+  }
+  Future<GetUserInfoModel> getUserById({
+  required String userId,
+}) async {
+  final doc = await instance
+      .collection('Users')
+      .doc(userId)
+      .get();
+
+  return GetUserInfoModel.fromFirestore(
+    data: doc.data(),
+  );
+}
 }

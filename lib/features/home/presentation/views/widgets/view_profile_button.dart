@@ -6,8 +6,9 @@ import 'package:swap_skill/core/theme/app_styles.dart';
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 
 class ViewProfileButton extends StatelessWidget {
-  const ViewProfileButton({super.key, required this.getUserInfoModel});
+  const ViewProfileButton({super.key, required this.getUserInfoModel, required this.currentUser});
   final GetUserInfoModel getUserInfoModel;
+    final GetUserInfoModel currentUser;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -20,7 +21,10 @@ class ViewProfileButton extends StatelessWidget {
       onPressed: () {
         GoRouter.of(
           context,
-        ).push(AppRoutes.userProfileView, extra: getUserInfoModel);
+        ).push(AppRoutes.userProfileView,  extra: {
+    'user': getUserInfoModel,
+    'currentUser': currentUser,
+  },);
       },
       child: Text(
         'View Profile',

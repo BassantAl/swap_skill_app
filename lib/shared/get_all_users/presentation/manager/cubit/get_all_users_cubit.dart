@@ -30,4 +30,32 @@ class GetAllUsersCubit extends Cubit<GetAllUsersState> {
       },
     );
   }
+
+  void searchForSkillOrPerson(final String query) {
+    final localData = repo.getAllUsersLocalStorage();
+
+
+    final searchQuery = query.trim().toLowerCase();
+
+      final searchResult=localData.where((user) {
+      final name = user.fullName.trim();
+      final teachSkills = user.teachSkills
+          .map((skill) => skill.toLowerCase())
+          .toList();
+
+      final learnSkills = user.learnSkills
+          .map((skill) => skill.toLowerCase())
+          .toList();
+
+      return name.toLowerCase().contains(searchQuery) ||
+          teachSkills.any((skill) => skill.contains(searchQuery)) ||
+          learnSkills.any((skill) => skill.contains(searchQuery));
+    }).toList();
+    emit(
+      GetAllSearchResultlSuccess(
+        users: searchResult,
+      ),
+    );
+  }
+  
 }

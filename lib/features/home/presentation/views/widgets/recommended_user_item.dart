@@ -7,8 +7,8 @@ import 'package:swap_skill/features/home/presentation/views/widgets/recommended_
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 
 class RecommendedUserItem extends StatelessWidget {
-  const RecommendedUserItem({super.key, required this.getUserInfoModel});
-
+  const RecommendedUserItem({super.key, required this.getUserInfoModel, required this.currentUser});
+  final GetUserInfoModel currentUser;
   final GetUserInfoModel getUserInfoModel;
 
   @override
@@ -59,7 +59,7 @@ class RecommendedUserItem extends StatelessWidget {
                 RecommendedSkillSwapCard(
                   skills: getUserInfoModel.teachSkills,
                   title: 'Can teach',
-                  itemColor: AppColors.smallText,
+
                 ),
 
                 const SizedBox(height: 12),
@@ -67,7 +67,7 @@ class RecommendedUserItem extends StatelessWidget {
                 RecommendedSkillSwapCard(
                   skills: getUserInfoModel.learnSkills,
                   title: 'Wants to learn',
-                  itemColor: AppColors.smallText,
+
                 ),
               ],
             ),
@@ -80,7 +80,7 @@ class RecommendedUserItem extends StatelessWidget {
             child: Divider(thickness: 0.5),
           ),
 
-          ViewProfileButton(getUserInfoModel: getUserInfoModel),
+          ViewProfileButton(getUserInfoModel: getUserInfoModel,currentUser: currentUser,),
         ],
       ),
     );

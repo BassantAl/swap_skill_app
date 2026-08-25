@@ -108,8 +108,11 @@ abstract class AppRoutes {
       GoRoute(
         path: userProfileView,
         builder: (context, state) {
-          final user = state.extra as GetUserInfoModel;
-          return  UserProfileView(getUserInfoModel: user);
+          final data = state.extra as Map<String, GetUserInfoModel>;
+          return UserProfileView(
+            user: data['user'] as GetUserInfoModel,
+            currentUser: data['currentUser'] as GetUserInfoModel,
+          );
         },
       ),
     ],

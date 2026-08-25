@@ -18,7 +18,7 @@ class SkillChip extends StatelessWidget {
       ),
       child: Text(
         label.trim(),
-        style: AppStyles.medium14(context).copyWith(color: color),
+        style: AppStyles.medium14(context)
       ),
     );
   }

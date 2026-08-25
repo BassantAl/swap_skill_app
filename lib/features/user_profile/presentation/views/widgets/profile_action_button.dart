@@ -1,24 +1,31 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
+import 'package:swap_skill/features/user_profile/presentation/manager/cubit/send_request_cubit.dart';
+import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 
 class ProfileActionButtons extends StatelessWidget {
-  const ProfileActionButtons({super.key, this.onStartExchange, this.onMessage});
+  const ProfileActionButtons({
+    super.key,
+    required this.user,
+    required this.currentUser,
+  });
 
-  final VoidCallback? onStartExchange;
-  final VoidCallback? onMessage;
+  final GetUserInfoModel user;
+  final GetUserInfoModel currentUser;
 
   @override
   Widget build(BuildContext context) {
     final startButton = ElevatedButton.icon(
-      onPressed:
-          onStartExchange ??
-          () => ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Skill exchange is ready to start.')),
-          ),
+      onPressed: () async{
+       await context.read<SendRequestCubit>().sendRequest(
+          senderId: currentUser.uid,
+          receiverId: user.uid,
+        );
+      },
       icon: const Icon(Icons.swap_horiz),
-      label: const Text('Start Skill Exchange'),
+      label: const Text('Send Request'),
       style: ElevatedButton.styleFrom(
         minimumSize: const Size.fromHeight(52),
         backgroundColor: AppColors.primaryPurple,
@@ -28,11 +35,7 @@ class ProfileActionButtons extends StatelessWidget {
       ),
     );
     final messageButton = OutlinedButton.icon(
-      onPressed:
-          onMessage ??
-          () => ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Messaging is ready to use.')),
-          ),
+      onPressed: () {},
       icon: const Icon(Icons.chat_bubble_outline),
       label: const Text('Message'),
       style: OutlinedButton.styleFrom(

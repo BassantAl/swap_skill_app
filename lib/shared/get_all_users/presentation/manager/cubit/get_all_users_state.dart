@@ -16,3 +16,8 @@ final class GetAllUsersFailure extends GetAllUsersState {
   final String errorMessage;
   GetAllUsersFailure({required this.errorMessage});
 }
+
+final class GetAllSearchResultlSuccess extends GetAllUsersState {
+  GetAllSearchResultlSuccess({required this.users});
+  final List<GetUserInfoModel> users;
+}
