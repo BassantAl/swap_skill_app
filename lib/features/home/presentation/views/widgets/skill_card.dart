@@ -12,9 +12,9 @@ final void Function()? onTap;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.neutral.withValues(alpha: 0.15)),
+        border: Border.all(color: AppColors.lightPurple.withValues(alpha: 1),width: 0.25),
         borderRadius: BorderRadius.circular(32),
-        color: AppColors.neutral.withAlpha(30),
+      
       ),
       child: Center(
         child: Row(

@@ -47,7 +47,7 @@ class SkillSwapRequestCard extends StatelessWidget {
 
           SizedBox(height: 15),
 
-          CustomAcceptDeclineButton(),
+          CustomAcceptDeclineButton(requests: requests,),
           SizedBox(height: 10),
         ],
       ),

@@ -118,20 +118,23 @@ class FirebaseFirestoreServices {
     return result.docs.isNotEmpty;
   }
 
-  Future<List<SkillRequestModel>> getAllRequests() async {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
-    log('CURRENT UID = $uid');
-    final result = await instance
-        .collection('Requests')
-        .where('receiverId', isEqualTo: uid)
-        .get();
- log('Requests count: ${result.docs.length}');
-    return result.docs
-        .map((e) => SkillRequestModel.fromFirestore(e))
-        .toList();
+ Future<List<SkillRequestModel>> getAllRequests() async {
+  final uid = FirebaseAuth.instance.currentUser!.uid;
 
-         
-  }
+  log('CURRENT UID = $uid');
+
+  final result = await instance
+      .collection('Requests')
+      .where('receiverId', isEqualTo: uid)
+      .where('status', isEqualTo: 'pending')
+      .get();
+
+  log('Requests count: ${result.docs.length}');
+
+  return result.docs
+      .map((e) => SkillRequestModel.fromFirestore(e))
+      .toList();
+}
   Future<GetUserInfoModel> getUserById({
   required String userId,
 }) async {
@@ -143,5 +146,41 @@ class FirebaseFirestoreServices {
   return GetUserInfoModel.fromFirestore(
     data: doc.data(),
   );
+}
+
+
+Future<void> acceptRequest({
+  required String requestId,
+}) async {
+  await FirebaseFirestore.instance
+      .collection('Requests')
+      .doc(requestId)
+      .update({
+    'status': 'accepted',
+  });
+}
+
+Future<void> declineRequest({
+  required String requestId,
+}) async {
+  await FirebaseFirestore.instance
+      .collection('Requests')
+      .doc(requestId)
+      .update({
+    'status': 'rejected',
+  });
+}
+
+Future<void> createFriendship({
+  required String user1Id,
+  required String user2Id,
+}) async {
+  await FirebaseFirestore.instance
+      .collection('friendships')
+      .add({
+    'user1Id': user1Id,
+    'user2Id': user2Id,
+    'createdAt': FieldValue.serverTimestamp(),
+  });
 }
 }

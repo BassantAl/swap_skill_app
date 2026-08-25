@@ -32,4 +32,34 @@ class SwapRepoImpl implements SwapRepo {
       return Left(Failure(errorMessage: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> acceptRequest({
+    required String requestId,
+  }) async {
+    try {
+      await firebaseFirestoreServices.acceptRequest(requestId: requestId);
+      return right(null);
+    } on FirebaseException catch (e) {
+      final error = FirebaseFirestoreErrors.fromFirebaseException(e);
+      return left(error);
+    } catch (e) {
+      return Left(Failure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> declineRequest({
+    required String requestId,
+  }) async {
+    try {
+      await firebaseFirestoreServices.declineRequest(requestId: requestId);
+      return right(null);
+    } on FirebaseException catch (e) {
+      final error = FirebaseFirestoreErrors.fromFirebaseException(e);
+      return left(error);
+    } catch (e) {
+      return Left(Failure(errorMessage: e.toString()));
+    }
+  }
 }
