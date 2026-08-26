@@ -19,7 +19,7 @@ class CustomLearnSkillsSection extends StatelessWidget {
         Text('Skills I Want to Learn', style: AppStyles.semiBold20(context)),
         const SizedBox(height: 8),
         SizedBox(
-          height: 35,
+          height: 34,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: items.length,

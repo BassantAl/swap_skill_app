@@ -36,9 +36,15 @@ class SwapRepoImpl implements SwapRepo {
   @override
   Future<Either<Failure, void>> acceptRequest({
     required String requestId,
+    required String senderId,
+    required String receiverId,
   }) async {
     try {
-      await firebaseFirestoreServices.acceptRequest(requestId: requestId);
+      await firebaseFirestoreServices.acceptRequest(
+        requestId: requestId,
+        senderId: senderId,
+        receiverId: receiverId,
+      );
       return right(null);
     } on FirebaseException catch (e) {
       final error = FirebaseFirestoreErrors.fromFirebaseException(e);

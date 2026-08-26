@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 
 class RequestCardSkills extends StatelessWidget {
   const RequestCardSkills({
     super.key,
-    required this.faIcon,
     required this.skills, required this.title,
   });
-  final FaIcon faIcon;
   final List<String> skills;
   final String title;
   @override
@@ -20,8 +17,6 @@ class RequestCardSkills extends StatelessWidget {
         children: [
           Row(
             children: [
-              faIcon,
-              SizedBox(width: 5),
               Text(title, style: AppStyles.medium12(context)),
             ],
           ),
@@ -33,11 +28,14 @@ class RequestCardSkills extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: skills.length,
                 itemBuilder: (context, index) {
-                  return Text(
-                    skills[index],
-                    style: AppStyles.medium14(
-                      context,
-                    ).copyWith(color: Colors.black),
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 4),
+                    child: Text(
+                      skills[index],
+                      style: AppStyles.medium14(
+                        context,
+                      ).copyWith(color: Colors.black),
+                    ),
                   );
                 },
               ),

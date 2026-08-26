@@ -4,7 +4,10 @@ import 'package:swap_skill/features/swaps/data/models/skill_request_with_sender_
 
 abstract class SwapRepo {
   Future<Either<Failure, List<SkillRequestWithSenderModel>>> getAllRequests();
-  Future<Either<Failure, void>> acceptRequest({required String requestId});
+  Future<Either<Failure, void>> acceptRequest({
+    required String requestId,
+    required String senderId,
+    required String receiverId,
+  });
   Future<Either<Failure, void>> declineRequest({required String requestId});
-  
 }

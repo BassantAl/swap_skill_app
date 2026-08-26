@@ -30,8 +30,7 @@ class _MainMobileLayoutState extends State<MainMobileLayout> {
       appBar: AppBar(
         title: Row(
           children: [
-            SvgPicture.asset(Assets.imagesUserImage),
-            const SizedBox(width: 10),
+
             Text('Skill Swap', style: AppStyles.bold28(context)),
           ],
         ),

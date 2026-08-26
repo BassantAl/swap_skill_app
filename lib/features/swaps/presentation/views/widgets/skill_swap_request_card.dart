@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swap_skill/core/constants/assets.dart';
-import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
 import 'package:swap_skill/features/swaps/data/models/skill_request_with_sender_model.dart';
 import 'package:swap_skill/features/swaps/presentation/views/widgets/custom_accept_decline_button.dart';
@@ -25,24 +23,16 @@ class SkillSwapRequestCard extends StatelessWidget {
           ),
           SizedBox(height: 10),
           RequestCardSkills(
-            title: 'WANT TO LEARN',
+            title: 'LEARN',
             skills: requests.sender.learnSkills,
-            faIcon: FaIcon(
-              FontAwesomeIcons.bookOpen,
-              size: 12,
-              color: AppColors.secondary,
-            ),
+            
           ),
 
           SizedBox(height: 10),
           RequestCardSkills(
-            title: 'CAN TEACH',
+            title: 'TEACH',
            skills: requests.sender.teachSkills,
-            faIcon: FaIcon(
-              FontAwesomeIcons.chalkboardUser,
-              size: 12,
-              color: AppColors.primaryPurple,
-            ),
+            
           ),
 
           SizedBox(height: 15),

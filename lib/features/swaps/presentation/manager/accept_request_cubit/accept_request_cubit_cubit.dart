@@ -9,10 +9,18 @@ class AcceptRequestCubit extends Cubit<AcceptRequestCubitState> {
   AcceptRequestCubit() : super(AcceptRequestInitial());
   final repo = getIt<SwapRepo>();
 
-  Future<void> acceptRequest({required String requestId}) async {
+  Future<void> acceptRequest({
+    required String requestId,
+    required String senderId,
+    required String receiverId,
+  }) async {
     emit(AcceptRequestLoading());
 
-    final result = await repo.acceptRequest(requestId: requestId);
+    final result = await repo.acceptRequest(
+      requestId: requestId,
+      senderId: senderId,
+      receiverId: receiverId,
+    );
 
     result.fold(
       (failure) {
