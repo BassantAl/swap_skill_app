@@ -20,6 +20,7 @@ class MainView extends StatelessWidget {
         BlocProvider(
           create: (context) => GetAllUsersCubit()..getAllUsers(),
         ),
+         
         BlocProvider(
           create: (context) => GetRecommendedUsersCubit(),
         ),

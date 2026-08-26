@@ -6,6 +6,7 @@ import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_skills_data/get_skills_data_cubit.dart';
+import 'package:swap_skill/shared/get_all_friends/presentation/manager/cubit/get_all_freiends_cubit.dart';
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:swap_skill/firebase_options.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => GetUserInfoCubit()),
         BlocProvider(create: (context) => GetSkillsDataCubit()..getSkillsData()),
+        BlocProvider(
+          create: (context) => GetAllFreiendsCubit()..getAllFriends(),
+        ),
       ],
       child: MaterialApp.router(
         // locale: DevicePreview.locale(context),

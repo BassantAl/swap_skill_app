@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:swap_skill/features/swaps/data/models/skill_request_model.dart';
+import 'package:swap_skill/shared/get_all_friends/data/models/friend_model.dart';
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 import 'package:swap_skill/features/skills_setup_view/data/models/categories_model.dart';
 
@@ -173,5 +174,33 @@ class FirebaseFirestoreServices {
     });
   }
 
- 
+Future<List<FriendModel>> getAllFriends() async {
+
+  final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+  final user1Snapshot = await instance
+      .collection('friendships')
+      .where('user1Id', isEqualTo: currentUserId)
+      .get();
+
+  final user2Snapshot = await instance
+      .collection('friendships')
+      .where('user2Id', isEqualTo: currentUserId)
+      .get();
+
+  final friends = <FriendModel>[];
+
+  for (final doc in user1Snapshot.docs) {
+    friends.add(
+      FriendModel.fromFirebase(doc: doc),
+    );
+  }
+
+  for (final doc in user2Snapshot.docs) {
+    friends.add(
+      FriendModel.fromFirebase(doc: doc),
+    );
+  }
+
+  return friends;
+}
 }

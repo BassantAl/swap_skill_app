@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:swap_skill/features/auth/presentation/views/login_view.dart';
 import 'package:swap_skill/features/auth/presentation/views/reset_password.dart';
 import 'package:swap_skill/features/auth/presentation/views/signup_view.dart';
+import 'package:swap_skill/features/chats/presentation/views/chat_view.dart';
 import 'package:swap_skill/features/chats/presentation/views/chats_view.dart';
 import 'package:swap_skill/features/home/presentation/views/home_view.dart';
 import 'package:swap_skill/features/main/presentation/views/main_view.dart';
@@ -21,6 +22,7 @@ abstract class AppRoutes {
   static const String resetPasswordView = '/resetpasswordview';
   static const String skillsSetupView = '/skillssetupview';
   static const String userProfileView = '/userProfileView';
+  static const String chatView = '/chatView';
 
   static const String homeView = '/homeview';
   static const String searchView = '/searchview';
@@ -113,6 +115,13 @@ abstract class AppRoutes {
             user: data['user'] as GetUserInfoModel,
             currentUser: data['currentUser'] as GetUserInfoModel,
           );
+        },
+      ),
+
+      GoRoute(
+        path: chatView,
+        builder: (context, state) {
+          return ChatView(getUserInfoModel: state.extra as GetUserInfoModel,);
         },
       ),
     ],

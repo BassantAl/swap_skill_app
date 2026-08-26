@@ -22,7 +22,7 @@ class SkillCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),
       side: BorderSide(
-        color: AppColors.primaryPurple,
+        color: AppColors.neutral,
         width: 0.45,
         strokeAlign: BorderSide.strokeAlignInside, 
       ),

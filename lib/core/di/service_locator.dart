@@ -16,6 +16,8 @@ import 'package:swap_skill/features/swaps/data/repos/swap_repo.dart';
 import 'package:swap_skill/features/swaps/data/repos/swap_repo_impl.dart';
 import 'package:swap_skill/features/user_profile/data/repos/user_profile_repo.dart';
 import 'package:swap_skill/features/user_profile/data/repos/user_profile_repo_impl.dart';
+import 'package:swap_skill/shared/get_all_friends/data/repos/get_all_friends_repo.dart';
+import 'package:swap_skill/shared/get_all_friends/data/repos/get_all_friends_repo_impl.dart';
 import 'package:swap_skill/shared/get_all_users/data/repos/get_all_users_repo.dart';
 import 'package:swap_skill/shared/get_all_users/data/repos/get_all_users_repo_impl.dart';
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
@@ -77,5 +79,9 @@ void setupServiceLocator() {
 
   getIt.registerSingleton<SwapRepo>(
     SwapRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
+  );
+
+   getIt.registerSingleton<GetAllFriendsRepo>(
+    GetAllFriendsRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
   );
 }
