@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:swap_skill/features/chats/data/models/chat_model.dart';
 import 'package:swap_skill/features/swaps/data/models/skill_request_model.dart';
 import 'package:swap_skill/shared/get_all_friends/data/models/friend_model.dart';
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
@@ -234,5 +235,36 @@ class FirebaseFirestoreServices {
       'lastMessageTime': FieldValue.serverTimestamp(),
       'unreadMessages.$receiverId': FieldValue.increment(1),
     });
+  }
+
+  Stream<List<ChatModel>> getAllChatsForUser() {
+    final currentUser = FirebaseAuth.instance.currentUser!.uid;
+    final result = instance
+        .collection('chats')
+        .where('participants',arrayContains: currentUser)
+        .snapshots()
+        .map((snapshots) {
+          return snapshots.docs.map((doc) {
+            final data = doc.data();
+            return ChatModel.fromFirebase(data: {...data, 'chatId': doc.id});
+          }).toList();
+        });
+    return result;
+  }
+
+  Stream<List<MessageModel>> getAllMessages({required String chatId}) {
+    final result = instance
+        .collection('chats')
+        .doc(chatId)
+        .collection('messages')
+        .orderBy('createdAt')
+        .snapshots()
+        .map((snapShot) {
+          return snapShot.docs.map((doc) {
+            final data = doc.data();
+            return MessageModel.fromFirebase(data: data);
+          }).toList();
+        });
+    return result;
   }
 }

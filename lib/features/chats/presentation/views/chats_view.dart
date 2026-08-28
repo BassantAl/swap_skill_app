@@ -34,44 +34,6 @@ class ChatsView extends StatelessWidget {
       },
     ];
 
-    return ListView.builder(
-      itemCount: chats.length,
-      itemBuilder: (context, index) {
-        final chat = chats[index];
-
-        return Container(
-          margin: const EdgeInsets.only(bottom: 10),
-          decoration: AppDecoration.containerDecoration(),
-          child: ListTile(
-            leading: SvgPicture.asset(
-              Assets.imagesUserImage,
-            ),
-            title: Text(
-              chat['name'] as String,
-              style: AppStyles.semiBold20(context),
-            ),
-            subtitle: Text(
-              chat['message'] as String,
-              style: AppStyles.medium16(context),
-            ),
-            trailing: (chat['unreadMessages'] as int) > 0
-                ? Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                      color: AppColors.primaryPurple,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      '${chat['unreadMessages']}',
-                      style: AppStyles.medium16(context).copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                : null,
-          ),
-        );
-      },
-    );
+    return CustomChatsListView(chats: chats);
   }
 }
