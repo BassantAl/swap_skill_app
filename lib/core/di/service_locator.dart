@@ -6,6 +6,8 @@ import 'package:swap_skill/core/services/local_storage_services.dart';
 import 'package:swap_skill/core/services/users_local_storage_sevices.dart';
 import 'package:swap_skill/features/auth/data/repos/auth_repo.dart';
 import 'package:swap_skill/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:swap_skill/features/chats/data/repos/chat_repo.dart';
+import 'package:swap_skill/features/chats/data/repos/chat_repo_impl.dart';
 import 'package:swap_skill/features/home/data/repos/home_repo.dart';
 import 'package:swap_skill/features/home/data/repos/home_repo_impl.dart';
 import 'package:swap_skill/features/skills_setup_view/data/repos/skills_setup_repo.dart';
@@ -83,5 +85,8 @@ void setupServiceLocator() {
 
    getIt.registerSingleton<GetAllFriendsRepo>(
     GetAllFriendsRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
+  );
+   getIt.registerSingleton<ChatRepo>(
+    ChatRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
   );
 }

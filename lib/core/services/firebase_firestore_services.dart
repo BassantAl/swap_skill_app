@@ -174,33 +174,65 @@ class FirebaseFirestoreServices {
     });
   }
 
-Future<List<FriendModel>> getAllFriends() async {
+  Future<List<FriendModel>> getAllFriends() async {
+    final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+    final user1Snapshot = await instance
+        .collection('friendships')
+        .where('user1Id', isEqualTo: currentUserId)
+        .get();
 
-  final currentUserId = FirebaseAuth.instance.currentUser!.uid;
-  final user1Snapshot = await instance
-      .collection('friendships')
-      .where('user1Id', isEqualTo: currentUserId)
-      .get();
+    final user2Snapshot = await instance
+        .collection('friendships')
+        .where('user2Id', isEqualTo: currentUserId)
+        .get();
 
-  final user2Snapshot = await instance
-      .collection('friendships')
-      .where('user2Id', isEqualTo: currentUserId)
-      .get();
+    final friends = <FriendModel>[];
 
-  final friends = <FriendModel>[];
+    for (final doc in user1Snapshot.docs) {
+      friends.add(FriendModel.fromFirebase(doc: doc));
+    }
 
-  for (final doc in user1Snapshot.docs) {
-    friends.add(
-      FriendModel.fromFirebase(doc: doc),
-    );
+    for (final doc in user2Snapshot.docs) {
+      friends.add(FriendModel.fromFirebase(doc: doc));
+    }
+
+    return friends;
   }
 
-  for (final doc in user2Snapshot.docs) {
-    friends.add(
-      FriendModel.fromFirebase(doc: doc),
-    );
+  Future<String> createChat({required String receiverId}) async {
+    final senderId = FirebaseAuth.instance.currentUser!.uid;
+    final id = [senderId, receiverId]..sort();
+
+    final chatId = '${id[0]}_${id[1]}';
+
+    await instance.collection('chats').doc(chatId).set({
+      'participants': id,
+      'unreadMessages': {senderId: 0, receiverId: 0},
+    });
+    log('CHAT CREATED = chats/$chatId');
+    return chatId;
   }
 
-  return friends;
-}
+  Future<void> sendMessage({
+    required String chatId,
+    required String message,
+  }) async {
+    final currentUser = FirebaseAuth.instance.currentUser!.uid;
+    final chatRef = instance.collection('chats').doc(chatId);
+    final snapshot = await chatRef.get();
+    final data = snapshot.data();
+    final participants = List<String>.from(data?['participants'] ?? []);
+    final receiverId = participants.firstWhere((item) => item != currentUser);
+
+    await chatRef.collection('messages').add({
+      'senderId': currentUser,
+      'message': message,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+    await chatRef.update({
+      'lastMessage': message,
+      'lastMessageTime': FieldValue.serverTimestamp(),
+      'unreadMessages.$receiverId': FieldValue.increment(1),
+    });
+  }
 }
