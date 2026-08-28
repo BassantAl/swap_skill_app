@@ -12,9 +12,10 @@ class SendMessageCubit extends Cubit<SendMessageState> {
   Future<void> sendMessage({
     required String chatId,
     required String message,
+     required String receiverId,
   }) async {
     emit(SendMessageLoading());
-    final result = await repo.sendMessage(chatId: chatId, message: message);
+    final result = await repo.sendMessage(chatId: chatId, message: message ,receiverId: receiverId);
     result.fold(
       (failure) {
         emit(SendMessageFailure(errorMessage: failure.errorMessage));

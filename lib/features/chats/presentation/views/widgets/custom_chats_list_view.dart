@@ -1,58 +1,39 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:swap_skill/core/constants/assets.dart';
-import 'package:swap_skill/core/theme/app_colors.dart';
-import 'package:swap_skill/core/theme/app_decoration.dart';
-import 'package:swap_skill/core/theme/app_styles.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:swap_skill/core/routes/app_routes.dart';
+import 'package:swap_skill/features/chats/presentation/manager/get_all_chats_for_user/get_all_chats_for_user_cubit.dart';
+import 'package:swap_skill/features/chats/presentation/views/widgets/custom_list_view_chat_item.dart';
 
 class CustomChatsListView extends StatelessWidget {
-  const CustomChatsListView({
-    super.key,
-    required this.chats,
-  });
-
-  final List<Map<String, Object>> chats;
+  const CustomChatsListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: chats.length,
-      itemBuilder: (context, index) {
-        final chat = chats[index];
-    
-        return Container(
-          margin: const EdgeInsets.only(bottom: 10),
-          decoration: AppDecoration.containerDecoration(),
-          child: ListTile(
-            leading: SvgPicture.asset(
-              Assets.imagesUserImage,
-            ),
-            title: Text(
-              chat['name'] as String,
-              style: AppStyles.semiBold20(context),
-            ),
-            subtitle: Text(
-              chat['message'] as String,
-              style: AppStyles.medium16(context),
-            ),
-            trailing: (chat['unreadMessages'] as int) > 0
-                ? Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                      color: AppColors.primaryPurple,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      '${chat['unreadMessages']}',
-                      style: AppStyles.medium16(context).copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                : null,
-          ),
-        );
+    return BlocBuilder<GetAllChatsForUserCubit, GetAllChatsForUserState>(
+      builder: (context, state) {
+        if (state is GetAllChatsForUserSuccess) {
+          log(state.chats.length.toString());
+          return ListView.builder(
+            itemCount: state.chats.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).push(AppRoutes.chatView,extra:state.chats[index].user );
+                  },
+                  child: CustomListViewChatItem(
+                    chatWithUserModel: state.chats[index],
+                  ),
+                ),
+              );
+            },
+          );
+        }
+        return SizedBox();
       },
     );
   }

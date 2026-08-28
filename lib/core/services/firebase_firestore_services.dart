@@ -202,34 +202,44 @@ class FirebaseFirestoreServices {
 
   Future<String> createChat({required String receiverId}) async {
     final senderId = FirebaseAuth.instance.currentUser!.uid;
-    final id = [senderId, receiverId]..sort();
 
-    final chatId = '${id[0]}_${id[1]}';
+    final ids = [senderId, receiverId]..sort();
 
-    await instance.collection('chats').doc(chatId).set({
-      'participants': id,
-      'unreadMessages': {senderId: 0, receiverId: 0},
-    });
-    log('CHAT CREATED = chats/$chatId');
+    final chatId = '${ids[0]}_${ids[1]}';
+
+    final chatRef = instance.collection('chats').doc(chatId);
+
+    final snapshot = await chatRef.get();
+
+    if (!snapshot.exists) {
+      await chatRef.set({
+        'participants': ids,
+        'unreadMessages': {senderId: 0, receiverId: 0},
+      });
+
+      log('CHAT CREATED = chats/$chatId');
+    } else {
+      log('CHAT ALREADY EXISTS = chats/$chatId');
+    }
+
     return chatId;
   }
 
   Future<void> sendMessage({
     required String chatId,
+    required String receiverId,
     required String message,
   }) async {
     final currentUser = FirebaseAuth.instance.currentUser!.uid;
+
     final chatRef = instance.collection('chats').doc(chatId);
-    final snapshot = await chatRef.get();
-    final data = snapshot.data();
-    final participants = List<String>.from(data?['participants'] ?? []);
-    final receiverId = participants.firstWhere((item) => item != currentUser);
 
     await chatRef.collection('messages').add({
       'senderId': currentUser,
       'message': message,
       'createdAt': FieldValue.serverTimestamp(),
     });
+
     await chatRef.update({
       'lastMessage': message,
       'lastMessageTime': FieldValue.serverTimestamp(),
@@ -238,19 +248,40 @@ class FirebaseFirestoreServices {
   }
 
   Stream<List<ChatModel>> getAllChatsForUser() {
-    final currentUser = FirebaseAuth.instance.currentUser!.uid;
-    final result = instance
-        .collection('chats')
-        .where('participants',arrayContains: currentUser)
-        .snapshots()
-        .map((snapshots) {
-          return snapshots.docs.map((doc) {
-            final data = doc.data();
-            return ChatModel.fromFirebase(data: {...data, 'chatId': doc.id});
-          }).toList();
-        });
-    return result;
-  }
+  final currentUser =
+      FirebaseAuth.instance.currentUser!.uid;
+
+  log('CURRENT USER = $currentUser');
+
+  return instance
+      .collection('chats')
+      .where(
+        'participants',
+        arrayContains: currentUser,
+      )
+      .snapshots()
+      .map((snapshots) {
+        log('CHATS COUNT = ${snapshots.docs.length}');
+
+        for (final doc in snapshots.docs) {
+          log('CHAT ID = ${doc.id}');
+          log(
+            'PARTICIPANTS = ${doc.data()['participants']}',
+          );
+        }
+
+        return snapshots.docs.map((doc) {
+          final data = doc.data();
+
+          return ChatModel.fromFirebase(
+            data: {
+              ...data,
+              'chatId': doc.id,
+            },
+          );
+        }).toList();
+      });
+}
 
   Stream<List<MessageModel>> getAllMessages({required String chatId}) {
     final result = instance

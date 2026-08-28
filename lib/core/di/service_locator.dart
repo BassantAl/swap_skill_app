@@ -83,10 +83,16 @@ void setupServiceLocator() {
     SwapRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
   );
 
-   getIt.registerSingleton<GetAllFriendsRepo>(
-    GetAllFriendsRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
+  getIt.registerSingleton<GetAllFriendsRepo>(
+    GetAllFriendsRepoImpl(
+      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
+    ),
   );
-   getIt.registerSingleton<ChatRepo>(
-    ChatRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
+  getIt.registerSingleton<ChatRepo>(
+    ChatRepoImpl(
+      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
+      firebaseAuthServices: getIt<FirebaseAuthServices>(),
+      usersLocalStorageServices: getIt<UsersLocalStorageServices>(),
+    ),
   );
 }

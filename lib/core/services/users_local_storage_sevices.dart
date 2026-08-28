@@ -25,4 +25,10 @@ class UsersLocalStorageServices {
   Future<void> clearUsers() async {
     await box.clear();
   }
+
+    GetUserInfoModel? getUserById({
+    required String userId,
+  }) {
+    return box.get(userId);
+  }
 }
