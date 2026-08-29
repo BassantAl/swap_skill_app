@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
+import 'package:swap_skill/features/chats/data/repos/chat_repo.dart';
 import 'package:swap_skill/features/chats/presentation/manager/get_all_chats_for_user/get_all_chats_for_user_cubit.dart';
 import 'package:swap_skill/features/chats/presentation/views/widgets/custom_list_view_chat_item.dart';
 
@@ -30,6 +32,7 @@ class CustomChatsListView extends StatelessWidget {
                         'chatId': state.chats[index].chat.chatId,
                       },
                     );
+                    getIt<ChatRepo>().markMessagesAsRead(chatId: state.chats[index].chat.chatId);
                   },
                   child: CustomListViewChatItem(
                     chatWithUserModel: state.chats[index],

@@ -6,15 +6,15 @@ import 'package:swap_skill/features/chats/data/models/chat_with_user_model.dart'
 abstract class ChatRepo {
   Future<Either<Failure, String>> createChat({required String receiverId});
   Future<Either<Failure, void>> sendMessage({
-     required String receiverId,
+    required String receiverId,
     required String chatId,
     required String message,
   });
 
   Stream<Either<Failure, List<ChatWithUserModel>>> getAllChatsForUser();
   Stream<Either<Failure, List<MessageModel>>> getAllMessages({
-    
     required String chatId,
   });
 
+  Future<void> markMessagesAsRead({required String chatId});
 }

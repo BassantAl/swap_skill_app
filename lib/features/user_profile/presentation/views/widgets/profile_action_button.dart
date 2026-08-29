@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
+import 'package:swap_skill/features/chats/data/repos/chat_repo.dart';
 import 'package:swap_skill/features/chats/presentation/manager/create_chat/create_chat_cubit.dart';
 
 import 'package:swap_skill/features/user_profile/presentation/manager/cubit/send_request_cubit.dart';
@@ -64,6 +66,8 @@ class ProfileActionButtons extends StatelessWidget {
         GoRouter.of(
           context,
         ).push(AppRoutes.chatView, extra: {'user': user, 'chatId': chatId});
+
+         getIt<ChatRepo>().markMessagesAsRead(chatId: chatId);
       },
       icon: const Icon(Icons.chat_bubble_outline),
       label: const Text('Message'),

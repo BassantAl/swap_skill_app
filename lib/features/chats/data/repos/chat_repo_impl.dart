@@ -41,13 +41,13 @@ class ChatRepoImpl implements ChatRepo {
   Future<Either<Failure, void>> sendMessage({
     required String chatId,
     required String message,
-     required String receiverId,
+    required String receiverId,
   }) async {
     try {
       await firebaseFirestoreServices.sendMessage(
         chatId: chatId,
         message: message,
-        receiverId: receiverId
+        receiverId: receiverId,
       );
       return right(null);
     } on FirebaseException catch (e) {
@@ -113,5 +113,10 @@ class ChatRepoImpl implements ChatRepo {
         yield left(Failure(errorMessage: e.toString()));
       }
     }
+  }
+
+  @override
+  Future<void> markMessagesAsRead({required String chatId}) async{
+    await  firebaseFirestoreServices.markMessagesAsRead(chatId: chatId);
   }
 }

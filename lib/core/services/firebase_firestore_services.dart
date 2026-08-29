@@ -298,4 +298,19 @@ class FirebaseFirestoreServices {
         });
     return result;
   }
+
+  Future<void> markMessagesAsRead({
+  required String chatId,
+
+}) async {
+
+  final currentUser =
+      FirebaseAuth.instance.currentUser!.uid;
+  await FirebaseFirestore.instance
+      .collection('chats')
+      .doc(chatId)
+      .update({
+    'unreadMessages.$currentUser': 0,
+  });
+}
 }
