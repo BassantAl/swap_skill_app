@@ -2,30 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_decoration.dart';
-import 'package:swap_skill/features/chats/presentation/manager/create_chat/create_chat_cubit.dart';
 import 'package:swap_skill/features/chats/presentation/manager/send_message/send_message_cubit.dart';
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 
 class ChatViewFooter extends StatefulWidget {
-  const ChatViewFooter({super.key, required this.getUserInfoModel});
+  const ChatViewFooter({
+    super.key,
+    required this.getUserInfoModel,
+    required this.chatId,
+  });
+
   final GetUserInfoModel getUserInfoModel;
+  final String chatId;
+
   @override
   State<ChatViewFooter> createState() => _ChatViewFooterState();
 }
 
 class _ChatViewFooterState extends State<ChatViewFooter> {
-  TextEditingController messageController = TextEditingController();
+  final TextEditingController messageController = TextEditingController();
+
+  @override
+  void dispose() {
+    messageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 32, left: 16, right: 10),
+      padding: const EdgeInsets.only(
+        bottom: 32,
+        left: 16,
+        right: 10,
+      ),
       child: Row(
         children: [
           Expanded(
             child: TextField(
               controller: messageController,
               onSubmitted: (value) async {
-                sendMessage(value: value, context: context);
+                await sendMessage(
+                  value: value,
+                  context: context,
+                );
+
                 messageController.clear();
               },
               decoration: AppDecoration.decorationForTextInputFeild(
@@ -34,17 +55,20 @@ class _ChatViewFooterState extends State<ChatViewFooter> {
               ),
             ),
           ),
-          SizedBox(width: 6),
+          const SizedBox(width: 6),
           IconButton(
-            onPressed: () {
-              sendMessage(
-                
-                value: messageController.text.trim(),
+            onPressed: () async {
+              await sendMessage(
+                value: messageController.text,
                 context: context,
               );
+
               messageController.clear();
             },
-            icon: Icon(Icons.send, color: AppColors.lightPurple),
+            icon: const Icon(
+              Icons.send,
+              color: AppColors.lightPurple,
+            ),
           ),
         ],
       ),
@@ -56,14 +80,12 @@ class _ChatViewFooterState extends State<ChatViewFooter> {
     required BuildContext context,
   }) async {
     final message = value.trim();
+
     if (message.isEmpty) return;
-    final chatId = await context.read<CreateChatCubit>().createChat(
-      receiverId: widget.getUserInfoModel.uid,
-    );
 
     await context.read<SendMessageCubit>().sendMessage(
-      receiverId:widget.getUserInfoModel.uid ,
-      chatId: chatId,
+      receiverId: widget.getUserInfoModel.uid,
+      chatId: widget.chatId,
       message: message,
     );
   }

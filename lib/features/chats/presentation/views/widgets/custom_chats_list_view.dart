@@ -23,7 +23,13 @@ class CustomChatsListView extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: GestureDetector(
                   onTap: () {
-                    GoRouter.of(context).push(AppRoutes.chatView,extra:state.chats[index].user );
+                    GoRouter.of(context).push(
+                      AppRoutes.chatView,
+                      extra: {
+                        'user': state.chats[index].user,
+                        'chatId': state.chats[index].chat.chatId,
+                      },
+                    );
                   },
                   child: CustomListViewChatItem(
                     chatWithUserModel: state.chats[index],

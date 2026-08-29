@@ -5,6 +5,7 @@ import 'package:swap_skill/core/routes/app_routes.dart';
 
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_styles.dart';
+import 'package:swap_skill/features/chats/presentation/manager/create_chat/create_chat_cubit.dart';
 
 import 'package:swap_skill/features/user_profile/presentation/manager/cubit/send_request_cubit.dart';
 
@@ -22,6 +23,13 @@ class ProfileActionButtons extends StatelessWidget {
 
   final GetUserInfoModel user;
   final GetUserInfoModel currentUser;
+
+  String get chatId {
+    final ids = [currentUser.uid, user.uid]..sort();
+
+    final chatId = '${ids[0]}_${ids[1]}';
+    return chatId;
+  }
 
   bool _isFriend({required List<FriendModel> friendships}) {
     return friendships.any(
@@ -46,8 +54,16 @@ class ProfileActionButtons extends StatelessWidget {
     }
 
     final messageButton = OutlinedButton.icon(
-      onPressed: () {
-        GoRouter.of(context).push(AppRoutes.chatView , extra: user) ;
+      onPressed: () async {
+        final chatId = await context.read<CreateChatCubit>().createChat(
+          receiverId: user.uid,
+        );
+
+        if (!context.mounted) return;
+
+        GoRouter.of(
+          context,
+        ).push(AppRoutes.chatView, extra: {'user': user, 'chatId': chatId});
       },
       icon: const Icon(Icons.chat_bubble_outline),
       label: const Text('Message'),

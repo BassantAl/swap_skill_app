@@ -46,11 +46,15 @@ class MessageModel {
     required this.createdAt,
   });
 
-  factory MessageModel.fromFirebase({required Map<String, dynamic> data}) {
+  factory MessageModel.fromFirebase({
+    required Map<String, dynamic> data,
+  }) {
+    final timestamp = data['createdAt'] as Timestamp?;
+
     return MessageModel(
-      senderId: data['senderId'],
-      message: data['message'],
-      createdAt: (data['createdAt'] as Timestamp).toDate(),
+      senderId: data['senderId'] as String,
+      message: data['message'] as String,
+      createdAt: timestamp?.toDate(),
     );
   }
 }

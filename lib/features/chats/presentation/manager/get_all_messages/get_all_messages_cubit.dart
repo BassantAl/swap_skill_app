@@ -9,11 +9,11 @@ import 'package:swap_skill/features/chats/data/repos/chat_repo.dart';
 part 'get_all_messages_state.dart';
 
 class GetAllMessagesCubit extends Cubit<GetAllMessagesState> {
-  GetAllMessagesCubit({required this.chatId}) : super(GetAllMessagesInitial());
-  final String chatId;
+  GetAllMessagesCubit() : super(GetAllMessagesInitial());
+
   final repo = getIt<ChatRepo>();
   StreamSubscription? _streamSubscription;
-  void getAllMessages() {
+  void getAllMessages({required String chatId}) {
     _streamSubscription?.cancel();
     emit(GetAllMessagesLoading());
     _streamSubscription = repo.getAllMessages(chatId: chatId).listen((data) {

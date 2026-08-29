@@ -118,12 +118,17 @@ abstract class AppRoutes {
         },
       ),
 
-      GoRoute(
-        path: chatView,
-        builder: (context, state) {
-          return ChatView(getUserInfoModel: state.extra as GetUserInfoModel,);
-        },
-      ),
+     GoRoute(
+  path: chatView,
+  builder: (context, state) {
+    final data = state.extra as Map<String, dynamic>;
+
+    return ChatView(
+      getUserInfoModel: data['user'] as GetUserInfoModel,
+      chatId: data['chatId'] as String,
+    );
+  },
+),
     ],
   );
 }
