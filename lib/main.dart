@@ -6,7 +6,6 @@ import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/features/chats/presentation/manager/create_chat/create_chat_cubit.dart';
-import 'package:swap_skill/features/chats/presentation/manager/get_all_messages/get_all_messages_cubit.dart';
 import 'package:swap_skill/features/chats/presentation/manager/send_message/send_message_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_skills_data/get_skills_data_cubit.dart';
 import 'package:swap_skill/shared/get_all_friends/presentation/manager/cubit/get_all_freiends_cubit.dart';

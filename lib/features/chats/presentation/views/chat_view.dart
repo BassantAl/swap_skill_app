@@ -22,6 +22,7 @@ class ChatView extends StatelessWidget {
     return BlocProvider(
       create: (context) => GetAllMessagesCubit()..getAllMessages(chatId: chatId),
       child: Scaffold(
+          resizeToAvoidBottomInset: true,
         appBar: AppBar(
           automaticallyImplyLeading: true,
           leading: IconButton(

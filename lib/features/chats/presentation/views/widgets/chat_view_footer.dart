@@ -28,24 +28,26 @@ class _ChatViewFooterState extends State<ChatViewFooter> {
     super.dispose();
   }
 
+  double get keyboardHeight => MediaQuery.viewInsetsOf(context).bottom;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 32,
-        left: 16,
-        right: 10,
-      ),
+      padding:  EdgeInsets.only(bottom: keyboardHeight==0?32:keyboardHeight, left: 16, right: 10),
       child: Row(
         children: [
           Expanded(
             child: TextField(
               controller: messageController,
               onSubmitted: (value) async {
-                await sendMessage(
-                  value: value,
-                  context: context,
-                );
+                await sendMessage(value: value, context: context);
+
+
+
+
+
+
+
 
                 messageController.clear();
               },
@@ -65,10 +67,7 @@ class _ChatViewFooterState extends State<ChatViewFooter> {
 
               messageController.clear();
             },
-            icon: const Icon(
-              Icons.send,
-              color: AppColors.lightPurple,
-            ),
+            icon: const Icon(Icons.send, color: AppColors.lightPurple),
           ),
         ],
       ),
