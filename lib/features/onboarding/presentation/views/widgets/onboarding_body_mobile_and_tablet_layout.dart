@@ -17,6 +17,7 @@ class _OnboardingBodyMobileAndTabletLayoutState
     extends State<OnboardingBodyMobileAndTabletLayout> {
   late PageController pageController;
   int currentPageIndex = 0;
+  int itemCount = 0;
   @override
   void initState() {
     super.initState();
@@ -28,29 +29,36 @@ class _OnboardingBodyMobileAndTabletLayoutState
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomSkipButton(),
-              CustomPageViewOnboarding(
-                pageController: pageController,
-                items: widget.items,
-              ),
-              SizedBox(height: 20),
-              DotsIndicator(currentPageIndex: currentPageIndex),
-              const SizedBox(height: 20),
-              ManageButton(
-                currentPageIndex: currentPageIndex,
-                pageController: pageController,
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomSkipButton(),
+            CustomPageViewOnboarding(
+              pageController: pageController,
+              items: widget.items,
+            ),
+            const SizedBox(height: 20),
+            DotsIndicator(
+              currentPageIndex: currentPageIndex,
+              itemCount: widget.items.length,
+            ),
+            const SizedBox(height: 20),
+            ManageButton(
+              currentPageIndex: currentPageIndex,
+              pageController: pageController,
+            ),
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     );

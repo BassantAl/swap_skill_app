@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,8 +57,8 @@ class MyApp extends StatelessWidget {
          
       ],
       child: MaterialApp.router(
-        // locale: DevicePreview.locale(context),
-        // builder: DevicePreview.appBuilder,
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
         routerConfig: AppRoutes.router,
         theme: ThemeData(
