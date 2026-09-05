@@ -8,17 +8,25 @@ class LoginFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-         Text( 'Don\'t have an account?', style: AppStyles.medium14(context)),
-        GestureDetector(
-          onTap: () {
-            GoRouter.of(context).pushReplacement(AppRoutes.signupView);
-          },
-          child:  Text('Sign Up', style: AppStyles.bold14(context)),
-        ),
-      ],
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: 'Don\'t have an account?',
+            style: AppStyles.medium14(context),
+          ),
+          WidgetSpan(
+            child: GestureDetector(
+              onTap: () {
+                GoRouter.of(context).pushReplacement(AppRoutes.signupView);
+              },
+              child: Text('Sign Up', style: AppStyles.bold14(context)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+
+

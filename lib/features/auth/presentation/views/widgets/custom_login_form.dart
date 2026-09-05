@@ -28,7 +28,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
       listener: (context, state) async {
         if (state is LoginSuccess) {
           await BlocProvider.of<GetUserInfoCubit>(context).getUserInfo();
-          if (!mounted) return;
+          if (!context.mounted) return;
           GoRouter.of(context).pushReplacement(AppRoutes.homeView);
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -49,13 +49,14 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                   email = value!;
                 },
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               CustomPasswordTextFeild(
                 onSaved: (value) {
                   password = value!;
                 },
               ),
-              CustomTextButton(),
+              const SizedBox(height: 10),
+              const CustomTextButton(),
               CustomLoginButtton(
                 onTap: () async {
                   if (formKey.currentState!.validate()) {

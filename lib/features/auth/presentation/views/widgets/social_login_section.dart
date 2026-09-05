@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swap_skill/core/constants/assets.dart';
 import 'package:swap_skill/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/social_login_section_item.dart';
@@ -22,12 +21,7 @@ class SocialLoginSection extends StatelessWidget {
             child: SvgPicture.asset(Assets.imagesGoogleIcon),
           ),
         ),
-        const SizedBox(width: 15),
-        const SocialLoginSectionItem(child: FaIcon(FontAwesomeIcons.apple)),
-        const SizedBox(width: 15),
-        const SocialLoginSectionItem(
-          child: FaIcon(FontAwesomeIcons.facebook, color: Colors.blue),
-        ),
+      
         const Spacer(),
       ],
     );

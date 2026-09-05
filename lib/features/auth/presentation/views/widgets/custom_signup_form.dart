@@ -10,7 +10,6 @@ import 'package:swap_skill/features/auth/presentation/views/widgets/custom_confi
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_email_text_feild.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_password_text_feild.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/full_name_text_feild.dart';
-import 'package:swap_skill/features/auth/presentation/views/widgets/terms_and_condition.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/user_name_text_feild.dart';
 
 class CustomSignupForm extends StatefulWidget {
@@ -23,10 +22,10 @@ class CustomSignupForm extends StatefulWidget {
 class _CustomSignupFormState extends State<CustomSignupForm> {
   late TextEditingController passwordController;
   GlobalKey<FormState> formKey = GlobalKey();
-   String email='' ;
-   String password='' ;
-   String userName ='';
-   String fullName='' ;
+  String email = '';
+  String password = '';
+  String userName = '';
+  String fullName = '';
   @override
   void initState() {
     super.initState();
@@ -46,12 +45,13 @@ class _CustomSignupFormState extends State<CustomSignupForm> {
         if (state is SignupSuccess) {
           GoRouter.of(context).pushReplacement(AppRoutes.skillsSetupView);
         } else if (state is SignupFailure) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(
-            // padding: EdgeInsets.all(8),
-            backgroundColor: AppColors.secondary,
-            content: CustomErrorWidget(errorMessage: state.errorMessage)));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              // padding: EdgeInsets.all(8),
+              backgroundColor: AppColors.secondary,
+              content: CustomErrorWidget(errorMessage: state.errorMessage),
+            ),
+          );
         }
       },
       child: Form(
@@ -86,8 +86,6 @@ class _CustomSignupFormState extends State<CustomSignupForm> {
             CustomConfirmPasswordTextFeild(
               passwordController: passwordController,
             ),
-            const SizedBox(height: 30),
-            const TermsAndCondition(),
             const SizedBox(height: 30),
             CreateAcountButton(
               formKey: formKey,

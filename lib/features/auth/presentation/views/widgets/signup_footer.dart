@@ -8,17 +8,28 @@ class SignupFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-         Text( 'Already have an account? ', style: AppStyles.medium14(context)),
-        GestureDetector(
-          onTap: () {
-            GoRouter.of(context).pushReplacement(AppRoutes.loginView);
-          },
-          child:  Text('Login', style: AppStyles.bold14(context)),
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.center,
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'Already have an account? ',
+              style: AppStyles.medium14(context),
+            ),
+            WidgetSpan(
+              child: GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).pushReplacement(AppRoutes.loginView);
+                },
+                child: Text('Login', style: AppStyles.bold14(context)),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
+

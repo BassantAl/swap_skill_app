@@ -8,15 +8,23 @@ class ResetPasswordHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-          Text(
-            'Reset Password',
-            style: AppStyles.bold28(context).copyWith(color: Colors.black),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.center,
+            child: Text(
+              'Reset Password',
+              style: AppStyles.bold28(context).copyWith(color: Colors.black),
+            ),
           ),
           const SizedBox(height: 15),
-          Text(
-            'Enter your email address and we\'ll send \nyou a password reset link.',
-            style: AppStyles.medium20(context),
-            textAlign: TextAlign.center,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.center,
+            child: Text(
+              'Enter your email address and we\'ll send \nyou a password reset link.',
+              style: AppStyles.medium20(context),
+              textAlign: TextAlign.center,
+            ),
           ),
       ],
     );

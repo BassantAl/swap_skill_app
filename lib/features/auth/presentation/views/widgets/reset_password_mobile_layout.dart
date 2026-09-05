@@ -33,27 +33,29 @@ class _ResetPasswordMobileLayoutState extends State<ResetPasswordMobileLayout> {
       },
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const ResetPasswordHeader(),
-            const SizedBox(height: 20),
-            CustomEmailTextFeild(
-              onChanged: (value) {
-                email = value;
-              },
-            ),
-            const SizedBox(height: 30),
-            CustomSendResetLinkButton(
-              onTap: () {
-                BlocProvider.of<ResetPasswordCubit>(
-                  context,
-                ).resetPassword(email: email);
-              },
-            ),
-            const SizedBox(height: 30),
-            const BackToLogin(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const ResetPasswordHeader(),
+              const SizedBox(height: 20),
+              CustomEmailTextFeild(
+                onChanged: (value) {
+                  email = value;
+                },
+              ),
+              const SizedBox(height: 30),
+              CustomSendResetLinkButton(
+                onTap: () {
+                  BlocProvider.of<ResetPasswordCubit>(
+                    context,
+                  ).resetPassword(email: email);
+                },
+              ),
+              const SizedBox(height: 30),
+              const BackToLogin(),
+            ],
+          ),
         ),
       ),
     );
