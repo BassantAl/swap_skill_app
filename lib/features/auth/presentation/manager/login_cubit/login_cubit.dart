@@ -15,20 +15,25 @@ class LoginCubit extends Cubit<LoginState> {
       (failure) {
         emit(LoginFailure(errorMessage: failure.errorMessage));
       },
-      (result) {
-        emit(LoginSuccess());
+      (_) async {
+        final isVerified = await repo.checkEmailVerification();
+        if (isVerified) {
+          emit(LoginSuccess());
+        } else {
+          emit(LoginEmailNotVerified());
+        }
       },
     );
   }
 
   Future<void> signInWithGoogle() async {
-  emit(LoginLoading());
+    emit(LoginLoading());
 
-  final result = await repo.signInWithGoogle();
+    final result = await repo.signInWithGoogle();
 
-  result.fold(
-    (failure) => emit(LoginFailure(errorMessage:  failure.errorMessage)),
-    (_) => emit(LoginSuccess()),
-  );
-}
+    result.fold(
+      (failure) => emit(LoginFailure(errorMessage: failure.errorMessage)),
+      (_) => emit(LoginSuccess()),
+    );
+  }
 }

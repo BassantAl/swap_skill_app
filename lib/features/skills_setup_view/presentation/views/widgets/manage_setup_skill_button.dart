@@ -86,6 +86,8 @@ class _ManageSetupSkillsButtonState extends State<ManageSetupSkillsButton> {
         return;
       }
 
+      if (!context.mounted) return;
+
       final learnSuccess = await saveLearnSkills(context);
 
       if (!learnSuccess) {

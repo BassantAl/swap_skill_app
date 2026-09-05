@@ -11,6 +11,6 @@ final class LoginFailure extends LoginState {
   final String errorMessage;
   LoginFailure({required this.errorMessage});
 }
-
+final class LoginEmailNotVerified extends LoginState {}
 final class LoginSuccess extends LoginState {}
 

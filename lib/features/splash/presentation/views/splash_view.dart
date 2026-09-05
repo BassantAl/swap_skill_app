@@ -7,8 +7,8 @@ import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/widgets/adaptive_layout_widget.dart';
 import 'package:swap_skill/features/splash/data/repos/splash_repo.dart';
-import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:swap_skill/features/splash/presentation/views/widgets/splash_view_body.dart';
+import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -24,17 +24,42 @@ class _SplashViewState extends State<SplashView> {
     navigateBasedOnUserState();
   }
 
-  Future<void> navigateBasedOnUserState() {
-    return Future.delayed(Duration(seconds: 3), () {
-      if (!mounted) return;
-      final repo = getIt<SplashRepo>();
-      if (repo.currentUser == null) {
-        GoRouter.of(context).pushReplacement(AppRoutes.onboardingView);
-        return;
-      }
-      context.read<GetUserInfoCubit>().getUserInfo();
-    });
+  Future<void> navigateBasedOnUserState() async {
+  await Future.delayed(
+    const Duration(seconds: 3),
+  );
+
+  if (!mounted) return;
+
+  final repo = getIt<SplashRepo>();
+
+  final hasSeenOnboarding = await repo.hasSeenOnboarding();
+
+  if (!mounted) return;
+
+  if (!hasSeenOnboarding) {
+    context.go(AppRoutes.onboardingView);
+    return;
   }
+
+  final user = repo.currentUser;
+
+  if (user == null) {
+    context.go(AppRoutes.loginView);
+    return;
+  }
+
+  final isVerified = await repo.checkEmailVerification();
+
+  if (!mounted) return;
+
+  if (!isVerified) {
+    context.go(AppRoutes.emailVerificationView);
+    return;
+  }
+
+  context.read<GetUserInfoCubit>().getUserInfo();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -44,26 +69,26 @@ class _SplashViewState extends State<SplashView> {
           final learnSkills = state.getUserInfoModel.learnSkills;
           final teachSkills = state.getUserInfoModel.teachSkills;
 
-          final bool hasSkills =
-              (learnSkills.isNotEmpty) || (teachSkills.isNotEmpty);
+          final hasSkills = learnSkills.isNotEmpty || teachSkills.isNotEmpty;
+
+          log('hasSkills: $hasSkills');
 
           if (hasSkills) {
-            GoRouter.of(context).pushReplacement(AppRoutes.homeView);
+            context.go(AppRoutes.homeView);
           } else {
-            GoRouter.of(context).pushReplacement(AppRoutes.skillsSetupView);
+            context.go(AppRoutes.skillsSetupView);
           }
-          log('hasSkills: $hasSkills');
         }
 
         if (state is GetUserInfoFailure) {
-          GoRouter.of(context).pushReplacement(AppRoutes.skillsSetupView);
+          context.go(AppRoutes.skillsSetupView);
         }
       },
       child: Scaffold(
         body: AdaptiveLayoutWidget(
-          mobileLayout: (context) => SplashViewBody(),
-          tabletLayout: (context) => SplashViewBody(),
-          desktopLayout: (context) => SplashViewBody(),
+          mobileLayout: (context) => const SplashViewBody(),
+          tabletLayout: (context) => const SplashViewBody(),
+          desktopLayout: (context) => const SplashViewBody(),
         ),
       ),
     );

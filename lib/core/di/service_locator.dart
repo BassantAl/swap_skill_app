@@ -10,6 +10,8 @@ import 'package:swap_skill/features/chats/data/repos/chat_repo.dart';
 import 'package:swap_skill/features/chats/data/repos/chat_repo_impl.dart';
 import 'package:swap_skill/features/home/data/repos/home_repo.dart';
 import 'package:swap_skill/features/home/data/repos/home_repo_impl.dart';
+import 'package:swap_skill/features/onboarding/data/repos/onboarding_repo.dart';
+import 'package:swap_skill/features/onboarding/data/repos/onboarding_repo_impl.dart';
 import 'package:swap_skill/features/skills_setup_view/data/repos/skills_setup_repo.dart';
 import 'package:swap_skill/features/skills_setup_view/data/repos/skills_setup_repo_impl.dart';
 import 'package:swap_skill/features/splash/data/repos/splash_repo.dart';
@@ -52,7 +54,7 @@ void setupServiceLocator() {
   );
 
   getIt.registerSingleton<SplashRepo>(
-    SplashRepoImpl(firebaseAuthServices: getIt<FirebaseAuthServices>()),
+    SplashRepoImpl(firebaseAuthServices: getIt<FirebaseAuthServices>(),localStorageServices: getIt<LocalStorageServices>()),
   );
 
   getIt.registerSingleton<UserRepo>(
@@ -94,5 +96,9 @@ void setupServiceLocator() {
       firebaseAuthServices: getIt<FirebaseAuthServices>(),
       usersLocalStorageServices: getIt<UsersLocalStorageServices>(),
     ),
+  );
+
+  getIt.registerSingleton<OnboardingRepo>(
+    OnboardingRepoImpl(localStorageServices: getIt<LocalStorageServices>()),
   );
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/utils/size_config.dart';
+import 'package:swap_skill/features/onboarding/data/repos/onboarding_repo.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_back_button.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_next_button.dart';
 
@@ -19,7 +21,9 @@ class ManageButton extends StatelessWidget {
       return nextButton();
     } else if (currentPageIndex == 1) {
       return SizedBox(
-        width: MediaQuery.sizeOf(context).width>=SizeConfig.tablet? 650:null,
+        width: MediaQuery.sizeOf(context).width >= SizeConfig.tablet
+            ? 650
+            : null,
         child: Row(
           children: [
             Expanded(
@@ -28,7 +32,7 @@ class ManageButton extends StatelessWidget {
                   duration: Duration(milliseconds: 300),
                   curve: Curves.linear,
                 ),
-                child: CustomBackButton(text: 'Back',icon: Icons.arrow_back, ),
+                child: CustomBackButton(text: 'Back', icon: Icons.arrow_back),
               ),
             ),
             SizedBox(width: 10),
@@ -38,7 +42,10 @@ class ManageButton extends StatelessWidget {
       );
     } else {
       return GestureDetector(
-        onTap: () {
+        onTap: () async {
+          final repo = getIt<OnboardingRepo>();
+          await repo.markOnboardingAsSeen();
+          if (!context.mounted) return;
           GoRouter.of(context).pushReplacement(AppRoutes.loginView);
         },
         child: CustomNextButton(text: 'Get Started'),

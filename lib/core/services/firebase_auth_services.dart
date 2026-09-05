@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthServices {
@@ -23,6 +22,7 @@ class FirebaseAuthServices {
       email: email,
       password: password,
     );
+      await credential.user?.sendEmailVerification();
     return credential;
   }
 
@@ -36,11 +36,8 @@ class FirebaseAuthServices {
 
   Future<UserCredential> signInWithGoogle() async {
     await GoogleSignIn.instance.initialize();
-    final GoogleSignInAccount? googleUser = await GoogleSignIn.instance
+    final GoogleSignInAccount googleUser = await GoogleSignIn.instance
         .authenticate();
-    if (googleUser == null) {
-      throw Exception('Google sign in was cancelled.');
-    }
     final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
     final credential = GoogleAuthProvider.credential(
@@ -52,25 +49,24 @@ class FirebaseAuthServices {
     return userCredential;
   }
 
-  Future<UserCredential> signInWithFacebook() async {
-    final loginResult = await FacebookAuth.instance.login();
-    if (loginResult.status == LoginStatus.success) {
-      final credential = FacebookAuthProvider.credential(
-        loginResult.accessToken!.tokenString,
-      );
-      return instance.signInWithCredential(credential);
-    } else if (loginResult.status == LoginStatus.cancelled) {
-      throw Exception('Facebook sign in was cancelled by the user.');
-    } else {
-      throw Exception(loginResult.message ?? 'Facebook sign in failed.');
-    }
-  }
-
+  
   User? get currentUser {
     return instance.currentUser;
   }
 
-  Future<void> sendEmailVerification() async{
+  Future<void> sendEmailVerification() async {
     await instance.currentUser!.sendEmailVerification();
   }
+
+  Future<bool> checkEmailVerification() async {
+  final user = instance.currentUser;
+
+  if (user == null) {
+    return false;
+  }
+
+  await user.reload();
+
+  return instance.currentUser?.emailVerified ?? false;
+}
 }

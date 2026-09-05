@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:swap_skill/features/auth/presentation/views/email_verification_view.dart';
 import 'package:swap_skill/features/auth/presentation/views/login_view.dart';
 import 'package:swap_skill/features/auth/presentation/views/reset_password.dart';
 import 'package:swap_skill/features/auth/presentation/views/signup_view.dart';
@@ -30,6 +31,7 @@ abstract class AppRoutes {
   static const String chatsView = '/chatsview';
   static const String profileView = '/profileview';
   static const String skillDetailsView = '/skillDetailsView';
+  static const String emailVerificationView = '/emailVerificationView';
 
   static final router = GoRouter(
     routes: [
@@ -118,17 +120,24 @@ abstract class AppRoutes {
         },
       ),
 
-     GoRoute(
-  path: chatView,
-  builder: (context, state) {
-    final data = state.extra as Map<String, dynamic>;
+      GoRoute(
+        path: chatView,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
 
-    return ChatView(
-      getUserInfoModel: data['user'] as GetUserInfoModel,
-      chatId: data['chatId'] as String,
-    );
-  },
-),
+          return ChatView(
+            getUserInfoModel: data['user'] as GetUserInfoModel,
+            chatId: data['chatId'] as String,
+          );
+        },
+      ),
+
+      GoRoute(
+        path: emailVerificationView,
+        builder: (context, state) {
+          return const EmailVerificationView();
+        },
+      ),
     ],
   );
 }

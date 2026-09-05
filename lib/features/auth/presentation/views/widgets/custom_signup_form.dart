@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:swap_skill/core/helper/custom_snake_bar.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
-import 'package:swap_skill/core/theme/app_colors.dart';
-import 'package:swap_skill/core/widgets/custom_error_widget.dart';
 import 'package:swap_skill/features/auth/presentation/manager/signup_cubit/signup_cubit.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/create_acount_button.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_confirm_password_text_feild.dart';
@@ -43,15 +42,9 @@ class _CustomSignupFormState extends State<CustomSignupForm> {
     return BlocListener<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupSuccess) {
-          GoRouter.of(context).pushReplacement(AppRoutes.skillsSetupView);
+          GoRouter.of(context).pushReplacement(AppRoutes.emailVerificationView);
         } else if (state is SignupFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              // padding: EdgeInsets.all(8),
-              backgroundColor: AppColors.secondary,
-              content: CustomErrorWidget(errorMessage: state.errorMessage),
-            ),
-          );
+          customSnakeBar(context: context, message: state.errorMessage);
         }
       },
       child: Form(
