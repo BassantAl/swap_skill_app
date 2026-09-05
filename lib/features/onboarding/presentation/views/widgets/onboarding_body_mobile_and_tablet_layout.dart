@@ -36,29 +36,34 @@ class _OnboardingBodyMobileAndTabletLayoutState
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomSkipButton(),
-            CustomPageViewOnboarding(
-              pageController: pageController,
-              items: widget.items,
-            ),
-            const SizedBox(height: 20),
-            DotsIndicator(
-              currentPageIndex: currentPageIndex,
-              itemCount: widget.items.length,
-            ),
-            const SizedBox(height: 20),
-            ManageButton(
-              currentPageIndex: currentPageIndex,
-              pageController: pageController,
-            ),
-            const SizedBox(height: 20),
-          ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomSkipButton(),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height*0.66,
+                child: CustomPageViewOnboarding(
+                  pageController: pageController,
+                  items: widget.items,
+                ),
+              ),
+              const SizedBox(height: 20),
+              DotsIndicator(
+                currentPageIndex: currentPageIndex,
+                itemCount: widget.items.length,
+              ),
+              const SizedBox(height: 20),
+              ManageButton(
+                currentPageIndex: currentPageIndex,
+                pageController: pageController,
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

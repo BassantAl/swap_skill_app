@@ -69,4 +69,8 @@ class FirebaseAuthServices {
   User? get currentUser {
     return instance.currentUser;
   }
+
+  Future<void> sendEmailVerification() async{
+    await instance.currentUser!.sendEmailVerification();
+  }
 }

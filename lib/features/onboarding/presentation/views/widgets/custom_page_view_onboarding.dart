@@ -14,14 +14,12 @@ class CustomPageViewOnboarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: PageView.builder(
-        controller: pageController,
-        itemCount: items.length,
-        itemBuilder: (BuildContext context, int index) {
-          return OnboardingPageItem(onboardingPageModel: items[index]);
-        },
-      ),
+    return PageView.builder(
+      controller: pageController,
+      itemCount: items.length,
+      itemBuilder: (BuildContext context, int index) {
+        return OnboardingPageItem(onboardingPageModel: items[index]);
+      },
     );
   }
 }
