@@ -12,18 +12,21 @@ class FirebaseFirestoreServices {
   final instance = FirebaseFirestore.instance;
 
   Future<void> addUser({
-    required String uid,
-    required String fullName,
-    required String userName,
-    required String email,
-  }) async {
-    await instance.collection('Users').doc(uid).set({
+  required String uid,
+  required String fullName,
+  required String userName,
+  required String email,
+}) async {
+  await instance.collection('Users').doc(uid).set(
+    {
       'uid': uid,
       'fullName': fullName,
       'userName': userName,
       'email': email,
-    });
-  }
+    },
+    SetOptions(merge: true),
+  );
+}
 
   Future<List<CategoriesModel>> readData() async {
     final snapshot = await instance.collection('categories').get();

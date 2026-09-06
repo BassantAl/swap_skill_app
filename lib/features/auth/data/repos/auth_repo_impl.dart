@@ -76,6 +76,16 @@ class AuthRepoImpl implements AuthRepo {
     try {
       UserCredential userCredential = await firebaseAuthServices
           .signInWithGoogle();
+
+      final user = userCredential.user!;
+
+      await firebaseFirestoreServices.addUser(
+        uid: user.uid,
+        fullName: user.displayName ?? '',
+        userName: user.displayName ?? '',
+        email: user.email ?? '',
+      );
+
       return right(userCredential);
     } on FirebaseAuthException catch (e) {
       var error = FirebaseAuthErrors.fromFirebaseAuthException(e: e);
@@ -92,28 +102,27 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, void>> sendEmailVerification() async {
-    try{
+    try {
       await firebaseAuthServices.sendEmailVerification();
       return right(null);
-    }on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       var error = FirebaseAuthErrors.fromFirebaseAuthException(e: e);
       return left(error);
     } catch (e) {
       return left(Failure(errorMessage: e.toString()));
     }
   }
-    @override
-Future<Either<Failure, void>> logout() async {
-  try {
-    await firebaseAuthServices.logout();
-    return right(null);
-  } on FirebaseAuthException catch (e) {
-    final error = FirebaseAuthErrors.fromFirebaseAuthException(e: e);
-    return left(error);
-  } catch (e) {
-    return left(
-      Failure(errorMessage: e.toString()),
-    );
+
+  @override
+  Future<Either<Failure, void>> logout() async {
+    try {
+      await firebaseAuthServices.logout();
+      return right(null);
+    } on FirebaseAuthException catch (e) {
+      final error = FirebaseAuthErrors.fromFirebaseAuthException(e: e);
+      return left(error);
+    } catch (e) {
+      return left(Failure(errorMessage: e.toString()));
+    }
   }
-}
 }
