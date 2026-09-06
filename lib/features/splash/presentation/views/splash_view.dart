@@ -26,7 +26,7 @@ class _SplashViewState extends State<SplashView> {
 
   Future<void> navigateBasedOnUserState() async {
   await Future.delayed(
-    const Duration(seconds: 3),
+    const Duration(seconds: 1),
   );
 
   if (!mounted) return;

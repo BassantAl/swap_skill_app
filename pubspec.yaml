@@ -67,6 +67,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   build_runner: ^2.15.1
+  flutter_native_splash: ^2.4.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -109,6 +110,16 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_native_splash:
+  color: "#FAFAFA"
+  image: assets/images/app_white_background.png
+
+
+  android_12:
+    color: "#FAFAFA"
+    icon_background_color: "#FAFAFA"
+    image: assets/images/app_white_background.png
+
 
 
 flutter_assets:
@@ -117,3 +128,7 @@ flutter_assets:
   filename: assets.dart
   field_prefix: 
   ignore_comments: true
+
+
+
+
