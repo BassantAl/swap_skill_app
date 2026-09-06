@@ -36,6 +36,9 @@ class _OnboardingBodyMobileAndTabletLayoutState
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.sizeOf(context).height;
+
+final pageViewHeight = (screenHeight * 0.7).clamp(470.0, 540.0);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -45,7 +48,7 @@ class _OnboardingBodyMobileAndTabletLayoutState
             children: [
               CustomSkipButton(),
               SizedBox(
-                height: MediaQuery.sizeOf(context).height*0.66,
+                height: pageViewHeight,
                 child: CustomPageViewOnboarding(
                   pageController: pageController,
                   items: widget.items,

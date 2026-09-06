@@ -31,24 +31,24 @@ class EmailVerificationViewBody extends StatefulWidget {
 
 class _EmailVerificationViewBodyState extends State<EmailVerificationViewBody>
     with WidgetsBindingObserver {
-  Timer? verificationTimer;
+  // Timer? verificationTimer;
   @override
   void initState() {
     super.initState();
-    startVerificationTimer();
+    // startVerificationTimer();
     WidgetsBinding.instance.addObserver(this);
   }
 
-  void startVerificationTimer() {
-    verificationTimer = Timer.periodic(const Duration(seconds: 3), (_) {
-      if (!mounted) return;
-      context.read<EmailVerificationCubit>().checkVerification();
-    });
-  }
+  // void startVerificationTimer() {
+  //   // verificationTimer = Timer.periodic(const Duration(seconds: 3), (_) {
+  //   //   if (!mounted) return;
+  //   //   context.read<EmailVerificationCubit>().checkVerification();
+  //   // });
+  // }
 
   @override
   void dispose() {
-    verificationTimer?.cancel();
+    // verificationTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();

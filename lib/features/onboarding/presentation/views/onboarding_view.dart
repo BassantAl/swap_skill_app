@@ -39,8 +39,8 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget build(BuildContext context) {
     return  Scaffold(
       body: AdaptiveLayoutWidget(
-        mobileLayout: (context) => OnboardingBodyMobileAndTabletLayout(items: items,),
-        tabletLayout: (context)=>OnboardingBodyMobileAndTabletLayout(items: items,),
+        mobileLayout: (context) => Center(child: OnboardingBodyMobileAndTabletLayout(items: items,)),
+        tabletLayout: (context)=>Center(child: OnboardingBodyMobileAndTabletLayout(items: items,)),
         desktopLayout: (context)=>OnboardingBodyDesktopLayout(items: items,),
       ),
     );
