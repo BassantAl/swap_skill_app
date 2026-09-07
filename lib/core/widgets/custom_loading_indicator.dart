@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 
 class CustomLoadingIndicator extends StatelessWidget {
-  const CustomLoadingIndicator({
-    super.key,
-  });
-
+  const CustomLoadingIndicator({super.key, this.color});
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator(
-       color: AppColors.lightPurple,
-       backgroundColor: AppColors.secondary.withAlpha(50),
-              ),
+        backgroundColor:color?? AppColors.lightPurple.withAlpha(50),
+        color: AppColors.secondary,
+      ),
     );
   }
 }

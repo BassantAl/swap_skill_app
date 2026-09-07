@@ -11,7 +11,7 @@ class GetCategoryCubit extends Cubit<GetCategoryState> {
   var repo = getIt<SkillsSetupRepo>();
   Future<void> getCategory({required String id}) async {
     emit(GetCategoryLoading());
-    var result = await repo.getCategory(id: id);
+    var result = await repo.getOneCategory(id: id);
     result.fold(
       (failure) {
         emit(GetCategoryFailure(errorMessage: failure.errorMessage));

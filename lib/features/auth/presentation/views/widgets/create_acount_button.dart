@@ -28,7 +28,7 @@ class CreateAcountButton extends StatelessWidget {
           },
           child: CustomButton(
             child: state is SignupLoading
-                ? const CustomLoadingIndicator()
+                ?  CustomLoadingIndicator(color: Colors.white.withAlpha(128),)
                 : Text(
                     'Create Account',
                     style: AppStyles.medium20(

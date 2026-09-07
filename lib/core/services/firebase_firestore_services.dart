@@ -28,7 +28,7 @@ class FirebaseFirestoreServices {
   );
 }
 
-  Future<List<CategoriesModel>> readData() async {
+  Future<List<CategoriesModel>> getAllCategories() async {
     final snapshot = await instance.collection('categories').get();
     List<QueryDocumentSnapshot<Map<String, dynamic>>> data = snapshot.docs;
     List<CategoriesModel> skills = data
@@ -37,7 +37,7 @@ class FirebaseFirestoreServices {
     return skills;
   }
 
-  Future<CategoriesModel> getCategory({required String id}) async {
+  Future<CategoriesModel> getOneCategory({required String id}) async {
     final snapshot = await instance.collection('categories').doc(id).get();
 
     return CategoriesModel.fromFirestore(snapshot);

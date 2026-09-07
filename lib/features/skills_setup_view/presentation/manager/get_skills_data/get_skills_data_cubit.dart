@@ -5,7 +5,6 @@ import 'package:swap_skill/features/skills_setup_view/data/models/categories_mod
 import 'package:swap_skill/features/skills_setup_view/data/repos/skills_setup_repo.dart';
 
 part 'get_skills_data_state.dart';
-
 class GetSkillsDataCubit extends Cubit<GetSkillsDataState> {
   GetSkillsDataCubit() : super(GetSkillsDataInitial());
 
@@ -16,7 +15,7 @@ class GetSkillsDataCubit extends Cubit<GetSkillsDataState> {
   Future<void> getSkillsData() async {
     emit(GetSkillsDataLoading());
 
-    final result = await repo.getSkillsData();
+    final result = await repo.getAllCategories();
 
     result.fold(
       (failure) {
@@ -76,6 +75,14 @@ class GetSkillsDataCubit extends Cubit<GetSkillsDataState> {
     emit(
       GetSkillsDataSuccess(
         skills: filteredCategories,
+      ),
+    );
+  }
+
+  void resetSearch() {
+    emit(
+      GetSkillsDataSuccess(
+        skills: allCategories,
       ),
     );
   }

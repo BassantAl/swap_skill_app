@@ -23,7 +23,7 @@ class CustomLoginButtton extends StatelessWidget {
               : onTap,
           child: CustomButton(
             child: state is LoginLoading
-                ? const CustomLoadingIndicator()
+                ?  CustomLoadingIndicator(color: Colors.white.withAlpha(170),)
                 : Text(
                     'Login',
                     style: AppStyles.medium20(

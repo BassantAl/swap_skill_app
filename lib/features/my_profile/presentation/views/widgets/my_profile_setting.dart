@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/services/firebase_auth_services.dart';
 import 'package:swap_skill/core/theme/app_colors.dart';
 import 'package:swap_skill/core/theme/app_decoration.dart';
@@ -38,8 +40,9 @@ class MyProfileSetting extends StatelessWidget {
             title: 'Logout',
             isLogout: true,
             showArrow: false,
-            onTap: () {
-              FirebaseAuthServices().logout();
+            onTap: () async {
+              await FirebaseAuthServices().logout();
+              GoRouter.of(context).pushReplacement(AppRoutes.loginView);
             },
           ),
         ],

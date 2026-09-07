@@ -20,6 +20,8 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
     Hive.registerAdapter(GetUserInfoModelAdapter());
+    await Hive.openBox('skillsBox');
+    
     await Hive.openBox('appBox');
      await Hive.openBox<GetUserInfoModel>('usersBox');
     await Hive.openBox('userBox');

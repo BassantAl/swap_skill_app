@@ -7,6 +7,7 @@ import 'package:swap_skill/core/widgets/custom_error_widget.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_back_button.dart';
 import 'package:swap_skill/features/onboarding/presentation/views/widgets/custom_next_button.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_category_cubit/get_category_cubit.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_skills_data/get_skills_data_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/save_selected_skills_cubit/save_selected_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_learn_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_teach_skills_cubit.dart';
@@ -74,7 +75,7 @@ class _ManageSetupSkillsButtonState extends State<ManageSetupSkillsButton> {
       teachSkillsSaveFuture = saveTeachSkills(context);
 
       if (!context.mounted) return;
-
+      context.read<GetSkillsDataCubit>().resetSearch();
       navigateToNextPageView(context);
       return;
     }
