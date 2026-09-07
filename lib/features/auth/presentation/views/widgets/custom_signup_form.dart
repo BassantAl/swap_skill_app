@@ -20,21 +20,26 @@ class CustomSignupForm extends StatefulWidget {
 
 class _CustomSignupFormState extends State<CustomSignupForm> {
   late TextEditingController passwordController;
-  GlobalKey<FormState> formKey = GlobalKey();
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   String email = '';
   String password = '';
   String userName = '';
   String fullName = '';
+
   @override
   void initState() {
     super.initState();
+
     passwordController = TextEditingController();
   }
 
   @override
   void dispose() {
-    super.dispose();
     passwordController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -42,9 +47,18 @@ class _CustomSignupFormState extends State<CustomSignupForm> {
     return BlocListener<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupSuccess) {
-          GoRouter.of(context).pushReplacement(AppRoutes.emailVerificationView);
+          context.pushReplacement(
+            AppRoutes.emailVerificationView,
+            extra: {
+              'fullName': state.fullName,
+              'userName': state.userName,
+            },
+          );
         } else if (state is SignupFailure) {
-          customSnakeBar(context: context, message: state.errorMessage);
+          customSnakeBar(
+            context: context,
+            message: state.errorMessage,
+          );
         }
       },
       child: Form(
@@ -56,34 +70,44 @@ class _CustomSignupFormState extends State<CustomSignupForm> {
                 fullName = value!;
               },
             ),
+
             const SizedBox(height: 10),
+
             UserNameTextFeild(
               onSaved: (value) {
                 userName = value!;
               },
             ),
+
             const SizedBox(height: 10),
+
             CustomEmailTextFeild(
               onSaved: (value) {
                 email = value!;
               },
             ),
+
             const SizedBox(height: 10),
+
             CustomPasswordTextFeild(
               onSaved: (value) {
                 password = value!;
               },
               passwordController: passwordController,
             ),
+
             const SizedBox(height: 10),
+
             CustomConfirmPasswordTextFeild(
               passwordController: passwordController,
             ),
+
             const SizedBox(height: 30),
+
             CreateAcountButton(
               formKey: formKey,
               onSubmit: () {
-                BlocProvider.of<SignupCubit>(context).signup(
+                context.read<SignupCubit>().signup(
                   email: email,
                   password: password,
                   fullName: fullName,

@@ -12,6 +12,15 @@ final class SignupFailure extends SignupState {
   SignupFailure({required this.errorMessage});
 }
 
-final class SignupSuccess extends SignupState {}
+final class SignupSuccess extends SignupState {
+  final String fullName;
+  final String userName;
+
+  SignupSuccess({
+    required this.fullName,
+    required this.userName,
+  });
+}
+
 
 

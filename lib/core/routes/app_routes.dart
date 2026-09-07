@@ -132,12 +132,17 @@ abstract class AppRoutes {
         },
       ),
 
-      GoRoute(
-        path: emailVerificationView,
-        builder: (context, state) {
-          return const EmailVerificationView();
-        },
-      ),
+     GoRoute(
+  path: AppRoutes.emailVerificationView,
+  builder: (context, state) {
+    final extra = state.extra as Map<String, dynamic>;
+
+    return EmailVerificationView(
+      fullName: extra['fullName'] as String,
+      userName: extra['userName'] as String,
+    );
+  },
+),
     ],
   );
 }

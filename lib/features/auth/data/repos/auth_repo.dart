@@ -8,12 +8,10 @@ abstract class AuthRepo {
     required String password,
   });
 
-  Future<Either<Failure, UserCredential>> signup({
-    required String email,
-    required String password,
-    required String fullName,
-    required String userName,
-  });
+ Future<Either<Failure, UserCredential>> signup({
+  required String email,
+  required String password,
+});
 
   Future<Either<Failure, void>> resetPassword({required String email});
 
@@ -24,5 +22,14 @@ abstract class AuthRepo {
   Future<bool> checkEmailVerification();
 
   Future<Either<Failure, void>> logout();
+
+  Future<Either<Failure, void>> createUser({
+  required String uid,
+  required String email,
+  required String fullName,
+  required String userName,
+});
+
+  User? get currentUser;
   
 }

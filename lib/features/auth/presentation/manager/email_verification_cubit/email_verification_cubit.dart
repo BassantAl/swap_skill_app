@@ -7,11 +7,14 @@ part 'email_verification_state.dart';
 
 class EmailVerificationCubit extends Cubit<EmailVerificationState> {
   EmailVerificationCubit() : super(EmailVerificationInitial());
-  final repo = getIt<AuthRepo>();
+
+  final AuthRepo repo = getIt<AuthRepo>();
 
   Future<void> sendVerificationEmail() async {
     emit(EmailVerificationLoading());
+
     final result = await repo.sendEmailVerification();
+
     result.fold(
       (failure) {
         emit(EmailVerificationFailure(errorMessage: failure.errorMessage));
@@ -22,13 +25,41 @@ class EmailVerificationCubit extends Cubit<EmailVerificationState> {
     );
   }
 
-  Future<void> checkVerification() async {
-     emit(EmailVerificationLoading());
+  Future<void> checkVerification({
+    required String fullName,
+    required String userName,
+  }) async {
+    emit(EmailVerificationLoading());
+
     final isVerified = await repo.checkEmailVerification();
-    if (isVerified) {
-      emit(EmailVerified());
-    } else {
+
+    if (!isVerified) {
       emit(EmailNotVerified());
+      return;
     }
+
+    final user = repo.currentUser;
+
+    if (user == null) {
+      emit(EmailVerificationFailure(errorMessage: 'User not found'));
+
+      return;
+    }
+
+    final result = await repo.createUser(
+      uid: user.uid,
+      email: user.email ?? '',
+      fullName: fullName,
+      userName: userName,
+    );
+
+    result.fold(
+      (failure) {
+        emit(EmailVerificationFailure(errorMessage: failure.errorMessage));
+      },
+      (_) {
+        emit(EmailVerified());
+      },
+    );
   }
 }

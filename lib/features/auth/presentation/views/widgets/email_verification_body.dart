@@ -10,7 +10,14 @@ import 'package:swap_skill/features/auth/presentation/manager/email_verification
 import 'package:swap_skill/features/auth/presentation/manager/logout_cubit/logout_cubit.dart';
 
 class EmailVerificationBody extends StatelessWidget {
-  const EmailVerificationBody({super.key});
+  const EmailVerificationBody({
+    super.key,
+    required this.fullName,
+    required this.userName,
+  });
+
+  final String fullName;
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -20,24 +27,35 @@ class EmailVerificationBody extends StatelessWidget {
           padding: const EdgeInsets.all(24),
           child: MultiBlocListener(
             listeners: [
-              BlocListener<EmailVerificationCubit, EmailVerificationState>(
+              BlocListener<EmailVerificationCubit,
+                  EmailVerificationState>(
                 listener: (context, state) {
                   if (state is EmailVerificationSent) {
                     customSnakeBar(
                       context: context,
-                      message: 'Verification email sent successfully',
+                      message:
+                          'Verification email sent successfully',
                     );
-                  } else if (state is EmailVerificationFailure) {
+                  }
+
+                  if (state is EmailVerificationFailure) {
                     customSnakeBar(
                       context: context,
                       message: state.errorMessage,
                     );
-                  } else if (state is EmailVerified) {
-                    context.go(AppRoutes.skillsSetupView);
-                  } else if (state is EmailNotVerified) {
+                  }
+
+                  if (state is EmailVerified) {
+                    context.go(
+                      AppRoutes.skillsSetupView,
+                    );
+                  }
+
+                  if (state is EmailNotVerified) {
                     customSnakeBar(
                       context: context,
-                      message: 'Please verify your email first',
+                      message:
+                          'Please verify your email first',
                     );
                   }
                 },
@@ -46,8 +64,12 @@ class EmailVerificationBody extends StatelessWidget {
               BlocListener<LogoutCubit, LogoutState>(
                 listener: (context, state) {
                   if (state is LogoutSuccess) {
-                    context.go(AppRoutes.loginView);
-                  } else if (state is LogoutFailure) {
+                    context.go(
+                      AppRoutes.loginView,
+                    );
+                  }
+
+                  if (state is LogoutFailure) {
                     customSnakeBar(
                       context: context,
                       message: state.errorMessage,
@@ -56,18 +78,23 @@ class EmailVerificationBody extends StatelessWidget {
                 },
               ),
             ],
-            child: BlocBuilder<EmailVerificationCubit, EmailVerificationState>(
+            child: BlocBuilder<EmailVerificationCubit,
+                EmailVerificationState>(
               builder: (context, verificationState) {
                 return BlocBuilder<LogoutCubit, LogoutState>(
                   builder: (context, logoutState) {
                     final isLoading =
-                        verificationState is EmailVerificationLoading ||
-                        logoutState is LogoutLoading;
+                        verificationState
+                                is EmailVerificationLoading ||
+                            logoutState is LogoutLoading;
 
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.mark_email_unread_outlined, size: 100),
+                        const Icon(
+                          Icons.mark_email_unread_outlined,
+                          size: 100,
+                        ),
 
                         const SizedBox(height: 30),
 
@@ -76,7 +103,9 @@ class EmailVerificationBody extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: AppStyles.bold28(
                             context,
-                          ).copyWith(color: Colors.black),
+                          ).copyWith(
+                            color: Colors.black,
+                          ),
                         ),
 
                         const SizedBox(height: 16),
@@ -105,14 +134,17 @@ class EmailVerificationBody extends StatelessWidget {
                               ? null
                               : () {
                                   context
-                                      .read<EmailVerificationCubit>()
+                                      .read<
+                                          EmailVerificationCubit>()
                                       .sendVerificationEmail();
                                 },
                           child: Text(
                             'Resend Verification Email',
                             style: AppStyles.medium20(
                               context,
-                            ).copyWith(color: AppColors.lightPurple),
+                            ).copyWith(
+                              color: AppColors.lightPurple,
+                            ),
                           ),
                         ),
 
@@ -120,13 +152,17 @@ class EmailVerificationBody extends StatelessWidget {
                           onPressed: isLoading
                               ? null
                               : () {
-                                  context.read<LogoutCubit>().logout();
+                                  context
+                                      .read<LogoutCubit>()
+                                      .logout();
                                 },
                           child: Text(
                             'Back to Login',
                             style: AppStyles.medium20(
                               context,
-                            ).copyWith(color: AppColors.lightPurple),
+                            ).copyWith(
+                              color: AppColors.lightPurple,
+                            ),
                           ),
                         ),
                       ],

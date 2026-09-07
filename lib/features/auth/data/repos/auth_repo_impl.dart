@@ -32,33 +32,25 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, UserCredential>> signup({
-    required String email,
-    required String password,
-    required String fullName,
-    required String userName,
-  }) async {
-    try {
-      var userCredential = await firebaseAuthServices.signup(
-        email: email,
-        password: password,
-      );
+@override
+Future<Either<Failure, UserCredential>> signup({
+  required String email,
+  required String password,
+}) async {
+  try {
+    final userCredential = await firebaseAuthServices.signup(
+      email: email,
+      password: password,
+    );
 
-      await firebaseFirestoreServices.addUser(
-        uid: userCredential.user!.uid,
-        fullName: fullName,
-        userName: userName,
-        email: email,
-      );
-      return right(userCredential);
-    } on FirebaseAuthException catch (e) {
-      var error = FirebaseAuthErrors.fromFirebaseAuthException(e: e);
-      return left(error);
-    } on FirebaseException catch (e) {
-      return left(FirebaseFirestoreErrors.fromFirebaseException(e));
-    }
+    return right(userCredential);
+  } on FirebaseAuthException catch (e) {
+    final error =
+        FirebaseAuthErrors.fromFirebaseAuthException(e: e);
+
+    return left(error);
   }
+}
 
   @override
   Future<Either<Failure, void>> resetPassword({required String email}) async {
@@ -125,4 +117,35 @@ class AuthRepoImpl implements AuthRepo {
       return left(Failure(errorMessage: e.toString()));
     }
   }
+
+  @override
+Future<Either<Failure, void>> createUser({
+  required String uid,
+  required String email,
+  required String fullName,
+  required String userName,
+}) async {
+  try {
+    await firebaseFirestoreServices.addUser(
+      uid: uid,
+      fullName: fullName,
+      userName: userName,
+      email: email,
+    );
+
+    return right(null);
+  } on FirebaseException catch (e) {
+    return left(
+      FirebaseFirestoreErrors.fromFirebaseException(e),
+    );
+  } catch (e) {
+    return left(
+      Failure(errorMessage: e.toString()),
+    );
+  }
+}
+
+
+  @override
+  User? get currentUser => firebaseAuthServices.currentUser;
 }
