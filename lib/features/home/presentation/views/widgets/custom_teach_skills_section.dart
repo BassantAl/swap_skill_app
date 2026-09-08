@@ -1,69 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swap_skill/core/helper/add_skill_in_home.dart';
-import 'package:swap_skill/core/helper/remove_skill.dart';
-import 'package:swap_skill/core/theme/app_styles.dart';
-import 'package:swap_skill/features/home/presentation/views/widgets/add_skill_card.dart';
-import 'package:swap_skill/features/home/presentation/views/widgets/skill_card.dart';
-import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:swap_skill/core/theme/app_colors.dart';
+import 'package:swap_skill/features/home/presentation/views/widgets/custom_skills_header.dart';
+import 'package:swap_skill/features/home/presentation/views/widgets/custom_skills_list.dart';
 
 class CustomTeachSkillsSection extends StatelessWidget {
-  const CustomTeachSkillsSection({super.key, required this.items});
+  const CustomTeachSkillsSection({
+    super.key,
+    required this.items,
+  });
+
   final List<String> items;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Skills I Can Teach', style: AppStyles.semiBold20(context)),
-        const SizedBox(height: 8),
-        SizedBox(
-          height: 35,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: GestureDetector(
-                  // onTap: () {
-                  //   GoRouter.of(context).push(AppRoutes.skillDetailsView);
-                  // },
-                  child: SkillCard(onTap:() async {
-                    await removeSkill(
-                      skill: items[index],
-                      context: context,
-                      isTeach: true,
-                    );
-                    if (context.mounted) {
-                      context
-                          .read<GetUserInfoCubit>()
-                          .removeSkillLocally(skill:  items[index],isTeachSkill: true);
-                    }
-                  },
-                    text: items[index],
-                  ),
-                ),
-              );
-            },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: const Color(0xFFEEEEEE),
           ),
         ),
-        SizedBox(height: 14,),
-         GestureDetector(
-                onTap: () async {
-                 final newSkill= await addSkillInHome(context: context, isTeach: true);
-                   if (newSkill != null && context.mounted) {
-                    context.read<GetUserInfoCubit>().addSkillLocally(
-                      skill:  newSkill,
-                      isTeachSkill: true
-                    );
-                  }
-                 
-                },
-                child: AddSkillCard()
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomSkillsHeader(
+              icon: const FaIcon(
+                FontAwesomeIcons.chalkboardUser,
+                size: 20,
+                color: AppColors.secondary,
               ),
-      ],
+              color: AppColors.secondary,
+              title: 'Skills I Can\nTeach',
+              skillsCount: items.length,
+            ),
+
+            const SizedBox(height: 16),
+
+            CustomSkillsList(
+              items: items,
+              color: AppColors.secondary,
+              isTeach: true,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

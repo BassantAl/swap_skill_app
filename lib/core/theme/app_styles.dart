@@ -37,7 +37,7 @@ class AppStyles {
     );
   }
 
-   static TextStyle regular16(BuildContext context) {
+  static TextStyle regular16(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: getResponsiveFontsize(fontsize: 16, context: context),
@@ -53,7 +53,7 @@ class AppStyles {
     );
   }
 
-   static TextStyle medium14(BuildContext context) {
+  static TextStyle medium14(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,
       fontSize: getResponsiveFontsize(fontsize: 14, context: context),
@@ -61,7 +61,7 @@ class AppStyles {
     );
   }
 
-     static TextStyle medium12(BuildContext context) {
+  static TextStyle medium12(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,
       fontSize: getResponsiveFontsize(fontsize: 12, context: context),
@@ -76,6 +76,7 @@ class AppStyles {
       color: AppColors.smallText,
     );
   }
+
   static TextStyle medium18(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,
@@ -83,6 +84,7 @@ class AppStyles {
       color: Colors.white,
     );
   }
+
   static TextStyle medium20(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.w500,
@@ -91,7 +93,7 @@ class AppStyles {
     );
   }
 
-   static TextStyle bold14(BuildContext context) {
+  static TextStyle bold14(BuildContext context) {
     return TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: getResponsiveFontsize(fontsize: 14, context: context),
@@ -99,8 +101,21 @@ class AppStyles {
     );
   }
 
+    static TextStyle bold15(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: getResponsiveFontsize(fontsize: 15, context: context),
+      color: AppColors.primaryPurple,
+    );
+  }
 
-  
+  static TextStyle semibold14(BuildContext context) {
+    return TextStyle(
+      color: AppColors.primaryPurple,
+      fontSize: getResponsiveFontsize(fontsize: 14, context: context),
+      fontWeight: FontWeight.w600,
+    );
+  }
 }
 
 double getResponsiveFontsize({

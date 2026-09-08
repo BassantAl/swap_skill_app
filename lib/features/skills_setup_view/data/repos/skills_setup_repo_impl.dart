@@ -65,7 +65,6 @@ Future<Either<Failure, List<CategoriesModel>>> getAllCategories() async {
 
     return left(error);
   } catch (e) {
-    print('GET ALL CATEGORIES ERROR: $e');
 
     return left(
       Failure(
@@ -114,7 +113,6 @@ Future<Either<Failure, CategoriesModel>> getOneCategory({
       ),
     );
   } catch (e) {
-    print('GET ONE CATEGORY ERROR: $e');
 
     return left(
       Failure(

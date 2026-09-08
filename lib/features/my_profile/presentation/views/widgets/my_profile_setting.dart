@@ -41,8 +41,9 @@ class MyProfileSetting extends StatelessWidget {
             isLogout: true,
             showArrow: false,
             onTap: () async {
+              final router = GoRouter.of(context);
               await FirebaseAuthServices().logout();
-              GoRouter.of(context).pushReplacement(AppRoutes.loginView);
+              router.pushReplacement(AppRoutes.loginView);
             },
           ),
         ],
