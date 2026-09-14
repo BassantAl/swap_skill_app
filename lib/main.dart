@@ -25,6 +25,7 @@ void main() async {
     await Hive.openBox('appBox');
      await Hive.openBox<GetUserInfoModel>('usersBox');
     await Hive.openBox('userBox');
+     await Hive.openBox('pendingUserBox');
   setupServiceLocator();
   Bloc.observer = MyBlockObserver();
   runApp(

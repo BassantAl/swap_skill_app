@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:swap_skill/core/di/service_locator.dart';
 import 'package:swap_skill/core/helper/custom_snake_bar.dart';
 import 'package:swap_skill/core/routes/app_routes.dart';
+import 'package:swap_skill/core/services/pending_user_service.dart';
 import 'package:swap_skill/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_email_text_feild.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_login_button.dart';
-import 'package:swap_skill/features/auth/presentation/views/widgets/custom_text_button.dart';
 import 'package:swap_skill/features/auth/presentation/views/widgets/custom_password_text_feild.dart';
+import 'package:swap_skill/features/auth/presentation/views/widgets/custom_text_button.dart';
 import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 
 class CustomLoginForm extends StatefulWidget {
@@ -29,6 +31,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
       listener: (context, state) {
         if (state is GetUserInfoSuccess) {
           final learnSkills = state.getUserInfoModel.learnSkills;
+
           final teachSkills = state.getUserInfoModel.teachSkills;
 
           final hasSkills = learnSkills.isNotEmpty && teachSkills.isNotEmpty;
@@ -47,6 +50,28 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginEmailNotVerified) {
+            final pendingUser = getIt<PendingUserService>().getPendingUser();
+
+            if (pendingUser == null) {
+              customSnakeBar(
+                context: context,
+                message:
+                    'This account is not verified. Please complete signup on this device.',
+              );
+              return;
+            }
+
+            final belongsToCurrentUser = getIt<PendingUserService>()
+                .belongsToCurrentUser();
+
+            if (!belongsToCurrentUser) {
+              customSnakeBar(
+                context: context,
+                message: 'User information does not match this account',
+              );
+              return;
+            }
+
             context.push(AppRoutes.emailVerificationView);
           }
 
@@ -83,14 +108,16 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
 
                 CustomLoginButtton(
                   onTap: () async {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-
-                      await context.read<LoginCubit>().login(
-                        email: email,
-                        password: password,
-                      );
+                    if (!formKey.currentState!.validate()) {
+                      return;
                     }
+
+                    formKey.currentState!.save();
+
+                    await context.read<LoginCubit>().login(
+                      email: email,
+                      password: password,
+                    );
                   },
                 ),
               ],

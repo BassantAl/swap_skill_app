@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:swap_skill/core/errors/failure.dart';
@@ -32,6 +34,7 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
+
 @override
 Future<Either<Failure, UserCredential>> signup({
   required String email,
@@ -51,6 +54,8 @@ Future<Either<Failure, UserCredential>> signup({
     return left(error);
   }
 }
+
+
 
   @override
   Future<Either<Failure, void>> resetPassword({required String email}) async {
@@ -126,6 +131,10 @@ Future<Either<Failure, void>> createUser({
   required String userName,
 }) async {
   try {
+    log('========== CREATE USER START ==========');
+    log('UID = $uid');
+    log('EMAIL = $email');
+
     await firebaseFirestoreServices.addUser(
       uid: uid,
       fullName: fullName,
@@ -133,12 +142,20 @@ Future<Either<Failure, void>> createUser({
       email: email,
     );
 
+    log('========== CREATE USER SUCCESS ==========');
+
     return right(null);
   } on FirebaseException catch (e) {
+    log('========== CREATE USER FIREBASE ERROR ==========');
+    log(e.toString());
+
     return left(
       FirebaseFirestoreErrors.fromFirebaseException(e),
     );
   } catch (e) {
+    log('========== CREATE USER ERROR ==========');
+    log(e.toString());
+
     return left(
       Failure(errorMessage: e.toString()),
     );

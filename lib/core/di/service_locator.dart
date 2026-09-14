@@ -3,6 +3,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:swap_skill/core/services/firebase_auth_services.dart';
 import 'package:swap_skill/core/services/firebase_firestore_services.dart';
 import 'package:swap_skill/core/services/local_storage_services.dart';
+import 'package:swap_skill/core/services/pending_user_service.dart';
 import 'package:swap_skill/core/services/users_local_storage_sevices.dart';
 import 'package:swap_skill/features/auth/data/repos/auth_repo.dart';
 import 'package:swap_skill/features/auth/data/repos/auth_repo_impl.dart';
@@ -27,12 +28,11 @@ import 'package:swap_skill/shared/get_all_users/data/repos/get_all_users_repo_im
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 import 'package:swap_skill/shared/user_info/data/repos/user_repo.dart';
 import 'package:swap_skill/shared/user_info/data/repos/user_repo_impl.dart';
+
 final getIt = GetIt.instance;
 
 void setupServiceLocator() {
-  getIt.registerSingleton<FirebaseAuthServices>(
-    FirebaseAuthServices(),
-  );
+  getIt.registerSingleton<FirebaseAuthServices>(FirebaseAuthServices());
 
   getIt.registerSingleton<FirebaseFirestoreServices>(
     FirebaseFirestoreServices(),
@@ -41,129 +41,104 @@ void setupServiceLocator() {
   final userBox = Hive.box('userBox');
   final skillsBox = Hive.box('skillsBox');
   final box2 = Hive.box<GetUserInfoModel>('usersbox');
+  final pendingUserBox = Hive.box('pendingUserBox');
 
   // User local storage
   getIt.registerSingleton<LocalStorageServices>(
-    LocalStorageServices(
-      box: userBox,
-    ),
+    LocalStorageServices(box: userBox),
   );
 
   // Skills local storage
   getIt.registerSingleton<LocalStorageServices>(
-    LocalStorageServices(
-      box: skillsBox,
-    ),
+    LocalStorageServices(box: skillsBox),
     instanceName: 'skillsStorage',
   );
 
   getIt.registerSingleton<UsersLocalStorageServices>(
-    UsersLocalStorageServices(
-      box: box2,
-    ),
+    UsersLocalStorageServices(box: box2),
   );
 
   // Skills
   getIt.registerSingleton<SkillsSetupRepo>(
     SkillsSetupRepoImpl(
-      firebaseFirestoreServices:
-          getIt<FirebaseFirestoreServices>(),
-      localStorageServices:
-          getIt<LocalStorageServices>(
-            instanceName: 'skillsStorage',
-          ),
+      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
+      localStorageServices: getIt<LocalStorageServices>(
+        instanceName: 'skillsStorage',
+      ),
     ),
   );
 
   // Auth
   getIt.registerSingleton<AuthRepo>(
     AuthRepoImpl(
-      firebaseAuthServices:
-          getIt<FirebaseAuthServices>(),
-      firebaseFirestoreServices:
-          getIt<FirebaseFirestoreServices>(),
+      firebaseAuthServices: getIt<FirebaseAuthServices>(),
+      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
     ),
   );
 
   // Splash
   getIt.registerSingleton<SplashRepo>(
     SplashRepoImpl(
-      firebaseAuthServices:
-          getIt<FirebaseAuthServices>(),
-      localStorageServices:
-          getIt<LocalStorageServices>(),
+      firebaseAuthServices: getIt<FirebaseAuthServices>(),
+      localStorageServices: getIt<LocalStorageServices>(),
     ),
   );
 
   // User
   getIt.registerSingleton<UserRepo>(
     UserRepoImpl(
-      firebaseFirestoreServices:
-          getIt<FirebaseFirestoreServices>(),
-      localStorageServices:
-          getIt<LocalStorageServices>(),
+      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
+      localStorageServices: getIt<LocalStorageServices>(),
     ),
   );
 
   // Home
   getIt.registerSingleton<HomeRepo>(
-    HomeRepoImpl(
-      firebaseFirestoreServices:
-          getIt<FirebaseFirestoreServices>(),
-    ),
+    HomeRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
   );
 
   // All users
   getIt.registerSingleton<GetAllUsersRepo>(
     GetAllUsersRepoImpl(
-      firebaseFirestoreServices:
-          getIt<FirebaseFirestoreServices>(),
-      usersLocalStorageServices:
-          getIt<UsersLocalStorageServices>(),
+      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
+      usersLocalStorageServices: getIt<UsersLocalStorageServices>(),
     ),
   );
 
   // User profile
   getIt.registerSingleton<UserProfileRepo>(
     UserProfileRepoImpl(
-      firebaseFirestoreServices:
-          getIt<FirebaseFirestoreServices>(),
+      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
     ),
   );
 
   // Swaps
   getIt.registerSingleton<SwapRepo>(
-    SwapRepoImpl(
-      firebaseFirestoreServices:
-          getIt<FirebaseFirestoreServices>(),
-    ),
+    SwapRepoImpl(firebaseFirestoreServices: getIt<FirebaseFirestoreServices>()),
   );
 
   // Friends
   getIt.registerSingleton<GetAllFriendsRepo>(
     GetAllFriendsRepoImpl(
-      firebaseFirestoreServices:
-          getIt<FirebaseFirestoreServices>(),
+      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
     ),
   );
 
   // Chat
   getIt.registerSingleton<ChatRepo>(
     ChatRepoImpl(
-      firebaseFirestoreServices:
-          getIt<FirebaseFirestoreServices>(),
-      firebaseAuthServices:
-          getIt<FirebaseAuthServices>(),
-      usersLocalStorageServices:
-          getIt<UsersLocalStorageServices>(),
+      firebaseFirestoreServices: getIt<FirebaseFirestoreServices>(),
+      firebaseAuthServices: getIt<FirebaseAuthServices>(),
+      usersLocalStorageServices: getIt<UsersLocalStorageServices>(),
     ),
   );
 
   // Onboarding
   getIt.registerSingleton<OnboardingRepo>(
-    OnboardingRepoImpl(
-      localStorageServices:
-          getIt<LocalStorageServices>(),
-    ),
+    OnboardingRepoImpl(localStorageServices: getIt<LocalStorageServices>()),
+  );
+
+  getIt.registerLazySingleton<PendingUserService>(
+    () => PendingUserService(box: pendingUserBox),
   );
 }

@@ -7,20 +7,29 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
-  final repo = getIt<AuthRepo>();
+
+  final AuthRepo repo = getIt<AuthRepo>();
+
   Future<void> login({required String email, required String password}) async {
     emit(LoginLoading());
-    var result = await repo.login(email: email, password: password);
-    result.fold(
-      (failure) {
+
+    final result = await repo.login(email: email, password: password);
+
+    await result.fold(
+      (failure) async {
         emit(LoginFailure(errorMessage: failure.errorMessage));
       },
       (_) async {
-        final isVerified = await repo.checkEmailVerification();
-        if (isVerified) {
-          emit(LoginSuccess());
-        } else {
-          emit(LoginEmailNotVerified());
+        try {
+          final isVerified = await repo.checkEmailVerification();
+
+          if (isVerified) {
+            emit(LoginSuccess());
+          } else {
+            emit(LoginEmailNotVerified());
+          }
+        } catch (e) {
+          emit(LoginFailure(errorMessage: e.toString()));
         }
       },
     );
@@ -32,8 +41,12 @@ class LoginCubit extends Cubit<LoginState> {
     final result = await repo.signInWithGoogle();
 
     result.fold(
-      (failure) => emit(LoginFailure(errorMessage: failure.errorMessage)),
-      (_) => emit(LoginSuccess()),
+      (failure) {
+        emit(LoginFailure(errorMessage: failure.errorMessage));
+      },
+      (_) {
+        emit(LoginSuccess());
+      },
     );
   }
 }

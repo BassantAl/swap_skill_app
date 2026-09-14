@@ -49,10 +49,6 @@ class _CustomSignupFormState extends State<CustomSignupForm> {
         if (state is SignupSuccess) {
           context.pushReplacement(
             AppRoutes.emailVerificationView,
-            extra: {
-              'fullName': state.fullName,
-              'userName': state.userName,
-            },
           );
         } else if (state is SignupFailure) {
           customSnakeBar(
