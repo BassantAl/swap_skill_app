@@ -8,39 +8,36 @@ import 'package:swap_skill/features/main/presentation/views/widgets/custom_butto
 
 class MainMobileLayout extends StatefulWidget {
   const MainMobileLayout({super.key, required this.child});
-final Widget child;
+  final Widget child;
   @override
   State<MainMobileLayout> createState() => _MainMobileLayoutState();
 }
 
 class _MainMobileLayoutState extends State<MainMobileLayout> {
-   String get currentRoute => GoRouterState.of(context).uri.path;
+  String get currentRoute => GoRouterState.of(context).uri.path;
   int getCurrentIndex(String route) {
     if (route == AppRoutes.homeView) return 0;
-    if (route == AppRoutes.searchView) return 1;
-    if (route == AppRoutes.swapsView) return 2;
-    if (route == AppRoutes.chatsView) return 3;
-    if (route == AppRoutes.profileView) return 4;
+    if (route == AppRoutes.swapsView) return 1;
+    if (route == AppRoutes.chatsView) return 2;
+    if (route == AppRoutes.profileView) return 3;
 
     return 0;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          children: [
-
-            Text('Skill Swap', style: AppStyles.bold28(context)),
-          ],
+          children: [Text('Skill Swap', style: AppStyles.bold28(context))],
         ),
-        actions: [SvgPicture.asset(Assets.imagesNotification),SizedBox(width: 20,)],
+        actions: [
+          SvgPicture.asset(Assets.imagesNotification),
+          SizedBox(width: 20),
+        ],
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: widget.child,
-        ),
+        child: Padding(padding: const EdgeInsets.all(16), child: widget.child),
       ),
       bottomNavigationBar: CustomBottomNavigation(
         currentIndex: getCurrentIndex(currentRoute),
@@ -51,18 +48,14 @@ class _MainMobileLayoutState extends State<MainMobileLayout> {
               break;
 
             case 1:
-              context.go(AppRoutes.searchView);
-              break;
-
-            case 2:
               context.go(AppRoutes.swapsView);
               break;
 
-            case 3:
+            case 2:
               context.go(AppRoutes.chatsView);
               break;
 
-            case 4:
+            case 3:
               context.go(AppRoutes.profileView);
               break;
           }

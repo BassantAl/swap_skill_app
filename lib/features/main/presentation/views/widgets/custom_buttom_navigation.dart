@@ -25,7 +25,6 @@ final Function(int)? onTap;
           unselectedIconTheme: IconThemeData(color: AppColors.smallText),
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
             BottomNavigationBarItem(
               icon: Icon(Icons.swap_horiz),
               label: 'Swaps',

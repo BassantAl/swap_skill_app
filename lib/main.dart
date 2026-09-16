@@ -10,6 +10,7 @@ import 'package:swap_skill/features/chats/presentation/manager/create_chat/creat
 import 'package:swap_skill/features/chats/presentation/manager/send_message/send_message_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/get_skills_data/get_skills_data_cubit.dart';
 import 'package:swap_skill/shared/get_all_friends/presentation/manager/cubit/get_all_freiends_cubit.dart';
+import 'package:swap_skill/shared/get_all_users/presentation/manager/cubit/get_all_users_cubit.dart';
 import 'package:swap_skill/shared/user_info/data/model/get_user_info_model.dart';
 import 'package:swap_skill/shared/user_info/presentation/manager/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:swap_skill/firebase_options.dart';
@@ -19,13 +20,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
-    Hive.registerAdapter(GetUserInfoModelAdapter());
-    await Hive.openBox('skillsBox');
-    
-    await Hive.openBox('appBox');
-     await Hive.openBox<GetUserInfoModel>('usersBox');
-    await Hive.openBox('userBox');
-     await Hive.openBox('pendingUserBox');
+  Hive.registerAdapter(GetUserInfoModelAdapter());
+  await Hive.openBox('skillsBox');
+
+  await Hive.openBox('appBox');
+  await Hive.openBox<GetUserInfoModel>('usersBox');
+
+  await Hive.openBox('userBox');
+  await Hive.openBox('pendingUserBox');
   setupServiceLocator();
   Bloc.observer = MyBlockObserver();
   runApp(
@@ -44,21 +46,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+         BlocProvider(
+          create: (context) => GetAllUsersCubit()..getAllUsers(),
+        ),
         BlocProvider(create: (context) => GetUserInfoCubit()),
-        BlocProvider(create: (context) => GetSkillsDataCubit()..getSkillsData()),
+        BlocProvider(
+          create: (context) => GetSkillsDataCubit()..getSkillsData(),
+        ),
         BlocProvider(
           create: (context) => GetAllFreiendsCubit()..getAllFriends(),
         ),
 
-         BlocProvider(
-          create: (context) => CreateChatCubit()
-        ),
+        BlocProvider(create: (context) => CreateChatCubit()),
 
-         BlocProvider(
-          create: (context) => SendMessageCubit()
-        ),
-
-         
+        BlocProvider(create: (context) => SendMessageCubit()),
       ],
       child: MaterialApp.router(
         locale: DevicePreview.locale(context),

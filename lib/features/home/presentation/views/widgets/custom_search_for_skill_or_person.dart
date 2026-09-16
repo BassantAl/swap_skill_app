@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:swap_skill/core/routes/app_routes.dart';
 import 'package:swap_skill/core/theme/app_decoration.dart';
 import 'package:swap_skill/shared/get_all_users/presentation/manager/cubit/get_all_users_cubit.dart';
 
 class CustomsearchForSkillOrPerson extends StatelessWidget {
-  const CustomsearchForSkillOrPerson({
-    super.key,
-  });
+  const CustomsearchForSkillOrPerson({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: TextField(
+        onSubmitted: (value) {
+          GoRouter.of(context).push(AppRoutes.searchView);
+        },
         onChanged: (value) {
-          context
-              .read<GetAllUsersCubit>()
-              .searchForSkillOrPerson(value);
+          context.read<GetAllUsersCubit>().searchForSkillOrPerson(value);
         },
         decoration: AppDecoration.decorationForTextInputFeild(
           context: context,
