@@ -30,7 +30,6 @@ abstract class AppRoutes {
   static const String swapsView = '/swapsview';
   static const String chatsView = '/chatsview';
   static const String profileView = '/profileview';
-  static const String skillDetailsView = '/skillDetailsView';
   static const String emailVerificationView = '/emailVerificationView';
 
   static final router = GoRouter(
@@ -141,6 +140,8 @@ abstract class AppRoutes {
           return const SearchView();
         },
       ),
+
+  
     ],
   );
 }

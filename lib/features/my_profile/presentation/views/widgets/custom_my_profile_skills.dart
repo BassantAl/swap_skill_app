@@ -6,7 +6,11 @@ import 'package:swap_skill/features/my_profile/presentation/views/widgets/custom
 import 'package:swap_skill/features/my_profile/presentation/views/widgets/skill_card_for_profile.dart';
 
 class CustomMyProfileSkills extends StatelessWidget {
-  const CustomMyProfileSkills({super.key, required this.teachSkills, required this.learnSkills});
+  const CustomMyProfileSkills({
+    super.key,
+    required this.teachSkills,
+    required this.learnSkills,
+  });
   final List<String> teachSkills;
   final List<String> learnSkills;
   @override
@@ -26,16 +30,15 @@ class CustomMyProfileSkills extends StatelessWidget {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: learnSkills.length,
-                  itemBuilder: (context,index) {
-                    
+                  itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.only(right:  8.0),
+                      padding: const EdgeInsets.only(right: 8.0),
                       child: SkillCardForProfile(
                         color: AppColors.secondary.withAlpha(50),
                         text: learnSkills[index].trim(),
                       ),
                     );
-                  }
+                  },
                 ),
               ),
             ],
@@ -55,15 +58,15 @@ class CustomMyProfileSkills extends StatelessWidget {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: teachSkills.length,
-                  itemBuilder: (context,index) {
+                  itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.only(right:  8.0),
+                      padding: const EdgeInsets.only(right: 8.0),
                       child: SkillCardForProfile(
                         color: AppColors.lightPurple.withAlpha(50),
                         text: teachSkills[index].trim(),
                       ),
                     );
-                  }
+                  },
                 ),
               ),
             ],

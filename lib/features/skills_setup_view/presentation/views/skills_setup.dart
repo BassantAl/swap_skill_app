@@ -6,6 +6,7 @@ import 'package:swap_skill/features/skills_setup_view/presentation/manager/save_
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_learn_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/manager/selected_skills_cubit/selected_teach_skills_cubit.dart';
 import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/setup_skills_mobile_layout.dart';
+import 'package:swap_skill/features/skills_setup_view/presentation/views/widgets/setup_skills_tablet_desktop_layout.dart';
 
 class SkillsSetup extends StatelessWidget {
   const SkillsSetup({super.key});
@@ -28,8 +29,8 @@ class SkillsSetup extends StatelessWidget {
       child: Scaffold(
         body: AdaptiveLayoutWidget(
           mobileLayout: (context) => SetupSkillsMobileLayout(),
-          tabletLayout: (context) => SizedBox(),
-          desktopLayout: (context) => SizedBox(),
+          tabletLayout: (context) => SetupSkillsTabletDesktopLayout(),
+          desktopLayout: (context) => SetupSkillsTabletDesktopLayout(),
         ),
       ),
     );
